@@ -1,6 +1,6 @@
-# vue-study
+# vue-biquge
 
-> A Vue.js project
+> 使用VUE2.0 & 追书神器API 模仿的笔趣阁APP的一个webapp
 
 ## Build Setup
 ``
@@ -27,4 +27,11 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+问题：
+
+1. 每次切换tab页后都重新加载数据 没有进行缓存
+2. tab切换没有加载动画效果
+3. 列表一次性全部加载，没有实现滚动加载
+4. 使用$router.push()后使用浏览器返回会完全还原历史路径
+5. 路由返回有问题
+
