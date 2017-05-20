@@ -6,6 +6,8 @@
 
 <script>
 import Booklist from '@/components/Booklist';
+import api from '../libs/api';
+
 export default {
     name: 'RanklistDetail',
     components:{
@@ -24,7 +26,7 @@ export default {
     },
     methods:{
         fetchData(){
-            this.$http.get('/ranking/'+ this.$route.params.id).then(response =>{
+            api.getRankList(this.$route.params.id).then(response =>{
                 this.rank = response.data.ranking;
                 console.log(this.rank);
             }).catch(error=>{

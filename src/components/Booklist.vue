@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li @click="getBook()">
         <img :src="getImgSrc()" />
         <div class="book-info">
             <p class="book-title">{{book.title}}</p>
@@ -27,6 +27,9 @@ export default {
     methods: {
         getImgSrc() {
             return this.book.cover.indexOf('http') === -1 ? this.staticPath + this.book.cover : this.book.cover.slice(this.book.cover.indexOf('http'));
+        },
+        getBook(){
+            this.$router.push('/book/'+ this.book._id);
         }
     }
 }
