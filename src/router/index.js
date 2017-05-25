@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Bookshelf from '@/components/Bookshelf'
-import Bookstore from '@/components/Bookstore'
+import Bookcat from '@/components/Bookcat'
 import Rank from '@/components/Rank'
 import Overview from '@/components/Overview'
 import Ranklist from '@/components/Ranklist'
 import RanklistDetail from '@/components/RanklistDetail'
-
+import Book from '@/components/Book'
 
 Vue.use(Router)
 
@@ -21,9 +21,9 @@ export default new Router({
         name: 'bookshelf',
         component: Bookshelf,
       }, {
-        path: 'bookstore',
-        name: 'bookstore',
-        component: Bookstore
+        path: 'bookcat',
+        name: 'bookcat',
+        component: Bookcat
       }, {
         path: 'rank',
         name: 'rank',
@@ -32,7 +32,9 @@ export default new Router({
     },{
       path: '/readbook'
     },{
-      path: '/bookdetal'
+      path: '/book/:bookId',
+      name: 'book',
+      component: Book
     },{
       path: 'searchresult'
     },{

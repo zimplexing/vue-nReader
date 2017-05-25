@@ -7,7 +7,7 @@ import Ajax from './libs/ajax';
 
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://63.223.75.86:3000'
 });
 
 const bus = new Vue();

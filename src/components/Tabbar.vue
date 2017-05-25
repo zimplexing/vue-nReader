@@ -9,7 +9,7 @@
             </router-link>
         </li>
         <li>
-            <router-link to="/bookstore" active-class="active" exact>
+            <router-link to="/bookcat" active-class="active" exact>
                 <div>
                     <Icon name="shopping-cart"></Icon>
                 </div>

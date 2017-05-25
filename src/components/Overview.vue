@@ -1,7 +1,9 @@
 <template>
   <div id="home">
     <Topbar :showArrow="showArrow"></Topbar>
-    <router-view id="container"></router-view>
+    <transition name="fade">
+      <router-view id="container"></router-view>
+    </transition>
     <Tabbar></Tabbar>
   </div>
 </template>
