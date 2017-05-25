@@ -3,18 +3,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Ajax from './libs/ajax';
+import Ajax from './libs/ajax'
+import store from './store'
 
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
   baseURL: 'http://63.223.75.86:3000'
 });
 
-const bus = new Vue();
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 });

@@ -2,15 +2,15 @@
   <div>
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition-group name="fade">
-      <section v-for="(item ,key, index) in category" :key="index">
-        <p class="category-type">{{categoryType[key]}}</p>
-        <ul>
-          <li v-for="(male, index) in item" :key="index">
-            <p class="category">{{male.name}}</p>
-            <span class="book-count">{{male.bookCount}}</span>
-          </li>
-        </ul>
-      </section>
+        <section v-for="(item ,key, index) in category" :key="index">
+          <p class="category-type">{{categoryType[key]}}</p>
+          <ul>
+            <li v-for="(male, index) in item" :key="index">
+              <p class="category">{{male.name}}</p>
+              <span class="book-count">{{male.bookCount}}</span>
+            </li>
+          </ul>
+        </section>
     </transition-group>
   </div>
 </template>
@@ -19,8 +19,8 @@
   import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
   export default {
     name: 'Booklcat',
-    components:{
-        PulseLoader
+    components: {
+      PulseLoader
     },
     data() {
       return {
@@ -81,4 +81,5 @@
   .book-count {
     color: #959595;
   }
+
 </style>

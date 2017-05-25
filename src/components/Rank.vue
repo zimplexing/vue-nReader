@@ -75,15 +75,13 @@ export default {
             margin: '4px'
         }
     },
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            api.getRankType().then(response => {
-                vm.ranklist = response.data;
-                vm.loading= false;
-            }, err => {
-                console.log(err)
-            });
-        })
+    created(){
+        api.getRankType().then(response => {
+            this.ranklist = response.data;
+            this.loading= false;
+        }, err => {
+            console.log(err)
+        });
     },
     methods: {
         showMoreMaleRank() {

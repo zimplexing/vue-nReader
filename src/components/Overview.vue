@@ -2,7 +2,9 @@
   <div id="home">
     <Topbar :showArrow="showArrow"></Topbar>
     <transition name="fade">
-      <router-view id="container"></router-view>
+      <keep-alive>
+        <router-view id="container"></router-view>
+      </keep-alive>
     </transition>
     <Tabbar></Tabbar>
   </div>
