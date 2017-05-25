@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Topbar :showArrow="showArrow" preUrl="/rank"></Topbar>
+        <Topbar :showArrow="showArrow" goBack="/rank"></Topbar>
         <ul class="rank-tab" v-if="weekRank">
             <router-link  tag="li" :to="weekRank" active-class="active" exact>周榜</router-link>
             <router-link  tag="li" :to="monthRank" active-class="active" exact>月榜</router-link>

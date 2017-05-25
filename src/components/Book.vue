@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Topbar :showArrow="showArrow" preUrl="/ranklist/weekRank/"></Topbar>
+    <Topbar :showArrow="showArrow" :goBack="preView"></Topbar>
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition name="fade">
       <section v-show="!loading">
@@ -62,6 +62,9 @@
     computed: {
       wordCount() {
         return parseInt(this.book.wordCount / 10000, 10);
+      },
+      preView(){
+          return '/ranklist/'+ this.$store.state.goBackId
       }
     },
     created() {
