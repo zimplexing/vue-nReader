@@ -11,7 +11,7 @@
             </div>
             <div class="book-operation">
                 <button class="btn">追更新</button>
-                <button class="btn">开始阅读</button>
+                <button class="btn" @click="readBook">开始阅读</button>
             </div>
             <div class="book-status">
                 <div class="list-item">
@@ -27,6 +27,7 @@
                     <span>{{book.serializeWordCount}}</span>
                 </div>
             </div>
+            <!-- todo 当书籍没有tag时 div还是会渲染-->
             <div class="book-tag">
                 <span v-for="(tag, index) in book.tags" :key="index" class="tag">{{tag}}</span>
             </div>
@@ -64,6 +65,11 @@ export default {
         }, err => {
             console.log(err)
         });
+    },
+    methods: {
+        readBook(){
+            this.$router.push('/readbook/' + this.book._id);
+        }
     }
 }
 </script>

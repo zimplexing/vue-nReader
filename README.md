@@ -3,7 +3,7 @@
 > 使用VUE2.0 & 追书神器API 模仿的笔趣阁APP的一个webapp
 
 ## Build Setup
-``
+
 ``` bash
 # install dependencies
 npm install
@@ -17,14 +17,6 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
 问题：

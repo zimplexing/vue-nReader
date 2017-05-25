@@ -53,22 +53,23 @@ export default {
 
     /**
      * 获取小说源
+     * 'http://api.zhuishushenqi.com/atoc?view=summary&book=548d9c17eb0337ee6df738f5'
      */
-    getOrigin(){
-        'http://api.zhuishushenqi.com/atoc?view=summary&book=584a76998806c8010ea176a7'
+    getOrigin(bookId) {
+        return Vue.http.get('/atoc?view=summary&book=' + bookId);
     },
 
     /**
      * 获取小说章节
      * @param {小说源id} originId 
      */
-    getChapters(bookId) {
+    getChapters(originId) {
         return Vue.http.get('/atoc/' + originId + '?view=chapters')
     },
 
 
 
-    getBookChapter(){
+    getBookChapter() {
         return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/58646cde1f360f21676cd9d6?cv=1481275033588')
     }
 }
