@@ -72,4 +72,13 @@ export default {
     getBookChapter() {
         return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/5817f1161bb2ca566b0a5973?cv=1481275033588')
     }
+
+    //搜索自动补充 
+    //http://api05iye5.zhuishushenqi.com/book/auto-complete?query=%E6%96%97%E7%BD%97
+
+    //获取小说最新章节（书架）
+    //http://api05iye5.zhuishushenqi.com/book?view=updated&id=531169b3173bfacb4904ca67,51d11e782de6405c45000068
+
+    //搜索热词
+    //http://api.zhuishushenqi.com/book/search-hotwords
 }
