@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Topbar :showArrow="showArrow" goBack="/rank"></Topbar>
+        <Topbar :showArrow="showArrow" goBack="/rank" :headText="headText"></Topbar>
         <ul class="rank-tab">
             <router-link  tag="li" to="/ranklist/weekRank" active-class="active" exact>周榜</router-link>
             <router-link  tag="li" to="/ranklist/monthRank" active-class="active" exact>月榜</router-link>
@@ -25,6 +25,11 @@ export default {
             showArrow: true,
             ranktype: null
         }
+    },
+    computed:{
+      headText(){
+        return this.$store.state.headText
+      }
     }
 }
 </script>

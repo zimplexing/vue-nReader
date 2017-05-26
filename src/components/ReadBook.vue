@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'Bookshelf',
+  name: 'ReadBook',
   data() {
     return {
       msg: '书架'

@@ -25,10 +25,10 @@ export default {
     },
     data() {
         return {
-            headText: '书架'
+
         }
     },
-    props:['showArrow','goBack'],
+    props:['showArrow','goBack','headText'],
     methods: {
         search() {
             alert('search');

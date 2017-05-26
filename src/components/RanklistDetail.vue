@@ -31,9 +31,23 @@
       }
     },
     methods: {
-      fetchData(ranktype) {
+      fetchData() {
         this.loading = true;
-        api.getRankList(ranktype).then(response => {
+        switch (this.$route.path) {
+          case '/ranklist/weekRank':
+            this.rankType = this.$store.state.weekRankId;
+            break;
+          case '/ranklist/monthRank':
+            this.rankType = this.$store.state.monthRankId;
+            break;
+          case '/ranklist/totalRank':
+            this.rankType = this.$store.state.totalRankId;
+            break;
+          default:
+            this.$router.push('/rank');
+            break;
+        }
+        api.getRankList(this.rankType).then(response => {
           this.rank = response.data.ranking;
           this.loading = false;
         }).catch(error => {
@@ -41,27 +55,11 @@
         })
       }
     },
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        switch (to.path) {
-          case '/ranklist/weekRank':
-            console.log('weekRankId:'+ vm.$store.state.weekRankId);
-            vm.rankType = vm.$store.state.weekRankId;
-            break;
-          case '/ranklist/monthRank':
-            console.log('weekRankId:'+ vm.$store.state.weekRankId);          
-            vm.rankType = vm.$store.state.monthRankId;
-            break;
-          case '/ranklist/totalRank':
-            console.log('weekRankId:'+ vm.$store.state.weekRankId);
-            vm.rankType = vm.$store.state.totalRankId;
-            break;
-          default:
-            vm.$router.push('/rank');
-            break;
-        }
-        vm.fetchData(vm.rankType);
-      })
+    watch:{
+        '$route': 'fetchData'
+    },
+    created(){
+         this.fetchData();
     }
   }
 
@@ -74,7 +72,7 @@
     flex-direction: column;
     margin-top: 6rem;
   }
-  
+
   .book-list-wrap {
     width: 100vw;
   }

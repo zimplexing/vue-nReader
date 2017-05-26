@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Topbar :showArrow="showArrow"></Topbar>
+    <Topbar :showArrow="showArrow" :headText="headText"></Topbar>
     <transition name="fade">
       <keep-alive>
         <router-view id="container"></router-view>
@@ -23,6 +23,11 @@ export default {
   data() {
     return {
       showArrow: false
+    }
+  },
+  computed:{
+    headText(){
+      return this.$store.state.headText;
     }
   }
 }

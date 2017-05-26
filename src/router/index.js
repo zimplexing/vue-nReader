@@ -7,6 +7,7 @@ import Overview from '@/components/Overview'
 import Ranklist from '@/components/Ranklist'
 import RanklistDetail from '@/components/RanklistDetail'
 import Book from '@/components/Book'
+import ReadBook from '@/components/ReadBook'
 
 Vue.use(Router)
 
@@ -30,7 +31,9 @@ export default new Router({
         component: Rank
       }]
     },{
-      path: '/readbook'
+      path: '/readbook/:bookId',
+      name: 'readbook',
+      component: ReadBook
     },{
       path: '/book/:bookId',
       name: 'book',

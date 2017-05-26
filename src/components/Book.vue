@@ -12,7 +12,7 @@
         </div>
         <div class="book-operation">
           <button class="btn">追更新</button>
-          <button class="btn">开始阅读</button>
+          <button class="btn" @click="readBook">开始阅读</button>
         </div>
         <div class="book-status">
           <div class="list-item">
@@ -56,15 +56,13 @@
         loading: true,
         color: '#04b1ff',
         size: '10px',
-        margin: '4px'
+        margin: '4px',
+        preView:''
       }
     },
     computed: {
       wordCount() {
         return parseInt(this.book.wordCount / 10000, 10);
-      },
-      preView(){
-          return '/ranklist/'+ this.$store.state.goBackId
       }
     },
     created() {
@@ -75,6 +73,16 @@
       }, err => {
         console.log(err)
       });
+    },
+    beforeRouteEnter(to, from, next){
+      next(vm=>{
+        vm.preView = from.path;
+      })
+    },
+    methods:{
+      readBook(){
+        this.$router.push('/readbook/'+this.$route.params.bookId);
+      }
     }
   }
 
@@ -88,7 +96,7 @@
     float: left;
     margin-right: 0.4rem;
   }
-  
+
   section {
     box-sizing: border-box;
     padding-right: 1rem;
@@ -98,11 +106,11 @@
     margin-top: 3.5rem;
     width: 100vw;
   }
-  
+
   section:first-child {
     margin-bottom: 1rem;
   }
-  
+
   .book-info {
     box-sizing: border-box;
     width: 100%;
@@ -111,12 +119,12 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-  
+
   .book-info p {
     margin: 0;
     line-height: 1.8rem;
   }
-  
+
   .book-operation {
     display: flex;
     flex-direction: row;
@@ -125,7 +133,7 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #f2f2f2;
   }
-  
+
   .book-operation .btn {
     width: 8rem;
     background: #03a9f4;
@@ -136,12 +144,12 @@
     line-height: 2rem;
     border-radius: .2rem;
   }
-  
+
   .book-operation .btn:focus {
     background: #2196f3;
     outline: none;
   }
-  
+
   .book-status {
     display: flex;
     flex-direction: row;
@@ -150,19 +158,19 @@
     padding: 1rem 0;
     border-bottom: 1px solid #f2f2f2;
   }
-  
+
   .list-item {
     display: flex;
     flex-direction: column;
     width: 33%;
     text-align: center;
   }
-  
+
   .item {
     font-size: .8rem;
     color: #807070;
   }
-  
+
   .book-tag {
     display: flex;
     flex-direction: row;
@@ -171,7 +179,7 @@
     padding: .6rem 0 0;
     border-bottom: 1px solid #f2f2f2;
   }
-  
+
   .tag {
     padding: .2rem .7rem;
     color: #fff;
@@ -180,19 +188,19 @@
     font-size: 0.8rem;
     margin-left: .4rem;
   }
-  
+
   .tag:nth-child(1n) {
     background: burlywood;
   }
-  
+
   .tag:nth-child(2n) {
     background: cadetblue;
   }
-  
+
   .tag:nth-child(3n) {
     background: coral;
   }
-  
+
   .tag:nth-child(4n) {
     background: cornflowerblue;
   }
