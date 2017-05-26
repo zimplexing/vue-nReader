@@ -1,10 +1,10 @@
 <template>
     <div>
         <Topbar :showArrow="showArrow" goBack="/rank"></Topbar>
-        <ul class="rank-tab" v-if="weekRank">
-            <router-link  tag="li" :to="weekRank" active-class="active" exact>周榜</router-link>
-            <router-link  tag="li" :to="monthRank" active-class="active" exact>月榜</router-link>
-            <router-link  tag="li" :to="totalRank" active-class="active" exact>总榜</router-link>
+        <ul class="rank-tab">
+            <router-link  tag="li" to="/ranklist/weekRank" active-class="active" exact>周榜</router-link>
+            <router-link  tag="li" to="/ranklist/monthRank" active-class="active" exact>月榜</router-link>
+            <router-link  tag="li" to="/ranklist/totalRank" active-class="active" exact>总榜</router-link>
         </ul>
         <transition name="fade">
             <router-view></router-view>
@@ -23,23 +23,9 @@ export default {
         return {
             msg: '排行榜',
             showArrow: true,
-            rankId: null
-        }
-    },
-    computed:{
-        weekRank(){
-            return '/ranklist/'+ this.$store.state.weekRankId
-        },
-        monthRank(){
-            return '/ranklist/'+ this.$store.state.monthRankId
-        },
-        totalRank(){
-            return '/ranklist/'+ this.$store.state.totalRankId
+            ranktype: null
         }
     }
-    // mounted(){
-    //     this.$router.push(this.rankId.weekRank);
-    // }
 }
 </script>
 

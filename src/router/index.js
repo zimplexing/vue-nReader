@@ -40,9 +40,10 @@ export default new Router({
     },{
       path: '/ranklist',
       name: 'ranklist',
+      redirect: '/ranklist/weekRank',
       component: Ranklist,
       children:[{
-        path: '/ranklist/:id',
+        path: '/ranklist/*',
         name: 'RanklistDetail',
         component: RanklistDetail
       }]
