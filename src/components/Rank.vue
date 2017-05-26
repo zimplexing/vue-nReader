@@ -13,7 +13,7 @@
                             <Icon name="bar-chart"></Icon>
                             别人家的排行榜
                         </span>
-                        <span class="angle"> 
+                        <span class="angle">
                             <Icon v-if="maleOtherRankIsShow" name="angle-up"></Icon>
                             <Icon v-else name="angle-down"></Icon>
                         </span>
@@ -35,7 +35,7 @@
                             <Icon name="bar-chart"></Icon>
                             别人家的排行榜
                         </span>
-                        <span class="angle"> 
+                        <span class="angle">
                             <Icon v-if="femaleOtherRankIsShow" name="angle-up"></Icon>
                             <Icon v-else name="angle-down"></Icon>
                         </span>
@@ -49,7 +49,7 @@
             </div>
         </transition>
     </div>
-    
+
 </template>
 <script>
 import 'vue-awesome/icons/angle-up';
@@ -76,10 +76,11 @@ export default {
         }
     },
     created(){
+        this.$store.commit('setHeadText','排行榜');
         api.getRankType().then(response => {
             this.ranklist = response.data;
             this.loading= false;
-        }, err => {
+        }).catch(err => {
             console.log(err)
         });
     },

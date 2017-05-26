@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <span v-if="!showArrow"></span>
-        <router-link v-else :to="preUrl" class="operation"><Icon name="arrow-left" ></Icon></router-link>
+        <router-link v-else :to="goBack" class="operation"><Icon name="arrow-left" ></Icon></router-link>
         <div class="header-text">
             <span>{{headText}}</span>
         </div>
@@ -25,10 +25,10 @@ export default {
     },
     data() {
         return {
-            headText: '书架'
+
         }
     },
-    props:['showArrow','preUrl'],
+    props:['showArrow','goBack','headText'],
     methods: {
         search() {
             alert('search');

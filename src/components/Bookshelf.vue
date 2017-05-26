@@ -10,6 +10,9 @@ export default {
     return {
       msg: '书架'
     }
+  },
+  created(){
+    this.$store.commit('setHeadText','书架');
   }
 }
 </script>

@@ -37,6 +37,7 @@
       }
     },
     created() {
+      this.$store.commit('setHeadText','书城');
       api.getCategory().then(response => {
         this.category = response.data;
         this.loading = false;
@@ -55,12 +56,12 @@
     margin-left: 1rem;
     margin-right: 1rem;
   }
-  
+
   li {
     width: 33.3%;
     text-align: center
   }
-  
+
   .category {
     font-weight: bold;
     font-size: 1rem;
@@ -68,7 +69,7 @@
     margin-top: 0.8rem;
     line-height: 1.3rem;
   }
-  
+
   .category-type {
     line-height: 2rem;
     margin-top: 0;
@@ -77,7 +78,7 @@
     margin-right: 1rem;
     border-bottom: 1px solid #f3eded;
   }
-  
+
   .book-count {
     color: #959595;
   }

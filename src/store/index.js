@@ -8,8 +8,10 @@ Vue.use(Vuex);
 const state = {
     weekRankId: '',
     monthRankId: '',
-    totalRankId: ''
-}
+    totalRankId: '',
+    headText: '', //头部文字
+    goBackId: ''
+};
 
 export default new Vuex.Store({
     state,

@@ -29,6 +29,7 @@ export default {
             return this.book.cover.indexOf('http') === -1 ? this.staticPath + this.book.cover : this.book.cover.slice(this.book.cover.indexOf('http'));
         },
         getBook(){
+            this.$store.commit('setGoBackId',this.$route.params.id);
             this.$router.push('/book/'+ this.book._id);
         }
     }
@@ -74,9 +75,10 @@ li {
 .book-author{
     color: #655555; 
 }
-p {
+.book-info p {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 0.8rem;
+    line-height: 1.3rem;
 }
 </style>
