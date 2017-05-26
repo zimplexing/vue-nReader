@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article>{{bookText}}
     </article>
 </template>
 
@@ -12,6 +12,7 @@ export default {
             bookDetail: {},
             bookOrigin: {},
             bookChapter: {},
+            bookText:''
         }
     },
     created() {
@@ -33,7 +34,10 @@ export default {
         console.log('beforeMount');
     },
     mounted() {
-        console.log('mounted');
+        this.$http.get("http://www.xiaoxiaoshuwu.com/shtml/22/22199/42561808.shtml").then(response=>{
+            debugger
+            this.bookText = response.data;
+        })
     },
     methods: {
         getBookChapter(originId) {

@@ -1,12 +1,14 @@
 <template>
     <div>
         <Topbar :showArrow="showArrow" preUrl="/rank"></Topbar>
-        <ul class="rank-tab">
-            <router-link tag="li" :to="rankId.weekRank" active-class="active" exact>周榜</router-link>
-            <router-link tag="li" :to="rankId.monthRank" active-class="active" exact>月榜</router-link>
-            <router-link tag="li" :to="rankId.totalRank" active-class="active" exact>总榜</router-link>
+        <ul class="rank-tab" v-if="weekRank">
+            <router-link  tag="li" :to="weekRank" active-class="active" exact>周榜</router-link>
+            <router-link  tag="li" :to="monthRank" active-class="active" exact>月榜</router-link>
+            <router-link  tag="li" :to="totalRank" active-class="active" exact>总榜</router-link>
         </ul>
-        <router-view></router-view>
+        <transition name="fade">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -24,16 +26,20 @@ export default {
             rankId: null
         }
     },
-    created() {
-        this.rankId = {
-            weekRank: "/ranklist/weekRank/" + this.$route.query.weekRank,
-            monthRank: "/ranklist/monthRank/" + this.$route.query.monthRank,
-            totalRank: "/ranklist/totalRank/" + this.$route.query.totalRank,
+    computed:{
+        weekRank(){
+            return '/ranklist/'+ this.$store.state.weekRankId
+        },
+        monthRank(){
+            return '/ranklist/'+ this.$store.state.monthRankId
+        },
+        totalRank(){
+            return '/ranklist/'+ this.$store.state.totalRankId
         }
-    },
-    mounted(){
-        this.$router.push(this.rankId.weekRank);
     }
+    // mounted(){
+    //     this.$router.push(this.rankId.weekRank);
+    // }
 }
 </script>
 

@@ -70,6 +70,6 @@ export default {
 
 
     getBookChapter() {
-        return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/58646cde1f360f21676cd9d6?cv=1481275033588')
+        return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/5817f1161bb2ca566b0a5973?cv=1481275033588')
     }
 }

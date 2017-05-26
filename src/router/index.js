@@ -45,16 +45,8 @@ export default new Router({
       name: 'ranklist',
       component: Ranklist,
       children:[{
-        path: 'weekRank/:id',
-        name: 'weekRank',
-        component: RanklistDetail
-      },{
-        path: 'monthRank/:id',
-        name: 'monthRank',
-        component: RanklistDetail
-      },{
-        path: 'totalRank/:id',
-        name: 'totalRank',
+        path: '/ranklist/:id',
+        name: 'RanklistDetail',
         component: RanklistDetail
       }]
     }

@@ -16,7 +16,9 @@ export default {
     props: ['rankInfo'],
     methods: {
         showRankList() {
-            this.$router.push({ path: '/ranklist', query: {weekRank: this.rankInfo._id, monthRank: this.rankInfo.monthRank, totalRank: this.rankInfo.totalRank } });
+            //设置全局store
+            this.$store.commit('setRankId',this.rankInfo);
+            this.$router.push({ path: '/ranklist'});
         }
     }
 }

@@ -1,7 +1,11 @@
 <template>
   <div id="home">
     <Topbar :showArrow="showArrow"></Topbar>
-    <router-view id="container"></router-view>
+    <transition name="fade">
+      <keep-alive>
+        <router-view id="container"></router-view>
+      </keep-alive>
+    </transition>
     <Tabbar></Tabbar>
   </div>
 </template>
