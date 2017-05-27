@@ -30,7 +30,10 @@
           .cover.indexOf('http'));
       },
       getBook() {
-        this.$store.commit('setGoBackId', this.$route.params.id);
+        // 只记录从不是搜索结果中进入书本详情的路径，不然会出现死循环
+        if(this.$route.path.indexOf('/search') === -1){
+            this.$store.commit('setPrePath', this.$route.path);
+        } 
         this.$router.push('/book/' + this.book._id);
       }
     }

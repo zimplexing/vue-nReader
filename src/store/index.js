@@ -10,7 +10,7 @@ const state = {
     monthRankId: '',
     totalRankId: '',
     headText: '', //头部文字
-    goBackId: ''
+    prePath: ''
 };
 
 export default new Vuex.Store({

@@ -5,8 +5,8 @@ export default {
         state.totalRankId = rankDetail.totalRank;
         state.headText = rankDetail.shortTitle;
     },
-    setGoBackId(state,preViewId){
-        state.goBackId = preViewId;
+    setPrePath(state,prePath){
+        state.prePath = prePath;
     },
     setHeadText(state,text){
       state.headText = text;
