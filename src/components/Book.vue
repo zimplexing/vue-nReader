@@ -11,7 +11,7 @@
           <p class="reader-info" v-if="book"><span v-text=""></span>{{wordCount}}万 | {{book.cat}}</p>
         </div>
         <div class="book-operation">
-          <button class="btn">追更新</button>
+          <button class="btn" @click="followAction">{{follow}}</button>
           <button class="btn" @click="readBook">开始阅读</button>
         </div>
         <div class="book-status">
@@ -63,10 +63,14 @@
     computed: {
       wordCount() {
         return parseInt(this.book.wordCount / 10000, 10);
+      },
+      follow(){
+        let followBookList = JSON.parse(window.localStorage.getItem(followBookList));
+        let isFollow = followBookList.includes(this.book._id);
+        return isFollow ? '不追了' : '追更新';
       }
     },
     created() {
-      //异步获取数据 数据返回前就已经开始渲染组件 会引起渲染组件的报错
       api.getBook(this.$route.params.bookId).then(response => {
         this.book = response.data;
         this.loading = false;
@@ -82,6 +86,11 @@
     methods:{
       readBook(){
         this.$router.push('/readbook/'+this.$route.params.bookId);
+      },
+      followAction(){
+        let storage = window.localStorage;
+        let followBookList = [];
+        storage.setItem("followBookList",JSOn.stringify(this.book));
       }
     }
   }
