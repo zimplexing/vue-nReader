@@ -11,7 +11,7 @@
           <p class="reader-info" v-if="book"><span v-text=""></span>{{wordCount}}万 | {{book.cat}}</p>
         </div>
         <div class="book-operation">
-          <button class="btn" @click="followAction">{{follow}}</button>
+          <button class="btn" @click="followAction">{{isFollowed ? '不追了' : '追更新'}}</button>
           <button class="btn" @click="readBook">开始阅读</button>
         </div>
         <div class="book-status">
@@ -53,44 +53,56 @@
         showArrow: true,
         book: null,
         staticPath: 'http://statics.zhuishushenqi.com/',
+        isFollowed: false,
         loading: true,
         color: '#04b1ff',
         size: '10px',
         margin: '4px',
-        preView:''
+        preView: ''
       }
     },
     computed: {
       wordCount() {
         return parseInt(this.book.wordCount / 10000, 10);
-      },
-      follow(){
-        let followBookList = JSON.parse(window.localStorage.getItem(followBookList));
-        let isFollow = followBookList.includes(this.book._id);
-        return isFollow ? '不追了' : '追更新';
       }
     },
     created() {
       api.getBook(this.$route.params.bookId).then(response => {
         this.book = response.data;
         this.loading = false;
+        this.isFollowBook();
       }, err => {
         console.log(err)
       });
     },
-    beforeRouteEnter(to, from, next){
-      next(vm=>{
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
         vm.preView = from.path;
       })
     },
-    methods:{
-      readBook(){
-        this.$router.push('/readbook/'+this.$route.params.bookId);
+    methods: {
+      readBook() {
+        this.$router.push('/readbook/' + this.$route.params.bookId);
       },
-      followAction(){
+      isFollowBook() {
+        //返回本地是否缓存（加入书架）
+        let followBookList = JSON.parse(window.localStorage.getItem('followBookList'));
+        this.isFollowed = followBookList ? followBookList.includes(this.book._id) : false;
+      },
+      followAction() {
         let storage = window.localStorage;
-        let followBookList = [];
-        storage.setItem("followBookList",JSOn.stringify(this.book));
+        let localShelf = JSON.parse(storage.getItem('followBookList')) ? JSON.parse(storage.getItem('followBookList')) : [];
+        if(this.isFollowed){
+            //删除该书籍在本地的缓存记录
+            localShelf.splice(localShelf.indexOf(this.book._id),1);
+            //重新保存
+            storage.setItem("followBookList", JSON.stringify(localShelf));
+            this.isFollowed = !this.isFollowed;
+        }else{
+            localShelf.push(this.book._id);
+            storage.setItem("followBookList", JSON.stringify(localShelf));
+            this.isFollowed = !this.isFollowed;
+        }
       }
     }
   }

@@ -17,15 +17,9 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
+
+代理地址：104.199.142.204:3000
 
 问题：
 
@@ -56,3 +50,5 @@ npm test
     > 使用代理将请求进行转发
 11. 小说源都是第三方的网站，存在跨域问题（每换一个源就会有一个不同域）
 12. 请求章节返回的是一个html页面，何如解析正文内容，并返回
+13. 爬虫爬去的数据中文存在乱码的可能性
+

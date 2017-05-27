@@ -6,7 +6,7 @@
             <span>{{headText}}</span>
         </div>
         <div class="operation">
-            <span @click="search"><Icon  name="search"></Icon></span>
+            <span @click="$router.push({path:'/search'})"><Icon  name="search"></Icon></span>
             <span @click="showBar"><Icon name="bars"></Icon></span>
         </div>
     </header>
@@ -30,9 +30,6 @@ export default {
     },
     props:['showArrow','goBack','headText'],
     methods: {
-        search() {
-            alert('search');
-        },
         showBar() {
             alert('showbar');
         }

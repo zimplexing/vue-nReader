@@ -8,8 +8,9 @@ import Ranklist from '@/components/Ranklist'
 import RanklistDetail from '@/components/RanklistDetail'
 import Book from '@/components/Book'
 import ReadBook from '@/components/ReadBook'
+import Search from '@/components/Search'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -20,7 +21,7 @@ export default new Router({
       children: [{
         path: 'bookshelf',
         name: 'bookshelf',
-        component: Bookshelf,
+        component: Bookshelf
       }, {
         path: 'bookcat',
         name: 'bookcat',
@@ -38,6 +39,10 @@ export default new Router({
       path: '/book/:bookId',
       name: 'book',
       component: Book
+    },{
+      path: '/search',
+      name: 'search',
+      component: Search
     },{
       path: 'searchresult'
     },{
