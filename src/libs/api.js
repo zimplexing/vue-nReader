@@ -67,7 +67,8 @@ export default {
         return Vue.http.get('/atoc/' + originId + '?view=chapters')
     },
 
-    getBookChapter() {
+    
+    getBookChapter(id) {
         return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/5817f1161bb2ca566b0a5973?cv=1481275033588')
     },
 
@@ -95,6 +96,8 @@ export default {
     fuzzySearch(searchWord){
         return Vue.http.get('/book/fuzzy-search?query='+searchWord)
     }
+
+
     //获取小说最新章节（书架）
     //http://api05iye5.zhuishushenqi.com/book?view=updated&id=531169b3173bfacb4904ca67,51d11e782de6405c45000068
 

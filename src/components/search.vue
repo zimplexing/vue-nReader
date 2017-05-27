@@ -100,6 +100,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      // 记录下一个路径为search，但上一个路径不为书本详情的路径
       if (to.path.indexOf('/search') > -1 && from.path.indexOf('/book/') == -1) {
         vm.$store.commit('setPrePath',from.path)
       }
