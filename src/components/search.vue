@@ -113,6 +113,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .search-head {
+  position: fixed;  
+  left: 0;
   width: 100vw;
   height: 3rem;
   display: flex;
@@ -152,7 +154,7 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 4rem;
 }
 
 .search-hot-word {
@@ -171,6 +173,8 @@ export default {
 .auto-complete-list {
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  margin-top: 3rem;
 }
 
 .auto-complete-list li {
@@ -190,6 +194,7 @@ export default {
 .search-result {
   display: flex;
   flex-direction: column;
+  margin-top: 3.5rem;
   width: 100vw;
 }
 

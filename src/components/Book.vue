@@ -9,7 +9,7 @@
           <p class="book-title" v-if="book">{{book.title}}</p>
           <p class="book-author" v-if="book">{{book.author}}</p>
           <p class="reader-info" v-if="book">
-            <span v-text=""></span>{{wordCount}}万 | {{book.cat}}</p>
+            <span v-text=""></span>{{book.updated | ago}} | {{wordCount}}万 | {{book.cat}}</p>
         </div>
         <div class="book-operation">
           <button class="btn" @click="followAction">{{isFollowed ? '不追了' : '追更新'}}</button>
@@ -43,6 +43,8 @@
 import Topbar from './Topbar'
 import api from '../libs/api'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import moment from 'moment'
+
 export default {
   name: 'Book',
   components: {
@@ -60,6 +62,11 @@ export default {
       size: '10px',
       margin: '4px',
       preView: ''
+    }
+  },
+  filters:{
+    ago(time){
+      return moment(time).fromNow();
     }
   },
   computed: {

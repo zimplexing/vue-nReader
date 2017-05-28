@@ -8,7 +8,6 @@ import store from './store'
 
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-  // baseURL: 'http://api.zhuishushenqi.com'
   baseURL: 'http://104.199.142.204:3000'
 });
 

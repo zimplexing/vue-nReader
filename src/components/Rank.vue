@@ -49,7 +49,6 @@
             </div>
         </transition>
     </div>
-
 </template>
 <script>
 import 'vue-awesome/icons/angle-up';
@@ -75,11 +74,10 @@ export default {
             margin: '4px'
         }
     },
-    created(){
-        this.$store.commit('setHeadText','排行榜');
+    created() {
         api.getRankType().then(response => {
             this.ranklist = response.data;
-            this.loading= false;
+            this.loading = false;
         }).catch(err => {
             console.log(err)
         });
@@ -90,7 +88,15 @@ export default {
         },
         showMoreFemaleRank() {
             this.femaleOtherRankIsShow = !this.femaleOtherRankIsShow;
+        },
+        changeHeadText() {
+            this.$store.commit('setHeadText', '排行榜');
         }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.changeHeadText();
+        })
     }
 }
 </script>
