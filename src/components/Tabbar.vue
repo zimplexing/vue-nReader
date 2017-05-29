@@ -13,7 +13,7 @@
                 <div>
                     <Icon name="shopping-cart"></Icon>
                 </div>
-                <div>书城</div>
+                <div>分类</div>
             </router-link>
         </li>
         <li>

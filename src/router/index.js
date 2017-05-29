@@ -9,6 +9,7 @@ import RanklistDetail from '@/components/RanklistDetail'
 import Book from '@/components/Book'
 import ReadBook from '@/components/ReadBook'
 import Search from '@/components/Search'
+import BookcatDetail from '@/components/BookcatDetail'
 
 Vue.use(Router);
 
@@ -19,38 +20,42 @@ export default new Router({
       component: Overview,
       redirect: '/bookshelf',
       children: [{
-        path: 'bookshelf',
+        path: '/bookshelf',
         name: 'bookshelf',
         component: Bookshelf
       }, {
-        path: 'bookcat',
+        path: '/bookcat',
         name: 'bookcat',
         component: Bookcat
       }, {
-        path: 'rank',
+        path: '/rank',
         name: 'rank',
         component: Rank
       }]
-    },{
+    }, {
+      path: '/bookcat/detail',
+      name: 'bookcatDetail',
+      component: BookcatDetail
+    }, {
       path: '/readbook/:bookId',
       name: 'readbook',
       component: ReadBook
-    },{
+    }, {
       path: '/book/:bookId',
       name: 'book',
       component: Book
-    },{
+    }, {
       path: '/search',
       name: 'search',
       component: Search
-    },{
+    }, {
       path: 'searchresult'
-    },{
+    }, {
       path: '/ranklist',
       name: 'ranklist',
       redirect: '/ranklist/weekRank',
       component: Ranklist,
-      children:[{
+      children: [{
         path: '/ranklist/*',
         name: 'RanklistDetail',
         component: RanklistDetail

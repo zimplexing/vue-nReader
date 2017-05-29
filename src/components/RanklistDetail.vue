@@ -2,9 +2,7 @@
   <div class="book-list-wrap">
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <ul v-show="!loading">
-      <!--<keep-alive>-->
       <Booklist v-for="book in rank.books" :book="book" :key="book._id"></Booklist>
-      <!--</keep-alive>-->
     </ul>
   </div>
 </template>
@@ -70,11 +68,12 @@
   ul {
     display: flex;
     flex-direction: column;
-    margin-top: 6rem;
+    margin-top: 5.5rem;
   }
 
   .book-list-wrap {
     width: 100vw;
+    background: #f2f2f2;
   }
 
 </style>

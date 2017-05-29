@@ -21,6 +21,7 @@ export default {
     /**
      * 获取所有分类
      * @returns {null}
+     * http://api.zhuishushenqi.com/cats/lv2
      */
     getCategory() {
         return Vue.http.get('/cats/lv2/statistics');
@@ -41,8 +42,10 @@ export default {
      * @param {String} minor
      * @param {Number} start
      * @param {Number} limit
+     * https://api.zhuishushenqi.com/book/by-categories?gender=male&type=hot&major=%E5%A5%87%E5%B9%BB&minor=&start=0&limit=20
      */
-    getNovelListByCat(gender, type, major, minor, start = 0, limit = 20) {
+    // todo 入参需要用es6优化
+    getNovelListByCat(gender, type, major, minor = '', start = 0, limit = 20) {
         return Vue.http.get('/book/by-categories?gender=' + gender + '&type=' + type + '&major=' + major + '&minor=' + minor + '&start=' + start + '&limit=' + limit)
     },
 

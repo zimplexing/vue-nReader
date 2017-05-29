@@ -31,9 +31,9 @@
       },
       getBook() {
         // 只记录从不是搜索结果中进入书本详情的路径，不然会出现死循环
-        if(this.$route.path.indexOf('/search') === -1){
-            this.$store.commit('setPrePath', this.$route.path);
-        } 
+        // if(this.$route.path.indexOf('/search') === -1){
+        //     this.$store.commit('setPrePath', this.$route.fullPath);
+        // } 
         this.$router.push('/book/' + this.book._id);
       }
     }
@@ -53,7 +53,7 @@
   li {
     margin-left: 1rem;
     margin-right: 1rem;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #e6dbdb;
     padding-bottom: 0.2rem;
     padding-top: 0.2rem;
   }
@@ -92,5 +92,6 @@
     font-size: 0.8rem;
     line-height: 1.3rem;
   }
+ 
 
 </style>

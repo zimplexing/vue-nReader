@@ -5,7 +5,7 @@
         <div class="header-text">
             <span>{{headText}}</span>
         </div>
-        <div class="operation">
+        <div class="operation" v-if="showFun">
             <span @click="$router.push({path:'/search'})"><Icon  name="search"></Icon></span>
             <span @click="showBar"><Icon name="bars"></Icon></span>
         </div>
@@ -28,7 +28,21 @@ export default {
 
         }
     },
-    props:['showArrow','goBack','headText'],
+    props:{
+        showArrow: {
+            default: true
+        },
+        goBack:{
+            type: String
+        },
+        headText:{
+            type: String
+        },
+        showFun:{
+            type: Boolean,
+            default: true
+        }
+    },
     methods: {
         showBar() {
             alert('showbar');
@@ -67,7 +81,7 @@ header a{
 .fa-icon {
     height: 3rem;
     width: 1rem;
-    margin-left: 2rem;
+    margin-left: 1rem;
     margin-right: .5rem;
 }
 .operation{

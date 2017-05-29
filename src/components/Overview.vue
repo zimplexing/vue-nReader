@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Topbar :showArrow="showArrow" :headText="headText"></Topbar>
+    <Topbar :showArrow="showArrow" :headText="headText" :showFun="showFun"></Topbar>
     <transition name="fade">
       <keep-alive>
         <router-view id="container"></router-view>
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      showArrow: false
+      showArrow: false,
+      showFun: true
     }
   },
   computed:{

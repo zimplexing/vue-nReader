@@ -5,9 +5,10 @@
       <section v-for="(item ,key, index) in category" :key="index">
         <p class="category-type">{{categoryType[key]}}</p>
         <ul>
-          <li v-for="(male, index) in item" :key="index">
-            <p class="category">{{male.name}}</p>
-            <span class="book-count">{{male.bookCount}}</span>
+          <!--todo 每一个标签都绑定一个事件，不知道会不会对性能有所影响-->
+          <li v-for="(cat, index) in item" :key="index" @click="$router.push({path:'/bookcat/detail',query:{gender:key,major:cat.name}})">
+            <p class="category">{{cat.name}}</p>
+            <span class="book-count">{{cat.bookCount}}</span>
           </li>
         </ul>
       </section>
@@ -49,7 +50,7 @@ export default {
   },
   methods: {
     changeHeadText() {
-      this.$store.commit('setHeadText', '书城');
+      this.$store.commit('setHeadText', '分类');
     }
   },
   beforeRouteEnter(to, from, next) {

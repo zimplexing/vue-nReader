@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Topbar :showArrow="showArrow" goBack="/rank" :headText="headText"></Topbar>
+        <Topbar :showArrow="showArrow" goBack="/rank" :headText="headText" :showFun="showFun"></Topbar>
         <ul class="rank-tab">
             <router-link  tag="li" to="/ranklist/weekRank" active-class="active" exact>周榜</router-link>
             <router-link  tag="li" to="/ranklist/monthRank" active-class="active" exact>月榜</router-link>
@@ -23,7 +23,8 @@ export default {
         return {
             msg: '排行榜',
             showArrow: true,
-            ranktype: null
+            ranktype: null,
+            showFun:true
         }
     },
     computed:{
@@ -37,18 +38,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 ul {
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100vw;
-    margin-top: 3rem;
     background: #fff;
 }
 
 .rank-tab {
     position: fixed;
+    top:3rem;
     left: 0;
+    border-bottom: 1px solid #ccc;
 }
 
 li {

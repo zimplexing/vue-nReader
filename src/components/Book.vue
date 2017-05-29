@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Topbar :showArrow="showArrow" :goBack="preView"></Topbar>
+    <Topbar :showArrow="showArrow" :goBack="preView" :headText="book.title" :showFun="showFun"></Topbar>
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition name="fade">
       <section v-show="!loading">
@@ -54,6 +54,7 @@ export default {
   data() {
     return {
       showArrow: true,
+      showFun: false,
       book: null,
       staticPath: 'http://statics.zhuishushenqi.com/',
       isFollowed: false,
@@ -64,8 +65,8 @@ export default {
       preView: ''
     }
   },
-  filters:{
-    ago(time){
+  filters: {
+    ago(time) {
       return moment(time).fromNow();
     }
   },
@@ -85,7 +86,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.preView = from.path;
+      vm.preView = from.fullPath;
     })
   },
   methods: {
@@ -236,5 +237,9 @@ section:first-child {
 
 .tag:nth-child(4n) {
   background: cornflowerblue;
+}
+
+.reader-info,.book-author {
+  font-size: 0.9rem;
 }
 </style>

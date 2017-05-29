@@ -102,7 +102,7 @@ export default {
     next(vm => {
       // 记录下一个路径为search，但上一个路径不为书本详情的路径
       if (to.path.indexOf('/search') > -1 && from.path.indexOf('/book/') == -1) {
-        vm.$store.commit('setPrePath',from.path)
+        vm.$store.commit('setPrePath',from.path);
       }
     })
   }
@@ -194,8 +194,9 @@ export default {
 .search-result {
   display: flex;
   flex-direction: column;
-  margin-top: 3.5rem;
+  margin-top: 3rem;
   width: 100vw;
+  background: #f2f2f2;
 }
 
 .fa-icon {
