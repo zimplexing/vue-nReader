@@ -121,7 +121,7 @@ export default {
   margin-bottom: .2rem;
 }
 
-img {
+.book-list img {
   width: 4.2em;
   height: 5rem;
   float: left;

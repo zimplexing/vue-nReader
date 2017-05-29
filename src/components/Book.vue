@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     readBook() {
-      this.$router.push('/readbook/' + this.$route.params.bookId);
+      this.$router.push('/readbook/' + this.$route.params.bookId +'/0');
     },
     isFollowBook() {
       //返回本地是否缓存（加入书架）
@@ -173,9 +173,9 @@ section:first-child {
   background: #03a9f4;
   border: none;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
-  line-height: 2rem;
+  line-height: 2.2rem;
   border-radius: .2rem;
 }
 
@@ -241,5 +241,8 @@ section:first-child {
 
 .reader-info,.book-author {
   font-size: 0.9rem;
+}
+.book-intro{
+  margin-top: 1rem;
 }
 </style>

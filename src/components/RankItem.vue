@@ -55,4 +55,7 @@ li {
 .rank-item {
     width: 100%;
 }
+.rank-item  a{
+    color: #000;
+}
 </style>

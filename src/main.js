@@ -5,7 +5,10 @@ import App from './App.vue'
 import router from './router'
 import Ajax from './libs/ajax'
 import store from './store'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';    // 使用 CSS
 
+Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
   // baseURL: 'http://104.199.142.204:3000'

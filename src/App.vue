@@ -36,6 +36,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    color: #000;
+    font-size: 16px;
   }
   
   .fade-enter-active,
