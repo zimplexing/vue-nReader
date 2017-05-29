@@ -57,13 +57,32 @@ export default {
         return Vue.http.get('/book/' + bookId);
     },
 
+
     /**
-     * 获取小说源
+     * 获取小说源(正版源)
+     * @param {String} bookId 小说id
+     * 'http://api.zhuishushenqi.com/btoc?view=summary&book=548d9c17eb0337ee6df738f5'
+     */
+    getOrigin(bookId) {
+        return Vue.http.get('/btoc?view=summary&book=' + bookId);
+    },
+
+    /**
+     * 获取小说源(正版源与盗版源)
      * @param {String} bookId 小说id
      * 'http://api.zhuishushenqi.com/atoc?view=summary&book=548d9c17eb0337ee6df738f5'
      */
     getOrigin(bookId) {
         return Vue.http.get('/atoc?view=summary&book=' + bookId);
+    },
+    
+    /**
+     * 获取小说章节（混合源，大概可认为是正版网站的公众章节+最快更新的盗版网站章节的混合）
+     * @param {String} bookId 小说id
+     *  http://api.zhuishushenqi.com/mix-atoc/50bff3ec209793513100001c?view=chapters
+     */
+    getMixChapters(bookId) {
+        return Vue.http.get('/mix-atoc/' + bookId + '?view=chapters')
     },
 
     /**
@@ -74,9 +93,14 @@ export default {
         return Vue.http.get('/atoc/' + originId + '?view=chapters')
     },
 
-    
-    getBookChapter(id) {
-        return Vue.http.get('http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/5817f1161bb2ca566b0a5973?cv=1481275033588')
+
+    /**
+     * 获取小说章节内容
+     * @param {String} chapterUrl 章节url
+     * http://chapterup.zhuishushenqi.com/chapter/http://vip.zhuishushenqi.com/chapter/5817f1161bb2ca566b0a5973?cv=1481275033588
+     */
+    getBookChapterContent(chapterUrl) {
+        return Vue.http.get("/getChapter?chapterUrl="+ chapterUrl);
     },
 
     /**

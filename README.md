@@ -62,3 +62,4 @@ npm run build --report
 14. uc、safri通过vuex赋值没有生效，小米浏览器下localstorage有bug
 15. 实现下拉刷新
 16. 路由懒加载优化
+17. 事件绑定都是使用的是click，后续需要进行优化
