@@ -11,8 +11,8 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-  // baseURL: 'http://104.199.142.204:3000'
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://35.189.165.140:3000'
+  // baseURL: 'http://localhost:3000'
 });
 
 /* eslint-disable no-new */
