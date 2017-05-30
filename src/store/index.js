@@ -10,7 +10,8 @@ const state = {
     monthRankId: '',
     totalRankId: '',
     headText: '', //头部文字
-    prePath: ''
+    backPath:{},
+    bookInfo: {}
 };
 
 export default new Vuex.Store({

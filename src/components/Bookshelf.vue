@@ -2,7 +2,7 @@
   <div>
     <button type="button" class="add-book" v-if="!parseLocalShelfData()" @click="$router.push('/bookcat')">添加小说</button>
     <ul class="book-shelf" v-if="books.length">
-      <li class="book-list" v-for="(book, index) in books" :key="index">
+      <li class="book-list" v-for="(book, index) in books" :key="index" @click="readbook(book)">
         <img :src="getImgSrc(book)" />
         <div class="info">
           <p class="title">{{book.title}}</p>
@@ -80,6 +80,10 @@ export default {
      */
     changeHeadText() {
       this.$store.commit('setHeadText', '书架');
+    },
+    readbook(book){
+      this.$store.commit('setReadBook',book);
+      this.$router.push('/readbook/'+ book._id);
     }
   },
   beforeRouteEnter(to, from, next) {

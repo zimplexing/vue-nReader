@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="search-head">
-      <Icon name="search"></Icon>
+      <span class="search-icon">
+        <Icon type="ios-search-strong"></Icon>
+      </span>
       <input type="text" class="search-input" placeholder="输入书名或者作者名" @keyup.enter="fuzzySearch" @keyup="autoComplete" :value="searchWord">
-      <button type="button" class="cancel"  @click="$router.push({path:back})">取消</button>
+      <button type="button" class="cancel" @click="$router.push({path:back})">取消</button>
     </div>
     <!--只有在没有自动补全与搜索结果时，显示热搜词（优先级最低）-->
     <ul class="search-word" v-if="!autoCompleteList.length && !searchResult.length && !loading">
@@ -14,7 +16,9 @@
     <!--有自动补全数据就显示自动补全（优先级最高）-->
     <ul class="auto-complete-list" v-if="autoCompleteList.length">
       <li v-for="(item, index) in autoCompleteList" :key="index" @click="fuzzySearch">
-        <Icon name="search"></Icon>
+        <span class="search-result-icon">
+          <Icon type="ios-search-strong"></Icon>
+        </span>
         {{item}}
       </li>
     </ul>
@@ -29,8 +33,6 @@
 </template>
 
 <script>
-import 'vue-awesome/icons/search';
-import Icon from 'vue-awesome/components/Icon';
 import api from '../libs/api';
 import Booklist from '@/components/Booklist';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
@@ -38,7 +40,6 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   name: 'Search',
   components: {
-    Icon,
     Booklist,
     PulseLoader
   },
@@ -54,9 +55,9 @@ export default {
       margin: '4px',
     }
   },
-  computed:{
-    back(){
-      return this.$store.state.prePath;
+  computed: {
+    back() {
+      return this.$store.state.backPath.secPath;
     }
   },
   created() {
@@ -102,7 +103,7 @@ export default {
     next(vm => {
       // 记录下一个路径为search，但上一个路径不为书本详情的路径
       if (to.path.indexOf('/search') > -1 && from.path.indexOf('/book/') == -1) {
-        vm.$store.commit('setPrePath',from.path);
+        vm.$store.commit('setSecPath', from.path);
       }
     })
   }
@@ -113,10 +114,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .search-head {
-  position: fixed;  
+  position: fixed;
   left: 0;
   width: 100vw;
-  height: 3rem;
+  height: 3.5rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -128,7 +129,7 @@ export default {
 
 .search-input {
   width: 100%;
-  line-height: 1.5rem;
+  line-height: 2rem;
   padding-left: 1.8rem;
   border-radius: .4rem;
   border: none;
@@ -174,11 +175,11 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  margin-top: 3rem;
+  margin-top: 3.5rem;
 }
 
 .auto-complete-list li {
-  padding-left: 3rem;
+  padding-left: 1.5rem;
   line-height: 2.5rem;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -187,22 +188,23 @@ export default {
   background: #f2f2f2;
 }
 
-.auto-complete-list .fa-icon {
-  height: 2.5rem;
-}
-
 .search-result {
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   width: 100vw;
   background: #f2f2f2;
 }
 
-.fa-icon {
+.search-icon {
   position: absolute;
   left: 1.5rem;
-  height: 1.5rem;
   color: #ccc;
+  font-size: 1.2rem;
+  line-height: 3.5rem;
+}
+.search-result-icon{
+  font-size: 1.2rem;
+  line-height: 2.5rem;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
     <div id="container" class="container">
         <div class="head" v-if="operation">
-            <span class="arrow-left" @click="back">
+            <span class="arrow-left" @click="$router.push(preView)">
                 <Icon type="arrow-left-c"></Icon>
             </span>
             <!--todo 过长或有显示问题-->
-            {{bookChaptersContent.title}}
+            {{$store.state.bookInfo.title}}
         </div>
         <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
         <div class="content" v-show="!loading" @click="operationAction" :class="{'night-mode':nightMode}">
@@ -30,10 +30,19 @@
                 <span>夜间模式</span>
             </div>
         </div>
-        <ul class="chapter-list" v-show="isShowChapter">
-            <li v-for="(chapter, index) in bookChapter.chapters" :key="index" @click="jumpChapter(index)">{{chapter.title}}</li>
-        </ul>
-        <Modal v-model="showAddToShelf" title="添加到书架" :closable="false" :mask-closable="false" okText="添加" @on-ok="addBook" @on-cancel="$router.push('/book/'+bookChapter.book)">
+        <div class="chapter-list" v-show="isShowChapter">
+            <div class="chapter-contents">
+                <p>{{$store.state.bookInfo.title}}：目录</p>
+                <span class="chapter-sort" @click="descSort">
+                    <Icon type="arrow-down-b" v-if="!chapterDescSort"></Icon>
+                    <Icon type="arrow-up-b" v-else></Icon>
+                </span>
+            </div>
+            <ul>
+                <li v-if="bookChapter.chapters" v-for="(chapter, index) in bookChapter.chapters" :key="index" @click="jumpChapter(index)">{{chapter.title}}</li>
+            </ul>
+        </div>
+        <Modal v-model="showAddToShelf" title="添加到书架" :closable="false" :mask-closable="false" okText="添加" @on-ok="addBook" @on-cancel="dontAddBookToShelf">
             <p>是否将该书添加到本地书架</p>
         </Modal>
     </div>
@@ -59,12 +68,16 @@ export default {
             bookOrigin: {},
             bookChapter: {},
             bookChaptersContent: '',
+            preView: '',
+            firstLoad: true, //首次加载标识符
             operation: false, //显示操作界面标识符
             currentChapter: 0,
             isNewset: false, //最新章节
             nightMode: false, //夜间/日间模式却换
             isShowChapter: false, //是否显示目录
-            showAddToShelf: false //显示添加书架的提示
+            showAddToShelf: false, //显示添加书架的提示
+            chapterDescSort: false, //是否降序排列
+            dontAddBook: false //不添加到书架
         }
     },
     computed: {
@@ -73,11 +86,12 @@ export default {
         }
     },
     created() {
-        let readRecord = JSON.parse(window.localStorage.getItem('readRecord'));
+        let readRecord = JSON.parse(window.localStorage.getItem('followBookList'));
         // let scrollTop = readRecord ? readRecord[this.$route.params.bookId].readPos : 0;
-        this.currentChapter = readRecord ? readRecord[this.$route.params.bookId].chapter : parseInt(this.$route.params.chapterCount, 10);
+        this.firstLoad = true;
         api.getMixChapters(this.$route.params.bookId).then(response => {
             this.bookChapter = response.data.mixToc;
+            this.currentChapter = readRecord && readRecord[this.$route.params.bookId] && readRecord[this.$route.params.bookId].chapter ? readRecord[this.$route.params.bookId].chapter : 0;
             this.getBookChapterContent();
         }).catch(err => {
             console.log(err);
@@ -93,8 +107,6 @@ export default {
             api.getBookChapterContent(this.bookChapter.chapters[this.currentChapter].link).then(response => {
                 this.bookChaptersContent = response.data.chapter;
                 this.loading = false;
-                //重新回到顶部
-                document.getElementById('container').scrollTop = 0;
             }).catch(err => {
                 this.$Message.error('获取章节失败！');
                 console.log(err);
@@ -142,26 +154,45 @@ export default {
             this.operation = false;
         },
         recordReadHis(readRecord) {
+            //目录正反序时，记录的都是正序排列的实际索引
+            let chapterRecord = this.chapterDescSort ? this.bookChapter.chapters.length - this.currentChapter - 1 : this.currentChapter;
             readRecord[this.$route.params.bookId] = {
-                chapter: this.currentChapter,
+                cover: this.$store.state.bookInfo.cover,
+                title: this.$store.state.bookInfo.title,
+                chapter: chapterRecord,
                 readPos: document.getElementById('container').scrollTop
             }
-            window.localStorage.setItem('readRecord', JSON.stringify(readRecord));
-            this.$router.push('/book/' + this.bookChapter.book);
+            window.localStorage.setItem('followBookList', JSON.stringify(readRecord));
         },
         addBook() {
-            let readRecord = JSON.parse(window.localStorage.getItem('readRecord')) || {};
+            let readRecord = JSON.parse(window.localStorage.getItem('followBookList')) || {};
             this.recordReadHis(readRecord);
             this.$Message.success('添加成功！');
+            this.$router.push('/book/' + this.bookChapter.book);            
         },
-        back() {
-            let readRecord = JSON.parse(window.localStorage.getItem('readRecord')) || {};
-            if (!readRecord[this.bookChapter.book]) {
-                this.showAddToShelf = true;
-                console.log(this.showAddToShelf);
-            } else {
-                this.recordReadHis(readRecord);
-            }
+        dontAddBookToShelf(){
+            this.dontAddBook = true;
+            this.$router.push('/book/' + this.bookChapter.book);                        
+        },
+        descSort() {
+            this.chapterDescSort = !this.chapterDescSort;
+            this.bookChapter.chapters.reverse();
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.preView = from.fullPath;
+        })
+    },
+    beforeRouteLeave(to, from, next) {
+        this.dontAddBook && next();
+        let readRecord = JSON.parse(window.localStorage.getItem('followBookList')) || {};
+        if (!readRecord[this.bookChapter.book]) {
+            this.showAddToShelf = true;
+            next(false);
+        } else {
+            this.recordReadHis(readRecord);
+            next();
         }
     }
 }
@@ -253,9 +284,31 @@ article {
     width: 80vw;
 }
 
+.chapter-list ul {
+    margin-top: 2.5rem;
+}
+
 .chapter-list li {
     padding-left: 1rem;
     line-height: 2.5rem;
     border-bottom: 1px solid #f2f2f2;
+}
+
+.chapter-contents {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 2.5rem;
+    padding-left: 1rem;
+}
+
+.chapter-sort {
+    margin-right: 1.5rem;
+    font-size: 1.4rem;
 }
 </style>

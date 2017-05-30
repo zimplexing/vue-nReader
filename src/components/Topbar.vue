@@ -73,6 +73,7 @@ header a{
 
 .header-text {
     position: absolute;
+    left: 0;
     display: flex;
     justify-content: center;
     width: 100%;

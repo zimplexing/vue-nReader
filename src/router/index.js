@@ -37,7 +37,7 @@ export default new Router({
       name: 'bookcatDetail',
       component: BookcatDetail
     }, {
-      path: '/readbook/:bookId/:chapterCount',
+      path: '/readbook/:bookId',
       name: 'readbook',
       component: ReadBook
     }, {

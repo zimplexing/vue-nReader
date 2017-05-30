@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Topbar :showArrow="showArrow" :goBack="preView" :headText="book.title" :showFun="showFun"></Topbar>
+    <Topbar :showArrow="showArrow" :goBack="$store.state.backPath.thirdPath" :headText="book && book.title" :showFun="showFun"></Topbar>
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition name="fade">
       <section v-show="!loading">
@@ -61,8 +61,7 @@ export default {
       loading: true,
       color: '#04b1ff',
       size: '10px',
-      margin: '4px',
-      preView: ''
+      margin: '4px'
     }
   },
   filters: {
@@ -86,12 +85,15 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.preView = from.fullPath;
+      if(from.fullPath.indexOf('/readbook/') === -1){
+          vm.$store.commit('setThirdPath',from.fullPath);     
+      }
     })
   },
   methods: {
     readBook() {
-      this.$router.push('/readbook/' + this.$route.params.bookId +'/0');
+      this.$store.commit('setReadBook',this.book);
+      this.$router.push('/readbook/' + this.$route.params.bookId);
     },
     isFollowBook() {
       //返回本地是否缓存（加入书架）
