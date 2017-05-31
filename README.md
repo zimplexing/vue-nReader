@@ -1,6 +1,6 @@
-# vue-biquge
+# vue-nReader
 
-> 使用VUE2.0 & 追书神器API 模仿的笔趣阁APP的一个webapp
+> 使用VUE2.0 & 追书神器API的一个小说阅读 webapp
 
 ## Build Setup
 
@@ -41,9 +41,9 @@ npm run build --report
 
 ## 手机浏览器兼容性问题
 1. uc浏览器完美运行
-2. chrome无法全屏运行，有自带地址栏
-3. 小米浏览器无法全屏，地址栏和工具栏都有且localstorage属性没有生效
-4. QQ浏览器未知原因的无法加载数据
+2. chrome地址栏无法隐藏
+3. 小米浏览器地址栏和工具栏无法隐藏，localstorage有bug
+4. QQ浏览器地址栏和工具栏无法隐藏
 5. safari浏览器没有测试
 
 ## 问题：
