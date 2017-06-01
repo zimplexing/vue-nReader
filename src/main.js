@@ -2,17 +2,21 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App.vue'
+import VueTouch from 'vue-touch'
 import router from './router'
 import Ajax from './libs/ajax'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+import VueScroller from 'vue-scroller'
 
+Vue.use(VueScroller)
+Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-  // baseURL: 'http://35.189.165.140:3000'
-  baseURL: 'http://localhost:3000'
+   baseURL: 'http://35.189.165.140:3000'
+  //baseURL: 'http://localhost:3000'
 });
 
 /* eslint-disable no-new */

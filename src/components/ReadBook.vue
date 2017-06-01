@@ -8,39 +8,41 @@
             {{$store.state.bookInfo.title}}
         </div>
         <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
-        <div class="content" v-show="!loading" @click="operationAction" :class="{'night-mode':nightMode}">
+        <v-touch class="content" v-show="!loading" @tap="operationAction($event)" :class="{'night-mode':nightMode}">
             <header>{{bookChaptersContent.title}}</header>
             <article v-html="bookChaptersBody"></article>
-        </div>
+        </v-touch>
         <div class="menu" v-if="operation">
-            <div class="menu-btn" @click="showChapter">
-                <Icon type="ios-list-outline"></Icon>
-                <span>目录</span>
-            </div>
+            <v-touch class="menu-btn" v-if="nightMode" @tap="changeMode">
+                <Icon type="ios-sunny-outline"></Icon>
+                <span>日间模式</span>
+            </v-touch>
+            <v-touch class="menu-btn" @tap="changeMode" v-else>
+                <Icon type="ios-moon-outline"></Icon>
+                <span>夜间模式</span>
+            </v-touch>
             <div class="menu-btn">
                 <Icon type="ios-gear-outline"></Icon>
                 <span>设置</span>
             </div>
-            <div class="menu-btn" v-if="nightMode" @click="changeMode">
-                <Icon type="ios-sunny-outline"></Icon>
-                <span>日间模式</span>
-            </div>
-            <div class="menu-btn" @click="changeMode" v-else>
-                <Icon type="ios-moon-outline"></Icon>
-                <span>夜间模式</span>
-            </div>
+            <v-touch class="menu-btn" @tap="showChapter">
+                <Icon type="ios-list-outline"></Icon>
+                <span>目录</span>
+            </v-touch>
         </div>
         <div class="chapter-list" v-show="isShowChapter">
             <div class="chapter-contents">
                 <p>{{$store.state.bookInfo.title}}：目录</p>
-                <span class="chapter-sort" @click="descSort">
+                <v-touch tag="span" class="chapter-sort" @tap="descSort">
                     <Icon type="arrow-down-b" v-if="!chapterDescSort"></Icon>
                     <Icon type="arrow-up-b" v-else></Icon>
-                </span>
+                </v-touch>
             </div>
-            <ul>
-                <li v-if="bookChapter.chapters" v-for="(chapter, index) in bookChapter.chapters" :key="index" @click="jumpChapter(index)">{{chapter.title}}</li>
-            </ul>
+            <!--<keep-alive>-->
+                <ul>
+                    <v-touch tag="li" v-if="bookChapter.chapters" v-for="(chapter, index) in bookChapter.chapters" :key="index" @tap="jumpChapter(index)">{{chapter.title}}</v-touch>
+                </ul>
+            <!--</keep-alive>-->
         </div>
         <Modal v-model="showAddToShelf" title="添加到书架" :closable="false" :mask-closable="false" okText="添加" @on-ok="addBook" @on-cancel="dontAddBookToShelf">
             <p>是否将该书添加到本地书架</p>
@@ -112,7 +114,8 @@ export default {
                 console.log(err);
             })
         },
-        operationAction(el) {
+        operationAction($event) {
+            let el = $event.pointers[0] || $event.srcEvent;
             if (this.isShowChapter) {
                 this.isShowChapter = false;
                 return;
@@ -168,11 +171,11 @@ export default {
             let readRecord = JSON.parse(window.localStorage.getItem('followBookList')) || {};
             this.recordReadHis(readRecord);
             this.$Message.success('添加成功！');
-            this.$router.push('/book/' + this.bookChapter.book);            
+            this.$router.push('/book/' + this.bookChapter.book);
         },
-        dontAddBookToShelf(){
+        dontAddBookToShelf() {
             this.dontAddBook = true;
-            this.$router.push('/book/' + this.bookChapter.book);                        
+            this.$router.push('/book/' + this.bookChapter.book);
         },
         descSort() {
             this.chapterDescSort = !this.chapterDescSort;
