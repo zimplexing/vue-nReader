@@ -8,9 +8,9 @@ import Ajax from './libs/ajax'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
-import VueScroller from 'vue-scroller'
+import infiniteScroll from 'vue-infinite-scroll'
 
-Vue.use(VueScroller)
+Vue.use(infiniteScroll)
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(iView);
 Vue.config.productionTip = false;

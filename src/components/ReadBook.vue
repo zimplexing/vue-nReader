@@ -38,11 +38,9 @@
                     <Icon type="arrow-up-b" v-else></Icon>
                 </v-touch>
             </div>
-            <!--<keep-alive>-->
-                <ul>
-                    <v-touch tag="li" v-if="bookChapter.chapters" v-for="(chapter, index) in bookChapter.chapters" :key="index" @tap="jumpChapter(index)">{{chapter.title}}</v-touch>
-                </ul>
-            <!--</keep-alive>-->
+            <ul id="chapter-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                <v-touch tag="li" v-if="loadedChapters" v-for="(chapter, index) in loadedChapters" :key="index" @tap="jumpChapter(index)">{{chapter.title}}</v-touch>
+            </ul>
         </div>
         <Modal v-model="showAddToShelf" title="添加到书架" :closable="false" :mask-closable="false" okText="添加" @on-ok="addBook" @on-cancel="dontAddBookToShelf">
             <p>是否将该书添加到本地书架</p>
@@ -69,8 +67,12 @@ export default {
             bookDetail: {},
             bookOrigin: {},
             bookChapter: {},
+            busy: false,
             bookChaptersContent: '',
-            preView: '',
+            loadedChapters: [], //缓存滚动加载的章节列表
+            loadPages: 1, //滚动加载的记次
+            loadedChapterContent: [], //缓存的章节内容
+            preView: '', //返回上级路径
             firstLoad: true, //首次加载标识符
             operation: false, //显示操作界面标识符
             currentChapter: 0,
@@ -93,11 +95,16 @@ export default {
         this.firstLoad = true;
         api.getMixChapters(this.$route.params.bookId).then(response => {
             this.bookChapter = response.data.mixToc;
+            //缓存时默认取前50章节
+            this.loadedChapters = this.bookChapter.chapters.slice(0, 50);
             this.currentChapter = readRecord && readRecord[this.$route.params.bookId] && readRecord[this.$route.params.bookId].chapter ? readRecord[this.$route.params.bookId].chapter : 0;
             this.getBookChapterContent();
         }).catch(err => {
             console.log(err);
         })
+    },
+    ready() {
+        window.addEventListener('scroll', this.scorll);
     },
     watch: {
         'currentChapter': 'getBookChapterContent'
@@ -106,7 +113,7 @@ export default {
         // todo 暂时获取一个章节内容，后续需要缓存3个章节左右
         getBookChapterContent() {
             this.loading = true;
-            api.getBookChapterContent(this.bookChapter.chapters[this.currentChapter].link).then(response => {
+            api.getBookChapterContent(this.loadedChapters[this.currentChapter].link).then(response => {
                 this.bookChaptersContent = response.data.chapter;
                 this.loading = false;
             }).catch(err => {
@@ -115,6 +122,7 @@ export default {
             })
         },
         operationAction($event) {
+            //判断点击位置 执行不同操作
             let el = $event.pointers[0] || $event.srcEvent;
             if (this.isShowChapter) {
                 this.isShowChapter = false;
@@ -180,6 +188,15 @@ export default {
         descSort() {
             this.chapterDescSort = !this.chapterDescSort;
             this.bookChapter.chapters.reverse();
+            this.loadedChapters = this.bookChapter.chapters.slice(0, 50);
+        },
+        loadMore: function () {
+            var self = this;
+            self.busy = true;
+            setTimeout(() => {
+                console.log(1);
+                self.busy = false;
+            }, 1000);
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -281,7 +298,7 @@ article {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
+    /*height: 100vh;*/
     overflow: auto;
     background: #fff;
     width: 80vw;

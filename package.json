@@ -18,6 +18,7 @@
     "moment": "^2.18.1",
     "vue": "^2.2.6",
     "vue-awesome": "^2.3.1",
+    "vue-infinite-scroll": "^2.0.1",
     "vue-router": "^2.3.1",
     "vue-scroller": "^2.2.0",
     "vue-spinner": "^1.0.2",
