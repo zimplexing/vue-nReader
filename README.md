@@ -46,18 +46,7 @@ npm run build --report
 4. QQ浏览器地址栏和工具栏无法隐藏
 5. safari浏览器没有测试
 
-## 屏幕截图
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png" style="zoom:50%"/>
-
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png)
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png)
+## [屏幕截图](https://github.com/zimplexing/vue-nReader/tree/master/screenshot)
 
 ## 问题：
 
