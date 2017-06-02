@@ -47,7 +47,8 @@ npm run build --report
 5. safari浏览器没有测试
 
 ## 屏幕截图
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png" height="70%"/>
+<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png" style="zoom:50%"/>
+
 ![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png)
 ![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png)
 ![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png)
