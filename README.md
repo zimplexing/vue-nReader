@@ -47,7 +47,16 @@ npm run build --report
 5. safari浏览器没有测试
 
 ## 屏幕截图
-
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png)
+![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png)
 
 ## 问题：
 
