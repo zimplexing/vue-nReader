@@ -48,13 +48,4 @@ npm run build
 
 ## 屏幕截图
 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/> 
+<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/> 
