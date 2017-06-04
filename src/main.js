@@ -18,8 +18,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-   baseURL: 'http://35.189.165.140:3000'
-  //baseURL: 'http://localhost:3000'
+  baseURL: 'http://localhost:3000'
 });
 
 /* eslint-disable no-new */
