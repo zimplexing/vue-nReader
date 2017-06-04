@@ -4,7 +4,6 @@
             <span class="arrow-left" @click="$router.push(preView)">
                 <Icon type="arrow-left-c"></Icon>
             </span>
-            <!--todo 过长或有显示问题-->
             {{$store.state.bookInfo.title}}
         </div>
         <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
@@ -30,7 +29,7 @@
                 <span>目录</span>
             </v-touch>
         </div>
-        <div class="chapter-list" v-show="isShowChapter">
+        <div class="chapter-list" v-show="isShowChapter" v-scroll="onScroll">
             <div class="chapter-contents">
                 <p>{{$store.state.bookInfo.title}}：目录</p>
                 <v-touch tag="span" class="chapter-sort" @tap="descSort">
@@ -38,7 +37,7 @@
                     <Icon type="arrow-up-b" v-else></Icon>
                 </v-touch>
             </div>
-            <ul id="chapter-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            <ul id="chapter-list">
                 <v-touch tag="li" v-if="loadedChapters" v-for="(chapter, index) in loadedChapters" :key="index" @tap="jumpChapter(index)">{{chapter.title}}</v-touch>
             </ul>
         </div>
@@ -153,17 +152,21 @@ export default {
                 contanierEle.scrollTop += screenHeight;
             }
         },
+        //切换日间/夜间模式
         changeMode() {
             this.nightMode = !this.nightMode;
         },
+        //显示目录
         showChapter() {
             this.isShowChapter = true;
         },
+        //点击目录，跳转章节
         jumpChapter(index) {
             this.currentChapter = index;
             this.isShowChapter = false;
             this.operation = false;
         },
+        //记录阅读历史
         recordReadHis(readRecord) {
             //目录正反序时，记录的都是正序排列的实际索引
             let chapterRecord = this.chapterDescSort ? this.bookChapter.chapters.length - this.currentChapter - 1 : this.currentChapter;
@@ -175,28 +178,31 @@ export default {
             }
             window.localStorage.setItem('followBookList', JSON.stringify(readRecord));
         },
+        //添加小说到书架
         addBook() {
             let readRecord = JSON.parse(window.localStorage.getItem('followBookList')) || {};
             this.recordReadHis(readRecord);
             this.$Message.success('添加成功！');
             this.$router.push('/book/' + this.bookChapter.book);
         },
+        //不添加小说到书架
         dontAddBookToShelf() {
             this.dontAddBook = true;
             this.$router.push('/book/' + this.bookChapter.book);
         },
+        //章节倒叙查看
         descSort() {
             this.chapterDescSort = !this.chapterDescSort;
             this.bookChapter.chapters.reverse();
             this.loadedChapters = this.bookChapter.chapters.slice(0, 50);
+            this.loadPages = 1;
         },
-        loadMore: function () {
-            var self = this;
-            self.busy = true;
-            setTimeout(() => {
-                console.log(1);
-                self.busy = false;
-            }, 1000);
+        //滚动加载到底部，显示更多
+        onScroll: function (e, position) {
+            if (position.scrollTop > 1300 * this.loadPages) {
+                this.loadedChapters = this.loadedChapters.concat(this.bookChapter.chapters.slice(50 * this.loadPages, 50 * this.loadPages + 50));
+                this.loadPages++;
+            }
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -298,7 +304,7 @@ article {
     position: absolute;
     top: 0;
     left: 0;
-    /*height: 100vh;*/
+    height: 100vh;
     overflow: auto;
     background: #fff;
     width: 80vw;

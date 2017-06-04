@@ -1,34 +1,49 @@
 <template>
   <div>
-    <button type="button" class="add-book" v-if="!parseLocalShelfData()" @click="$router.push('/bookcat')">添加小说</button>
-    <ul class="book-shelf" v-if="books.length">
-      <li class="book-list" v-for="(book, index) in books" :key="index" @click="readbook(book)">
-        <img :src="getImgSrc(book)" />
-        <div class="info">
-          <p class="title">{{book.title}}</p>
-          <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
-        </div>
-      </li>
-    </ul>
+    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
+    <div v-show="!loading">
+      <button type="button" class="add-book" v-if="!books.length" @click="$router.push('/bookcat')">添加小说</button>
+      <ul class="book-shelf" v-if="books.length">
+        <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
+          <v-touch class="book-list" @tap="readbook(book)">
+            <img :src="getImgSrc(book)" />
+            <div class="info">
+              <p class="title">{{book.title}}</p>
+              <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
+            </div>
+            <v-touch class="del-book-btn" @tap="delBook($event,index)">删除</v-touch>
+          </v-touch>
+        </v-touch>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import api from '../libs/api'
 import moment from 'moment'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
 moment.locale('zh-cn');
 export default {
   name: 'Bookshelf',
+  components:{
+    PulseLoader
+  },
   data() {
     return {
-      books: []
+      books: [],
+      loading: true,
+      color: '#04b1ff',
+      size: '10px',
+      margin: '4px',
     }
   },
-  filters:{
+  filters: {
     /**
      * 使用moment格式化时间
      */
-    ago(time){
+    ago(time) {
       return moment(time).fromNow();
     }
   },
@@ -58,14 +73,17 @@ export default {
       let localShelf,
         _that = this;
       _that.books = [];
+      this.getBookList()
       api.getUpdate(this.getBookList()).then(response => {
         localShelf = this.parseLocalShelfData();
         response.data.forEach((book, index) => {
           Object.assign(book, localShelf[book._id]);
           _that.books.push(book);
         });
+        this.loading = false;
       }).catch(err => {
         console.log(err);
+        this.loading = false;
       })
     },
     /**
@@ -81,9 +99,32 @@ export default {
     changeHeadText() {
       this.$store.commit('setHeadText', '书架');
     },
-    readbook(book){
-      this.$store.commit('setReadBook',book);
-      this.$router.push('/readbook/'+ book._id);
+    readbook(book) {
+      this.$store.commit('setReadBook', book);
+      this.$router.push('/readbook/' + book._id);
+    },
+    showDelBookBtn(e) {
+      let target = e.target.parentElement;
+      while (target.className !== 'book-list') {
+        target = target.parentElement;
+      }
+      target.style.left = '-44vw';
+    },
+    hideDelBookBtn(e) {
+      let target = e.target.parentElement;
+      while (target.className !== 'book-list') {
+        target = target.parentElement;
+      }
+      target.style.left = '0';
+    },
+    delBook($event, index) {
+      let storage = window.localStorage;
+      let localShelf = JSON.parse(storage.getItem('followBookList')) ? JSON.parse(storage.getItem('followBookList')) : {};
+      //删除该书籍在本地的缓存记录
+      delete localShelf[this.books[index]._id];
+      this.books.splice(index, 1);
+      //重新保存
+      storage.setItem("followBookList", JSON.stringify(localShelf));
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -114,11 +155,23 @@ export default {
 }
 
 .book-shelf {
+  position: absolute;
+  left: 0vw;
   box-sizing: border-box;
-  padding: 0.5rem 1rem 0;
+  padding: 0.5rem 0 0 1rem;
+  width: 140vw;
+}
+
+.book-list-wrap {
+  position: relative;
+  height: 5rem;
+  margin-bottom: .2rem;
 }
 
 .book-list {
+  position: absolute;
+  left: 0;
+  width: 140vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -151,5 +204,13 @@ export default {
 .updated {
   color: #6d6666;
   font-size: .8rem;
+}
+
+.del-book-btn {
+  color: #fff;
+  background: red;
+  width: 40vw;
+  line-height: 5rem;
+  text-align: center;
 }
 </style>

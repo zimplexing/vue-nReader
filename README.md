@@ -37,7 +37,7 @@ npm run build --report
 
 - [x] 记录阅读历史功能
 
-- [ ] 阅读界面设置能工
+- [ ] 阅读界面设置功能
 
 ## 手机浏览器兼容性问题
 1. uc浏览器完美运行
@@ -46,7 +46,8 @@ npm run build --report
 4. QQ浏览器地址栏和工具栏无法隐藏
 5. safari浏览器没有测试
 
-## [屏幕截图](https://github.com/zimplexing/vue-nReader/tree/master/screenshot)
+## 屏幕截图
+[屏幕截图](https://github.com/zimplexing/vue-nReader/tree/master/screenshot)
 
 ## 问题：
 
@@ -57,7 +58,8 @@ npm run build --report
     
     - 记录上次浏览（现在tab互相切换，滚动条没有独立，会相互影响）
 
-- [ ] 列表一次性全部加载，没有实现滚动加载
+- [x] 列表一次性全部加载，没有实现滚动加载
+    > 解决方法：使用`vue-scroll`获取滚动的高度，更新渲染的数据
 - [x] 使用$router.push()后使用浏览器返回会完全还原历史路径
     > 解决方法：存在二次跳转的，最好使用重定向解决，不要使用mounted之后在进行push操作
 - [x] 有多层页面，并且上级页面不确定时，路由返回错误
@@ -78,4 +80,5 @@ npm run build --report
     > 使用代理将请求进行转发
 - [ ] 实现下拉刷新
 - [ ] 路由懒加载优化
-- [ ] 事件绑定都是使用的是click，后续需要进行优化
+- [x] 事件绑定都是使用的是click，后续需要进行优化
+    > 解决方法：使用`vue-touch`，使用tap替代click事件
