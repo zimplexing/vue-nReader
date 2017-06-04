@@ -48,7 +48,11 @@ export default {
     }
   },
   created() {
-    this.parseLocalShelfData() && this.getBookUpdate();
+    if(!this.parseLocalShelfData()){
+      this.loading = false;
+    } else{
+      this.getBookUpdate();
+    } 
   },
   methods: {
     /**
@@ -157,9 +161,10 @@ export default {
 .book-shelf {
   position: absolute;
   left: 0vw;
+  width: 100vw;
+  overflow: hidden;
   box-sizing: border-box;
   padding: 0.5rem 0 0 1rem;
-  width: 140vw;
 }
 
 .book-list-wrap {
