@@ -4,6 +4,8 @@
 
 项目中的API均来自追书神器，纯属共享学习之用，有任何疑问或建议可提[issue](https://github.com/zimplexing/vue-nReader/issues/new)或联系[zhangx_0728@gmail.com](mailto://zhangx_0728@gmail.com)，使用代理，本地可以完美运行。
 
+[API文档](https://github.com/zimplexing/vue-nReader/blob/master/doc/zhuishushenqi.md)
+
 ## 本地运行 
 
 使用vue-cli工具构建，基本命令如下：
