@@ -6,6 +6,8 @@
 
 [API文档](https://github.com/zimplexing/vue-nReader/blob/master/doc/zhuishushenqi.md)
 
+[本地运行代理](https://gist.github.com/zimplexing/c7c1f15ea3f270de3962fc0ab466d82e)
+
 ## 本地运行 
 
 使用vue-cli工具构建，基本命令如下：
