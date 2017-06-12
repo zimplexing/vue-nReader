@@ -6,7 +6,7 @@
       <ul class="book-shelf" v-if="books.length">
         <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
           <v-touch class="book-list" @tap="readbook(book)">
-            <img :src="getImgSrc(book)" />
+            <img :src="getImgSrc(book)" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
             <div class="info">
               <p class="title">{{book.title}}</p>
               <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>

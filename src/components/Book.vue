@@ -4,7 +4,7 @@
     <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition name="fade">
       <section v-show="!loading">
-        <img v-if="book" :src="book.cover.indexOf('http') === -1 ? staticPath + book.cover : book.cover.slice(book.cover.indexOf('http'))">
+        <img v-if="book" :src="book.cover.indexOf('http') === -1 ? staticPath + book.cover : book.cover.slice(book.cover.indexOf('http'))" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'">
         <div class="book-info">
           <p class="book-title" v-if="book">{{book.title}}</p>
           <p class="book-author" v-if="book">{{book.author}}</p>

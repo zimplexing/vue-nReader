@@ -1,6 +1,6 @@
 <template>
   <li @click="getBook()">
-    <img :src="getImgSrc()" />
+    <img :src="getImgSrc()" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
     <div class="book-info">
       <p class="book-title">{{book.title}}</p>
       <p class="book-author">{{book.author}} | {{book.cat}}</p>
