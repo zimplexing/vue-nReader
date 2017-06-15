@@ -1,8 +1,8 @@
 {
-  "name": "vue-study",
+  "name": "vue-nReader",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "zimplexing <zhangx_0728@163.com>",
+  "description": "A novel reader webapp",
+  "author": "zimplexing <zhangx0728@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
