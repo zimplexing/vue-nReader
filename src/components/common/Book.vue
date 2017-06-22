@@ -1,7 +1,6 @@
 <template>
   <div>
     <Topbar :showArrow="showArrow" :goBack="$store.state.backPath.thirdPath" :headText="book && book.title" :showFun="showFun"></Topbar>
-    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition name="fade">
       <section v-show="!loading">
         <img v-if="book" :src="book.cover.indexOf('http') === -1 ? staticPath + book.cover : book.cover.slice(book.cover.indexOf('http'))" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'">
@@ -40,17 +39,11 @@
 </template>
 
 <script>
-import Topbar from './Topbar'
-import api from '../libs/api'
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api'
 import moment from 'moment'
 
 export default {
   name: 'Book',
-  components: {
-    Topbar,
-    PulseLoader
-  },
   data() {
     return {
       showArrow: true,

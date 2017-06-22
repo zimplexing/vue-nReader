@@ -2,30 +2,29 @@
     <div id="container" class="container">
         <div class="head" v-if="operation">
             <span class="arrow-left" @click="$router.push(preView)">
-                <Icon type="arrow-left-c"></Icon>
+                <!--<Icon type="arrow-left-c"></Icon>-->
             </span>
             {{$store.state.bookInfo.title}}
         </div>
-        <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
         <v-touch class="content" v-show="!loading" @tap="operationAction($event)" :class="{'night-mode':nightMode}">
             <header>{{bookChaptersContent.title}}</header>
             <article v-html="bookChaptersBody"></article>
         </v-touch>
         <div class="menu" v-if="operation">
             <v-touch class="menu-btn" v-if="nightMode" @tap="changeMode">
-                <Icon type="ios-sunny-outline"></Icon>
+                <!--<Icon type="ios-sunny-outline"></Icon>-->
                 <span>日间模式</span>
             </v-touch>
             <v-touch class="menu-btn" @tap="changeMode" v-else>
-                <Icon type="ios-moon-outline"></Icon>
+                <!--<Icon type="ios-moon-outline"></Icon>-->
                 <span>夜间模式</span>
             </v-touch>
             <div class="menu-btn">
-                <Icon type="ios-gear-outline"></Icon>
+                <!--<Icon type="ios-gear-outline"></Icon>-->
                 <span>设置</span>
             </div>
             <v-touch class="menu-btn" @tap="showChapter">
-                <Icon type="ios-list-outline"></Icon>
+                <!--<Icon type="ios-list-outline"></Icon>-->
                 <span>目录</span>
             </v-touch>
         </div>
@@ -33,8 +32,8 @@
             <div class="chapter-contents">
                 <p>{{$store.state.bookInfo.title}}：目录</p>
                 <v-touch tag="span" class="chapter-sort" @tap="descSort">
-                    <Icon type="arrow-down-b" v-if="!chapterDescSort"></Icon>
-                    <Icon type="arrow-up-b" v-else></Icon>
+                    <!--<Icon type="arrow-down-b" v-if="!chapterDescSort"></Icon>-->
+                    <!--<Icon type="arrow-up-b" v-else></Icon>-->
                 </v-touch>
             </div>
             <ul id="chapter-list">
@@ -48,15 +47,11 @@
 </template>
 
 <script>
-import api from '../libs/api'
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api'
 
 
 export default {
     name: 'ReadBook',
-    components: {
-        PulseLoader
-    },
     data() {
         return {
             loading: true,

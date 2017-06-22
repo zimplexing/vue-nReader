@@ -1,6 +1,5 @@
 <template>
     <div>
-        <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
         <transition name="fade">
             <div v-show="!loading">
                 <p>男生</p>
@@ -10,12 +9,12 @@
                     </li>
                     <li class="other-rank" @click="showMoreMaleRank">
                         <span>
-                            <Icon name="bar-chart"></Icon>
+                            <!--<Icon name="bar-chart"></Icon>-->
                             别人家的排行榜
                         </span>
                         <span class="angle">
-                            <Icon v-if="maleOtherRankIsShow" name="angle-up"></Icon>
-                            <Icon v-else name="angle-down"></Icon>
+                            <!--<Icon v-if="maleOtherRankIsShow" name="angle-up"></Icon>-->
+                            <!--<Icon v-else name="angle-down"></Icon>-->
                         </span>
                     </li>
                     <ul v-show="maleOtherRankIsShow" class="rank-type">
@@ -32,12 +31,12 @@
                     </li>
                     <li class="other-rank" @click="showMoreFemaleRank">
                         <span>
-                            <Icon name="bar-chart"></Icon>
+                            <!--<Icon name="bar-chart"></Icon>-->
                             别人家的排行榜
                         </span>
                         <span class="angle">
-                            <Icon v-if="femaleOtherRankIsShow" name="angle-up"></Icon>
-                            <Icon v-else name="angle-down"></Icon>
+                            <!--<Icon v-if="femaleOtherRankIsShow" name="angle-up"></Icon>-->
+                            <!--<Icon v-else name="angle-down"></Icon>-->
                         </span>
                     </li>
                     <ul v-show="femaleOtherRankIsShow" class="rank-type">
@@ -51,18 +50,11 @@
     </div>
 </template>
 <script>
-import 'vue-awesome/icons/angle-up';
-import 'vue-awesome/icons/bar-chart';
-import 'vue-awesome/icons/angle-down';
-import Icon from 'vue-awesome/components/Icon';
+
 import RankItem from './RankItem';
-import api from '../libs/api';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api';
 export default {
     name: 'Rank',
-    components: {
-        Icon, RankItem, PulseLoader
-    },
     data() {
         return {
             ranklist: {},

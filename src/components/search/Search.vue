@@ -2,7 +2,7 @@
   <div>
     <div class="search-head">
       <span class="search-icon">
-        <Icon type="ios-search-strong"></Icon>
+        <!--<Icon type="ios-search-strong"></Icon>-->
       </span>
       <input type="text" class="search-input" placeholder="输入书名或者作者名" @keyup.enter="fuzzySearch" @keyup="autoComplete" :value="searchWord">
       <button type="button" class="cancel" @click="$router.push({path:back})">取消</button>
@@ -17,12 +17,11 @@
     <ul class="auto-complete-list" v-if="autoCompleteList.length">
       <li v-for="(item, index) in autoCompleteList" :key="index" @click="fuzzySearch">
         <span class="search-result-icon">
-          <Icon type="ios-search-strong"></Icon>
+          <!--<Icon type="ios-search-strong"></Icon>-->
         </span>
         {{item}}
       </li>
     </ul>
-    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <!--没有自动补全且有搜索结果就显示（优先级中）-->
     <transition name="fade">
       <ul class="search-result" v-if="searchResult.length && !autoCompleteList.length && !loading">
@@ -33,15 +32,13 @@
 </template>
 
 <script>
-import api from '../libs/api';
-import Booklist from '@/components/Booklist';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api';
+import Booklist from '@/components/common/Booklist';
 
 export default {
   name: 'Search',
   components: {
     Booklist,
-    PulseLoader
   },
   data() {
     return {

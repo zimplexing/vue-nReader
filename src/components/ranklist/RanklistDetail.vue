@@ -1,6 +1,5 @@
 <template>
   <div class="book-list-wrap">
-    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <v-touch tag="ul" v-show="!loading" @swipeleft="swipeleft" @swiperight="swiperight">
       <Booklist v-for="book in rank.books" :book="book" :key="book._id"></Booklist>
     </v-touch>
@@ -9,14 +8,12 @@
 
 <script>
 import Booklist from '@/components/Booklist';
-import api from '../libs/api';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api';
 
 export default {
   name: 'RanklistDetail',
   components: {
     Booklist,
-    PulseLoader
   },
   data() {
     return {

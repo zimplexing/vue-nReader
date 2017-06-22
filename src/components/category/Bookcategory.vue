@@ -1,6 +1,5 @@
 <template>
   <div>
-    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <transition-group name="fade">
       <section v-for="(item ,key, index) in category" :key="index">
         <p class="category-type">{{categoryType[key]}}</p>
@@ -16,13 +15,10 @@
   </div>
 </template>
 <script>
-import api from '../libs/api';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api';
+
 export default {
   name: 'Booklcat',
-  components: {
-    PulseLoader
-  },
   data() {
     return {
       category: null,

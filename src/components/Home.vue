@@ -1,7 +1,7 @@
 <template>
   <div>
-    <mt-header fixed :title="selectTab"></mt-header>
-     <mt-tab-container v-model="active" :swipeable="true" :value="selectTab" id="container">
+    <mt-header fixed :title="selected"></mt-header>
+     <mt-tab-container v-model="selected" :swipeable="true" :value="selected">
       <mt-tab-container-item id="书架">
         <mt-cell v-for="n in 10" title="tab-container 1" :key="n"></mt-cell>
       </mt-tab-container-item>
@@ -15,7 +15,7 @@
         <mt-cell v-for="n in 7" title="tab-container 3" :key="n"></mt-cell>
       </mt-tab-container-item>
     </mt-tab-container>
-    <mt-tabbar v-model="selected" :fixed="true">
+    <mt-tabbar v-model="selected" :fixed="true" :value="selected">
       <mt-tab-item id="书架">
         <img slot="icon" src="../assets/book.svg"> 书架
       </mt-tab-item>
@@ -33,29 +33,29 @@
 </template>
 
 <script>
+import Bookshelf from './bookshelf/Bookshelf'
+import Bookcategory from './category/Bookcategory'
+import Ranklist from './ranklist/Rank'
+import Search from './search/Search'
 
 export default {
   name: 'home',
   data() {
     return {
-      selectTab: '',
       selected: '书架',
-      active: '书架'
     }
   },
   computed: {
-    headText() {
-      return this.$store.state.headText;
-    }
   }
 }
 </script>
 
 <style scoped>
-#container {
+.mint-tab-container {
   box-sizing: border-box;
-  margin-top: 3rem;
+  padding-top: 2rem;
   width: 100vw;
-  margin-bottom: 54px;
+  height: 100vh;
+  padding-bottom: 54px;
 }
 </style>

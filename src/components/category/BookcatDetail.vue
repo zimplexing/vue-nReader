@@ -10,22 +10,19 @@
                 <li v-if="mins" v-for="(minor, index) in mins" @click="setMinor(minor)">{{minor}}</li>
             </ul>
         </div>
-        <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
         <ul v-show="!loading" class="book-list">
             <Booklist v-for="book in books" :book="book" :key="book._id"></Booklist>
         </ul>
     </div>
 </template>
 <script>
-import api from '../libs/api'
-import Topbar from '@/components/Topbar'
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import api from '@/libs/api'
 import Booklist from '@/components/Booklist';
 
 export default {
     name: "BookcatDetail",
     components: {
-        Topbar, PulseLoader, Booklist
+        Booklist
     },
     data() {
         return {

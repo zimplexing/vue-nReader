@@ -1,6 +1,5 @@
 <template>
   <div>
-    <pulse-loader :loading="loading" :color="color" :size="size" :margin="margin"></pulse-loader>
     <div v-show="!loading">
       <button type="button" class="add-book" v-if="!books.length" @click="$router.push('/bookcat')">添加小说</button>
       <ul class="book-shelf" v-if="books.length">
@@ -20,16 +19,12 @@
 </template>
 
 <script>
-import api from '../libs/api'
+import api from '@/libs/api'
 import moment from 'moment'
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 moment.locale('zh-cn');
 export default {
   name: 'Bookshelf',
-  components:{
-    PulseLoader
-  },
   data() {
     return {
       books: [],
