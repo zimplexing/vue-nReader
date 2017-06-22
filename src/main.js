@@ -6,20 +6,19 @@ import VueTouch from 'vue-touch'
 import router from './router'
 import Ajax from './libs/ajax'
 import store from './store'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'    // 使用 CSS
-import vuescroll from 'vue-scroll'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 
-Vue.use(vuescroll)
 VueTouch.config.swipe = {
   direction: 'horizontal'
 };
+
 Vue.use(VueTouch, {name: 'v-touch'})
-Vue.use(iView);
+Vue.use(MintUI);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
   baseURL: 'http://63.223.75.86:3000'
-});
+}); 
 
 /* eslint-disable no-new */
 new Vue({

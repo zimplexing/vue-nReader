@@ -37,10 +37,10 @@
     justify-content: space-between;
     align-items: center;
     color: #000;
-    font-size: 16px;
+    font-size: 20px;
   }
   
-  .fade-enter-active,
+  /*.fade-enter-active,
   .fade-leave-active {
     transition: opacity .3s
   }
@@ -55,6 +55,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+  }*/
 
 </style>
