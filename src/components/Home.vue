@@ -3,16 +3,16 @@
     <mt-header fixed :title="selected"></mt-header>
      <mt-tab-container v-model="selected" :swipeable="true" :value="selected">
       <mt-tab-container-item id="书架">
-        <mt-cell v-for="n in 10" title="tab-container 1" :key="n"></mt-cell>
+        <Bookshelf></Bookshelf>
       </mt-tab-container-item>
       <mt-tab-container-item id="分类">
-        <mt-cell v-for="n in 5" title="tab-container 2" :key="n"></mt-cell>
+        <Bookcategory></Bookcategory>
       </mt-tab-container-item>
       <mt-tab-container-item id="排行">
-        <mt-cell v-for="n in 7" title="tab-container 3" :key="n"></mt-cell>
+        <Ranklist></Ranklist>
       </mt-tab-container-item>
       <mt-tab-container-item id="搜索">
-        <mt-cell v-for="n in 7" title="tab-container 3" :key="n"></mt-cell>
+        <Search></Search>
       </mt-tab-container-item>
     </mt-tab-container>
     <mt-tabbar v-model="selected" :fixed="true" :value="selected">
@@ -40,6 +40,9 @@ import Search from './search/Search'
 
 export default {
   name: 'home',
+  components:{
+    Bookshelf,Bookcategory,Ranklist,Search
+  },
   data() {
     return {
       selected: '书架',
@@ -58,4 +61,5 @@ export default {
   height: 100vh;
   padding-bottom: 54px;
 }
+
 </style>

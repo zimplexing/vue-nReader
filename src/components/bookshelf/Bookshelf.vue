@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div v-show="!loading">
-      <button type="button" class="add-book" v-if="!books.length" @click="$router.push('/bookcat')">添加小说</button>
-      <ul class="book-shelf" v-if="books.length">
-        <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
-          <v-touch class="book-list" @tap="readbook(book)">
-            <img :src="getImgSrc(book)" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
-            <div class="info">
-              <p class="title">{{book.title}}</p>
-              <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
-            </div>
-            <v-touch class="del-book-btn" @tap="delBook($event,index)">删除</v-touch>
-          </v-touch>
+  <div v-show="!loading">
+    <mt-button type="primary" class="add-book" v-if="!books.length" @click="$router.push('/bookcat')">添加小说</mt-button>
+    <ul class="book-shelf" v-if="books.length">
+      <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
+        <v-touch class="book-list" @tap="readbook(book)">
+          <img :src="getImgSrc(book)" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'" />
+          <div class="info">
+            <p class="title">{{book.title}}</p>
+            <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
+          </div>
+          <v-touch class="del-book-btn" @tap="delBook($event,index)">删除</v-touch>
         </v-touch>
-      </ul>
-    </div>
+      </v-touch>
+    </ul>
   </div>
 </template>
 
@@ -43,11 +41,11 @@ export default {
     }
   },
   created() {
-    if(!this.parseLocalShelfData()){
+    if (!this.parseLocalShelfData()) {
       this.loading = false;
-    } else{
+    } else {
       this.getBookUpdate();
-    } 
+    }
   },
   methods: {
     /**
@@ -141,12 +139,6 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 0.6rem 2rem;
-  color: #fff;
-  background: #04b1ff;
-  border: none;
-  border-radius: .2rem;
-  font-size: 1rem;
 }
 
 .add-book:focus {

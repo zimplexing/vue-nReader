@@ -73,7 +73,7 @@ li {
 
 .category {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-bottom: 0.1rem;
   margin-top: 0.8rem;
   line-height: 1.3rem;
