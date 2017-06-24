@@ -9,11 +9,11 @@ import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
-VueTouch.config.swipe = {
-  direction: 'horizontal'
-};
+// VueTouch.config.swipe = {
+//   direction: 'horizontal'
+// };
 
-Vue.use(VueTouch, {name: 'v-touch'})
+// Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(MintUI);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
@@ -37,6 +37,6 @@ document.addEventListener('contextmenu', event => {
   event.stopPropagation();
 });
 //Disable double click selection
-document.addEventListener('mousedown', e => {
-  e.preventDefault();
-})
+// document.addEventListener('mousedown', e => {
+//   e.preventDefault();
+// })

@@ -42,22 +42,4 @@ li {
   align-items: center;
   color: #000;
 }
-
-
-/*.fade-enter-active,
-  .fade-leave-active {
-    transition: opacity .3s
-  }
-  
-  .fade-enter,
-  .fade-leave-active {
-    opacity: 0
-  }
-  
-  .v-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }*/
 </style>
