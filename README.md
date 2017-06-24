@@ -51,9 +51,10 @@ npm run build
 
 ## 难题
 
-[x] flex布局下横向滚动
+- [x] flex布局下横向滚动
     - 设置属性`flex-shrink:0`，默认下该属性值为1，空间不够时，后等比例缩小，设置为0之后，不会缩小项目
-[ ] tab切换active
+
+- [ ] tab切换active
 
 ## 屏幕截图
 
