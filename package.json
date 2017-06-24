@@ -14,13 +14,12 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "iview": "^2.0.0-rc.14",
+    "lodash": "^4.17.4",
+    "mint-ui": "^2.2.7",
     "moment": "^2.18.1",
     "vue": "^2.2.6",
-    "vue-awesome": "^2.3.1",
     "vue-router": "^2.3.1",
     "vue-scroll": "^2.0.3",
-    "vue-spinner": "^1.0.2",
     "vue-touch": "^2.0.0-beta.4",
     "vuex": "^2.3.1"
   },

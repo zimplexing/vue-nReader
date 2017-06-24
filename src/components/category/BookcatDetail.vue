@@ -1,23 +1,31 @@
 <template>
     <div>
-        <Topbar :showArrow="showArrow" goBack="/bookcat" :headText="major" :showFun="showFun"></Topbar>
+        <mt-header fixed :title="major">
+            <router-link to="/" slot="left">
+                <mt-button icon="back">返回</mt-button>
+            </router-link>
+        </mt-header>
         <div class="select">
             <ul class="select-bar">
-                <li v-for="(item, index) in types" @click="setType(item.type)">{{item.name}}</li>
+                <v-touch tag="li" v-for="(item, index) in types" :class="{active:majorActive}" :key="index" @tap="setType(item.type,$event)">{{item.name}}</v-touch>
             </ul>
             <ul class="select-bar">
                 <li data-type="hot">全部</li>
-                <li v-if="mins" v-for="(minor, index) in mins" @click="setMinor(minor)">{{minor}}</li>
+                <v-touch tag="li" v-if="mins" :class="{active:minorActive}" v-for="(minor, index) in mins" :key="index" @tap="setMinor(minor)">{{minor}}</v-touch>
             </ul>
         </div>
-        <ul v-show="!loading" class="book-list">
-            <Booklist v-for="book in books" :book="book" :key="book._id"></Booklist>
-        </ul>
+        <mt-loadmore class="loadmore" :top-method="loadTop" :bottom-method="loadBottom" :auto-fill="false" ref="loadmore">
+            <ul class="book-list">
+                <Booklist v-for="book in books" :book="book" :key="book._id"></Booklist>
+            </ul>
+        </mt-loadmore>
+    
     </div>
 </template>
 <script>
 import api from '@/api/api'
-import Booklist from '@/components/Booklist';
+import Booklist from '@/components/common/Booklist';
+import { Indicator, Loadmore } from 'mint-ui';
 
 export default {
     name: "BookcatDetail",
@@ -26,18 +34,16 @@ export default {
     },
     data() {
         return {
-            showArrow: true,
-            showFun: false,
-            loading: true,
-            color: '#04b1ff',
-            size: '10px',
-            margin: '4px',
             books: null,
             type: 'hot',
             gender: '',
             major: '',
             minor: '',
             mins: null,
+            majorActive: false,
+            minorActive: false,
+            currentPage: 1,
+            allLoaded: false,
             types: [{
                 type: 'hot',
                 name: '热门'
@@ -81,21 +87,56 @@ export default {
          */
         //todo 入参需要优化
         getNovelListByCat(gender, type, major, minor) {
-            this.loading = true;
+            Indicator.open('加载中');
             api.getNovelListByCat(gender, type, major, minor).then(response => {
-                this.loading = false;
+                Indicator.close();
                 this.books = response.data.books;
             }).catch(err => {
                 console.log(err);
             })
         },
-        setType(type) {
+
+        /**
+         * 选择大类分类
+         */ 
+        setType(type, $event) {
+            this.majorActive = true;
             this.type = type;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
         },
-        setMinor(minor) {
+
+        /**
+         * 选择子类分类
+         */ 
+        setMinor(minor, $event) {
             this.minor = minor;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
+        },
+
+        /**
+         * 下拉刷新 
+         */
+        loadTop() {
+            // 加载更多数据
+            this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
+            this.$refs.loadmore.onTopLoaded();
+        },
+
+        /**
+         * 加载更多
+         */ 
+        loadBottom() {
+            // 加载更多数据
+            let _that = this;
+            Indicator.open('加载中');
+            api.getNovelListByCat(this.gender, this.type, this.major, this.minor,this.currentPage * 20).then(response => {
+                _that.books = [..._that.books, ...response.data.books];
+                _that.currentPage++;
+                Indicator.close();
+            }).catch(err => {
+                console.log(err);
+            })
+            this.$refs.loadmore.onBottomLoaded();
         }
     }
 }
@@ -103,34 +144,46 @@ export default {
 <style scoped>
 .select {
     position: fixed;
-    top: 3rem;
+    top: 2rem;
     left: 0;
     background: #fff;
+    z-index: 10;
 }
 
 .select-bar {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    overflow: auto;
-    height: 2.5rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    height: 2rem;
     width: 100vw;
+    overflow-x: auto;
+    overflow-y: hidden;
     border-bottom: 1px solid #f2f2f2;
 }
 
 .select-bar li {
-    line-height: 2.5rem;
-    margin-left: 0.6rem;
-    font-size: 0.9rem;
+    flex-shrink: 0;
+    line-height: 2rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    font-size: 0.7rem;
 }
 
 .active {
     color: red;
 }
-.book-list{
+
+.book-list {
     width: 100vw;
-    margin-top: 8rem;
     background: #f2f2f2;
+}
+
+.loadmore {
+    margin-top: 6rem;
+}
+
+.active {
+    color: #26a2ff;
 }
 </style>

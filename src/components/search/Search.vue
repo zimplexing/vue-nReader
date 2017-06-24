@@ -2,7 +2,7 @@
   <div>
     <div class="search-head">
       <span class="search-icon">
-        <!--<Icon type="ios-search-strong"></Icon>-->
+        <img src="../../assets/search.svg" />
       </span>
       <input type="text" class="search-input" placeholder="输入书名或者作者名" @keyup.enter="fuzzySearch" @keyup="autoComplete" :value="searchWord">
       <button type="button" class="cancel" @click="$router.push({path:back})">取消</button>
@@ -193,7 +193,7 @@ export default {
   background: #f2f2f2;
 }
 
-.search-icon {
+.search-icon img {
   position: absolute;
   left: 1.5rem;
   color: #ccc;

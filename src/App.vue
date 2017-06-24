@@ -41,5 +41,6 @@ li {
   justify-content: space-between;
   align-items: center;
   color: #000;
+  font-size: 0.8rem;
 }
 </style>

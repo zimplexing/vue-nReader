@@ -1,52 +1,48 @@
 <template>
     <div>
-        <transition name="fade">
-            <div v-show="!loading">
-                <p>男生</p>
-                <ul class="rank-type">
-                    <li v-for="item in ranklist.male" v-if="!item.collapse" :key="item._id">
+        <div>
+            <p>男生</p>
+            <ul class="rank-type">
+                <li v-for="item in ranklist.male" v-if="!item.collapse" :key="item._id">
+                    <RankItem :rankInfo="item"></RankItem>
+                </li>
+                <li class="other-rank" @click="showMoreMaleRank">
+                    <div @click="showRankList" class="rank-item">
+                        <img src="../../assets/rank_other.svg" /> 别人家的排行榜
+                    </div>
+                    <span class="angle">
+                        <img src="../../assets/up.svg" v-if="maleOtherRankIsShow"/>
+                        <img src="../../assets/down.svg" v-else/>
+                    </span>
+                </li>
+                <ul v-show="maleOtherRankIsShow" class="rank-type">
+                    <li v-for="item in ranklist.male" v-if="item.collapse" :key="item._id">
                         <RankItem :rankInfo="item"></RankItem>
                     </li>
-                    <li class="other-rank" @click="showMoreMaleRank">
-                        <span>
-                            <!--<Icon name="bar-chart"></Icon>-->
-                            别人家的排行榜
-                        </span>
-                        <span class="angle">
-                            <!--<Icon v-if="maleOtherRankIsShow" name="angle-up"></Icon>-->
-                            <!--<Icon v-else name="angle-down"></Icon>-->
-                        </span>
                     </li>
-                    <ul v-show="maleOtherRankIsShow" class="rank-type">
-                        <li v-for="item in ranklist.male" v-if="item.collapse" :key="item._id">
-                            <RankItem :rankInfo="item"></RankItem>
-                        </li>
-                        </li>
-                    </ul>
                 </ul>
-                <p>女生</p>
-                <ul class="rank-type">
-                    <li v-for="item in ranklist.female" v-if="!item.collapse" :key="item._id">
+            </ul>
+            <p>女生</p>
+            <ul class="rank-type">
+                <li v-for="item in ranklist.female" v-if="!item.collapse" :key="item._id">
+                    <RankItem :rankInfo="item"></RankItem>
+                </li>
+                <li class="other-rank" @click="showMoreFemaleRank">
+                    <div @click="showRankList" class="rank-item">
+                        <img src="../../assets/rank_other.svg" /> 别人家的排行榜
+                    </div>
+                    <span class="angle">
+                        <img src="../../assets/up.svg" v-if="femaleOtherRankIsShow"/>
+                        <img src="../../assets/down.svg" v-else/>
+                    </span>
+                </li>
+                <ul v-show="femaleOtherRankIsShow" class="rank-type">
+                    <li v-for="item in ranklist.female" v-if="item.collapse" :key="item._id">
                         <RankItem :rankInfo="item"></RankItem>
                     </li>
-                    <li class="other-rank" @click="showMoreFemaleRank">
-                        <span>
-                            <!--<Icon name="bar-chart"></Icon>-->
-                            别人家的排行榜
-                        </span>
-                        <span class="angle">
-                            <!--<Icon v-if="femaleOtherRankIsShow" name="angle-up"></Icon>-->
-                            <!--<Icon v-else name="angle-down"></Icon>-->
-                        </span>
-                    </li>
-                    <ul v-show="femaleOtherRankIsShow" class="rank-type">
-                        <li v-for="item in ranklist.female" v-if="item.collapse" :key="item._id">
-                            <RankItem :rankInfo="item"></RankItem>
-                        </li>
-                    </ul>
                 </ul>
-            </div>
-        </transition>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
@@ -55,21 +51,19 @@ import RankItem from './RankItem';
 import api from '@/api/api';
 export default {
     name: 'Rank',
+    components: {
+        RankItem
+    },
     data() {
         return {
             ranklist: {},
             maleOtherRankIsShow: false,
             femaleOtherRankIsShow: false,
-            loading: true,
-            color: '#04b1ff',
-            size: '10px',
-            margin: '4px'
         }
     },
     created() {
         api.getRankType().then(response => {
             this.ranklist = response.data;
-            this.loading = false;
         }).catch(err => {
             console.log(err)
         });
@@ -99,26 +93,47 @@ li {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    font-size: 1rem;
-    line-height: 3rem;
+    font-size: .8rem;
+    line-height: 2.4rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    border-bottom: 0.01rem solid #f3f3f3;
+    border-bottom: .01rem solid #f3f3f3;
 }
 
 .fa-icon {
     height: 1rem;
     width: 1rem;
-    margin-right: 0.5rem;
+    margin-right: .5rem;
 }
 
 p {
     background-color: #f9f0f0;
     margin: 0;
-    padding: 0.5rem 0 0.5rem 1rem;
+    padding: .5rem 0 .5rem 1rem;
 }
 
 .other-rank {
     justify-content: space-between;
+}
+
+.rank-type img {
+    width: 1.2rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.other-rank {
+    justify-content: space-between;
+}
+
+.rank-item {
+    width: 100%;
+}
+
+.rank-item a {
+    color: #000;
+}
+.angle img{
+    width: 0.8rem;
 }
 </style>

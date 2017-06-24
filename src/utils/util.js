@@ -8,6 +8,7 @@
 import _ from "lodash"
 
 const localStroage = window.localStorage;
+const staticPath = 'http://statics.zhuishushenqi.com/';
 
 export default {
 
@@ -16,7 +17,7 @@ export default {
      * @param {String} key 获取localstroage的item 
      */
     getLocalStroageData(item) {
-        return JSON.parse(localStroage.getItem(item))
+        return _.isEmpty(JSON.parse(localStroage.getItem(item))) ? null : JSON.parse(localStroage.getItem(item));
     },
 
     /**
@@ -24,7 +25,15 @@ export default {
      * @param {String} item 
      * @param {Object} obj 
      */
-    setLocalStroageData(item, obj = JSON.stringify(obj)) {
-        localStorage.set(item, obj);
+    setLocalStroageData(item, obj) {
+        localStorage.setItem(item, JSON.stringify(obj));
+    },
+
+    /**
+     * 转化img的url
+     * @param {String} url 
+     */
+    parseImgUrl(url){
+        return staticPath + url.indexOf('http') === -1 ? staticPath + url : url.slice(url.indexOf('http'))
     }
 }
