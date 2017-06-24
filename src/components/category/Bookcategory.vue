@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import api from '@/libs/api';
+import api from '@/api/api';
 
 export default {
   name: 'Booklcat',

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import api from '@/libs/api'
+import api from '@/api/api'
 import moment from 'moment'
 
 export default {

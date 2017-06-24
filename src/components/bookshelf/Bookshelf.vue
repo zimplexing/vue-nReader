@@ -17,19 +17,16 @@
 </template>
 
 <script>
-import api from '@/libs/api'
+import api from '@/api/api'
 import moment from 'moment'
+import util from '@/utils/util'
 
 moment.locale('zh-cn');
 export default {
   name: 'Bookshelf',
   data() {
     return {
-      books: [],
-      loading: true,
-      color: '#04b1ff',
-      size: '10px',
-      margin: '4px',
+      books: []
     }
   },
   filters: {

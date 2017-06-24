@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header fixed :title="selected"></mt-header>
-     <mt-tab-container v-model="selected" :swipeable="true" :value="selected">
+     <mt-tab-container v-model="selected" :swipeable="false" :value="selected">
       <mt-tab-container-item id="书架">
         <Bookshelf></Bookshelf>
       </mt-tab-container-item>

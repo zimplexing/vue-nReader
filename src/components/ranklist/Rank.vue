@@ -52,7 +52,7 @@
 <script>
 
 import RankItem from './RankItem';
-import api from '@/libs/api';
+import api from '@/api/api';
 export default {
     name: 'Rank',
     data() {

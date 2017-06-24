@@ -8,7 +8,7 @@
 
 <script>
 import Booklist from '@/components/Booklist';
-import api from '@/libs/api';
+import api from '@/api/api';
 
 export default {
   name: 'RanklistDetail',

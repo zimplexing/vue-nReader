@@ -4,16 +4,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueTouch from 'vue-touch'
 import router from './router'
-import Ajax from './libs/ajax'
+import Ajax from './utils/ajax'
 import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
-// VueTouch.config.swipe = {
-//   direction: 'horizontal'
-// };
+VueTouch.config.swipe = {
+  direction: 'horizontal'
+};
 
-// Vue.use(VueTouch, {name: 'v-touch'})
+Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(MintUI);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {

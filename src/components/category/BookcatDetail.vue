@@ -16,7 +16,7 @@
     </div>
 </template>
 <script>
-import api from '@/libs/api'
+import api from '@/api/api'
 import Booklist from '@/components/Booklist';
 
 export default {
