@@ -38,6 +38,6 @@ document.addEventListener('contextmenu', event => {
   event.stopPropagation();
 });
 //Disable double click selection
-document.addEventListener('mousedown', e => {
-  e.preventDefault();
-})
+// document.addEventListener('doubleclick', e => {
+//   e.preventDefault();
+// })
