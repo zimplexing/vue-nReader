@@ -24,10 +24,6 @@ export default {
         female: '女生',
         press: '出版'
       },
-      loading: true,
-      color: '#04b1ff',
-      size: '10px',
-      margin: '4px'
     }
   },
   created() {
@@ -36,19 +32,6 @@ export default {
       this.loading = false;
     }).catch(err => {
       conosle.log(err)
-    })
-  },
-  watch: {
-    '$route': 'changeHeadText'
-  },
-  methods: {
-    changeHeadText() {
-      this.$store.commit('setHeadText', '分类');
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.changeHeadText();
     })
   }
 }

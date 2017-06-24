@@ -1,37 +1,37 @@
 <template>
     <div>
-        <Topbar :showArrow="showArrow" goBack="/rank" :headText="headText" :showFun="showFun"></Topbar>
+        <mt-header fixed :title="headTitle">
+            <router-link to="/" slot="left">
+                <mt-button icon="back">返回</mt-button>
+            </router-link>
+        </mt-header>
         <ul class="rank-tab">
-            <router-link  tag="li" to="/ranklist/weekRank" active-class="active" exact>周榜</router-link>
-            <router-link  tag="li" to="/ranklist/monthRank" active-class="active" exact>月榜</router-link>
-            <router-link  tag="li" to="/ranklist/totalRank" active-class="active" exact>总榜</router-link>
+            <router-link tag="li" to="/ranklist/weekRank" active-class="active" exact>周榜</router-link>
+            <router-link tag="li" to="/ranklist/monthRank" active-class="active" exact>月榜</router-link>
+            <router-link tag="li" to="/ranklist/totalRank" active-class="active" exact>总榜</router-link>
         </ul>
-        <transition name="fade">
-            <router-view></router-view>
-        </transition>
+        <router-view></router-view>
     </div>
 </template>
 
 
 <script>
-import Topbar from '@/components/Topbar';
+import {SET_BACK_POSITION} from '@/store/mutationsType'
+
 export default {
     name: 'Ranklist',
-    components: {
-        Topbar
-    },
     data() {
         return {
-            msg: '排行榜',
-            showArrow: true,
-            ranktype: null,
-            showFun:true
         }
     },
-    computed:{
-      headText(){
-        return this.$store.state.headText
-      }
+    computed: {
+        headTitle() {
+            return this.$store.state.headTitle
+        }
+    },
+    beforeRouteLeave(to, from, next) {
+        this.$store.commit(SET_BACK_POSITION, '排行');
+        next();
     }
 }
 </script>
@@ -48,8 +48,9 @@ ul {
 
 .rank-tab {
     position: fixed;
-    top:3rem;
+    top: 2rem;
     left: 0;
+    z-index: 10;
     border-bottom: 1px solid #ccc;
 }
 

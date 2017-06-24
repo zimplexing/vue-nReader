@@ -6,15 +6,15 @@
                 <li v-for="item in ranklist.male" v-if="!item.collapse" :key="item._id">
                     <RankItem :rankInfo="item"></RankItem>
                 </li>
-                <li class="other-rank" @click="showMoreMaleRank">
-                    <div @click="showRankList" class="rank-item">
+                <v-touch tag="li" class="other-rank" @tap="showMoreMaleRank">
+                    <div class="rank-item">
                         <img src="../../assets/rank_other.svg" /> 别人家的排行榜
                     </div>
                     <span class="angle">
                         <img src="../../assets/up.svg" v-if="maleOtherRankIsShow"/>
                         <img src="../../assets/down.svg" v-else/>
                     </span>
-                </li>
+                </v-touch>
                 <ul v-show="maleOtherRankIsShow" class="rank-type">
                     <li v-for="item in ranklist.male" v-if="item.collapse" :key="item._id">
                         <RankItem :rankInfo="item"></RankItem>
@@ -27,15 +27,15 @@
                 <li v-for="item in ranklist.female" v-if="!item.collapse" :key="item._id">
                     <RankItem :rankInfo="item"></RankItem>
                 </li>
-                <li class="other-rank" @click="showMoreFemaleRank">
-                    <div @click="showRankList" class="rank-item">
+                <v-touch tag="li" class="other-rank" @tap="showMoreFemaleRank">
+                    <div class="rank-item">
                         <img src="../../assets/rank_other.svg" /> 别人家的排行榜
                     </div>
                     <span class="angle">
                         <img src="../../assets/up.svg" v-if="femaleOtherRankIsShow"/>
                         <img src="../../assets/down.svg" v-else/>
                     </span>
-                </li>
+                </v-touch>
                 <ul v-show="femaleOtherRankIsShow" class="rank-type">
                     <li v-for="item in ranklist.female" v-if="item.collapse" :key="item._id">
                         <RankItem :rankInfo="item"></RankItem>
@@ -122,17 +122,6 @@ p {
     vertical-align: middle;
 }
 
-.other-rank {
-    justify-content: space-between;
-}
-
-.rank-item {
-    width: 100%;
-}
-
-.rank-item a {
-    color: #000;
-}
 .angle img{
     width: 0.8rem;
 }

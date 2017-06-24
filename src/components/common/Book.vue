@@ -79,13 +79,6 @@ export default {
             console.log(err)
         });
     },
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            if (from.fullPath.indexOf('/readbook/') === -1) {
-                vm.$store.commit('setThirdPath', from.fullPath);
-            }
-        })
-    },
     methods: {
         readBook() {
             this.$store.commit('setReadBook', this.book);

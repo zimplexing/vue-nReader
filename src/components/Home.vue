@@ -26,7 +26,10 @@
                 <img slot="icon" src="../assets/rank.svg"> 排行
             </mt-tab-item>
             <mt-tab-item id="搜索">
-                <img slot="icon" src="../assets/search.svg"> 搜索
+                <img slot="icon" src="../assets/search.svg">
+                <router-link to="/search" exact>
+                    搜索
+                </router-link>
             </mt-tab-item>
         </mt-tabbar>
     </div>
@@ -48,7 +51,8 @@ export default {
             selected: '书架',
         }
     },
-    computed: {
+    mounted() {
+        this.selected = this.$store.state.previousPosition;
     }
 }
 </script>

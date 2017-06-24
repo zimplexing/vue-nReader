@@ -9,7 +9,8 @@ const state = {
     weekRankId: '',
     monthRankId: '',
     totalRankId: '',
-    headText: '', //头部文字
+    headTitle: '', //头部文字
+    previousPosition: '书架',
     backPath:{},
     bookInfo: {}
 };

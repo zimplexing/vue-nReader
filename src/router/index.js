@@ -7,8 +7,8 @@ const Home = resolve => require(['@/components/Home'], resolve)
 // const Bookshelf = resolve => require(['@/components/bookshelf/Bookshelf'], resolve)
 // const Bookcat = resolve => require(['@/components/Bookcat'], resolve)
 // const Rank = resolve => require(['@/components/Rank'], resolve)
-// const Ranklist = resolve => require(['@/components/Ranklist'], resolve)
-// const RanklistDetail = resolve => require(['@/components/RanklistDetail'], resolve)
+const Ranklist = resolve => require(['@/components/ranklist/Ranklist'], resolve)
+const RanklistDetail = resolve => require(['@/components/ranklist/RanklistDetail'], resolve)
 const Book = resolve => require(['@/components/common/Book'], resolve)
 const ReadBook = resolve => require(['@/components/book/ReadBook'], resolve)
 // const Search = resolve => require(['@/components/Search'], resolve)
@@ -38,16 +38,17 @@ export default new Router({
         //   component: Search
         // }, {
         //   path: 'searchresult'
-        // }, {
-        //   path: '/ranklist',
-        //   name: 'ranklist',
-        //   redirect: '/ranklist/weekRank',
-        //   component: Ranklist,
-        //   children: [{
-        //     path: '/ranklist/*',
-        //     name: 'RanklistDetail',
-        //     component: RanklistDetail
-        //   }]
-        //}
+        //},
+        {
+            path: '/ranklist',
+            name: 'ranklist',
+            redirect: '/ranklist/weekRank',
+            component: Ranklist,
+            children: [{
+                path: '/ranklist/*',
+                name: 'RanklistDetail',
+                component: RanklistDetail
+            }]
+        }
     ]
 })

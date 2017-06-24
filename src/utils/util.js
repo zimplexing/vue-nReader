@@ -1,16 +1,17 @@
 /*
  * @Author: zimplexing 
  * @Date: 2017-06-24 19:24:32 
- * @Last Modified by:   zimplexing 
- * @Last Modified time: 2017-06-24 19:24:32 
+ * @Last Modified by: zimplexing
+ * @Last Modified time: 2017-06-24 21:21:54
  */
 
 import _ from "lodash"
 
 const localStroage = window.localStorage;
-const staticPath = 'http://statics.zhuishushenqi.com/';
 
 export default {
+
+    staticPath: 'http://statics.zhuishushenqi.com/',
 
     /**
      * 获取localstroage的数据
@@ -34,6 +35,6 @@ export default {
      * @param {String} url 
      */
     parseImgUrl(url){
-        return staticPath + url.indexOf('http') === -1 ? staticPath + url : url.slice(url.indexOf('http'))
+        return this.staticPath + url.indexOf('http') === -1 ? staticPath + url : url.slice(url.indexOf('http'))
     }
 }

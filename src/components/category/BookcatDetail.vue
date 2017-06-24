@@ -25,6 +25,7 @@
 <script>
 import api from '@/api/api'
 import Booklist from '@/components/common/Booklist';
+import { SET_BACK_POSITION } from '@/store/mutationsType'
 import { Indicator, Loadmore } from 'mint-ui';
 
 export default {
@@ -62,25 +63,7 @@ export default {
             }]
         }
     },
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            vm.major = vm.$route.query.major;
-            vm.gender = vm.$route.query.gender;
-            /**
-             * 获取大分类中的小类别
-             */
-            api.getCategoryDetail().then(response => {
-                response.data[vm.$route.query.gender].forEach((type) => {
-                    if (type.major === vm.$route.query.major) {
-                        vm.mins = type.mins;
-                    }
-                })
-            }).catch(err => {
-                console.log(err);
-            });
-            vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major);
-        })
-    },
+
     methods: {
         /**
          * 根据筛选分类获取结果
@@ -98,7 +81,7 @@ export default {
 
         /**
          * 选择大类分类
-         */ 
+         */
         setType(type, $event) {
             this.majorActive = true;
             this.type = type;
@@ -107,7 +90,7 @@ export default {
 
         /**
          * 选择子类分类
-         */ 
+         */
         setMinor(minor, $event) {
             this.minor = minor;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
@@ -124,12 +107,12 @@ export default {
 
         /**
          * 加载更多
-         */ 
+         */
         loadBottom() {
             // 加载更多数据
             let _that = this;
             Indicator.open('加载中');
-            api.getNovelListByCat(this.gender, this.type, this.major, this.minor,this.currentPage * 20).then(response => {
+            api.getNovelListByCat(this.gender, this.type, this.major, this.minor, this.currentPage * 20).then(response => {
                 _that.books = [..._that.books, ...response.data.books];
                 _that.currentPage++;
                 Indicator.close();
@@ -138,7 +121,28 @@ export default {
             })
             this.$refs.loadmore.onBottomLoaded();
         }
-    }
+    },
+
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.major = vm.$route.query.major;
+            vm.gender = vm.$route.query.gender;
+            /**
+             * 获取大分类中的小类别
+             */
+            api.getCategoryDetail().then(response => {
+                response.data[vm.$route.query.gender].forEach((type) => {
+                    if (type.major === vm.$route.query.major) {
+                        vm.mins = type.mins;
+                    }
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+            vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major);
+            vm.$store.commit(SET_BACK_POSITION, '分类');
+        })
+    },
 }
 </script>
 <style scoped>
