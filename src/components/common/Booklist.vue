@@ -1,6 +1,6 @@
 <template>
   <li @click="getBook()">
-    <img :src="getImgSrc()" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
+    <img :src="imgUrl" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
     <div class="book-info">
       <p class="book-title">{{book.title}}</p>
       <p class="book-author">{{book.author}} | {{book.cat}}</p>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import util from '@/utils/util'
   export default {
     name: 'Bookslist',
     data() {
@@ -22,13 +23,12 @@
     computed: {
       latelyFollower() {
         return (this.book.latelyFollower / 10000).toFixed(1);
-      }
+      },
+       imgUrl(){
+            return util.parseImgUrl(this.book.cover);
+        }
     },
     methods: {
-      getImgSrc() {
-        return this.book.cover.indexOf('http') === -1 ? this.staticPath + this.book.cover : this.book.cover.slice(this.book
-          .cover.indexOf('http'));
-      },
       getBook() {
         // 只记录从不是搜索结果中进入书本详情的路径，不然会出现死循环
         // if(this.$route.path.indexOf('/search') === -1){
@@ -44,8 +44,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   img {
-    width: 5rem;
-    height: 6rem;
+    width: 4rem;
+    height: 5rem;
     float: left;
     margin-right: 0.4rem;
   }
@@ -65,10 +65,10 @@
   .book-info {
     box-sizing: border-box;
     width: 100%;
-    height: 6rem;
-    padding-left: 6rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    height: 5rem;
+    padding-left: 5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
   }
   
   .book-title {
@@ -89,8 +89,8 @@
   .book-info p {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 0.8rem;
-    line-height: 1.3rem;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
   }
  
 

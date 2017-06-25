@@ -1,24 +1,30 @@
 <template>
-    <div @click="showRankList" class="rank-item">
-        <img v-bind:src="staticPath + rankInfo.cover" />
-        <router-link to="#">{{rankInfo.title}}</router-link>
-    </div>
+    <v-touch @tap="showRankList" class="rank-item">
+        <img :src="imgUrl" />
+        <span>{{rankInfo.title}}</span>
+    </v-touch>
 </template>
 
 <script>
+import util from '@/utils/util'
 export default {
     name: 'RankItem',
     data() {
         return {
-            staticPath: 'http://statics.zhuishushenqi.com/'
+           
         }
     },
     props: ['rankInfo'],
+    computed: {
+        imgUrl(){
+            return util.staticPath + this.rankInfo.cover
+        }
+    },
     methods: {
         showRankList() {
             //设置全局store
-            this.$store.commit('setRankId',this.rankInfo);
-            this.$router.push({ path: '/ranklist'});
+            this.$store.commit('SET_RANK', this.rankInfo);
+            this.$router.push({ path: '/ranklist' });
         }
     }
 }
@@ -46,6 +52,7 @@ li {
 .rank-type img {
     width: 1.2rem;
     margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 .other-rank {
@@ -55,7 +62,8 @@ li {
 .rank-item {
     width: 100%;
 }
-.rank-item  a{
+
+.rank-item a {
     color: #000;
 }
 </style>
