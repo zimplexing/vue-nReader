@@ -1,7 +1,7 @@
 <template>
     <v-touch @tap="showRankList" class="rank-item">
         <img :src="imgUrl" />
-        <router-link to="#">{{rankInfo.title}}</router-link>
+        <span>{{rankInfo.title}}</span>
     </v-touch>
 </template>
 

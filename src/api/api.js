@@ -63,7 +63,7 @@ export default {
      * @param {String} bookId 小说id
      * 'http://api.zhuishushenqi.com/btoc?view=summary&book=548d9c17eb0337ee6df738f5'
      */
-    getOrigin(bookId) {
+    getGenuineSource(bookId) {
         return Vue.http.get('/btoc?view=summary&book=' + bookId);
     },
 
@@ -72,7 +72,7 @@ export default {
      * @param {String} bookId 小说id
      * 'http://api.zhuishushenqi.com/atoc?view=summary&book=548d9c17eb0337ee6df738f5'
      */
-    getOrigin(bookId) {
+    getMixSource(bookId) {
         return Vue.http.get('/atoc?view=summary&book=' + bookId);
     },
     
@@ -87,10 +87,10 @@ export default {
 
     /**
      * 获取小说章节
-     * @param {String} originId 小说源id
+     * @param {String} sourceId 小说源id
      */
-    getChapters(originId) {
-        return Vue.http.get('/atoc/' + originId + '?view=chapters')
+    getChapters(sourceId) {
+        return Vue.http.get('/atoc/' + sourceId + '?view=chapters')
     },
 
 

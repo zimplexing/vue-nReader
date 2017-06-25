@@ -1,15 +1,17 @@
 <template>
     <div>
-        <mt-header fixed :title="selected"></mt-header>
-        <mt-tab-container class="tab-container" v-model="selected" :swipeable="false" :value="selected">
+        <mt-tab-container v-model="selected" :swipeable="false" :value="selected">
             <mt-tab-container-item id="书架">
-                <Bookshelf></Bookshelf>
+                <mt-header fixed :title="selected"></mt-header>
+                <Bookshelf class="tab-container" @addBook="changeSelected"></Bookshelf>
             </mt-tab-container-item>
             <mt-tab-container-item id="分类">
-                <Bookcategory></Bookcategory>
+                <mt-header fixed :title="selected"></mt-header>
+                <Bookcategory class="tab-container"></Bookcategory>
             </mt-tab-container-item>
             <mt-tab-container-item id="排行">
-                <Ranklist></Ranklist>
+                <mt-header fixed :title="selected"></mt-header>
+                <Ranklist class="tab-container"></Ranklist>
             </mt-tab-container-item>
             <mt-tab-container-item id="搜索">
                 <Search></Search>
@@ -26,10 +28,7 @@
                 <img slot="icon" src="../assets/rank.svg"> 排行
             </mt-tab-item>
             <mt-tab-item id="搜索">
-                <img slot="icon" src="../assets/search.svg">
-                <router-link to="/search" exact>
-                    搜索
-                </router-link>
+                <img slot="icon" src="../assets/search.svg">搜索
             </mt-tab-item>
         </mt-tabbar>
     </div>
@@ -51,6 +50,11 @@ export default {
             selected: '书架',
         }
     },
+    methods:{
+        changeSelected(data){
+            this.selected = data;
+        }
+    },
     mounted() {
         this.selected = this.$store.state.previousPosition;
     }
@@ -63,5 +67,6 @@ export default {
     padding-top: 2rem;
     padding-bottom: 55px;
     width: 100vw;
+    min-height: 100vh;
 }
 </style>

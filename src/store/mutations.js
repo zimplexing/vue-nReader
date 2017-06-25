@@ -1,6 +1,7 @@
 import {
     SET_RANK,
     SET_BACK_POSITION,
+    SET_CURRENT_SOURCE,
     SET_SEC_PATH,
     SET_THIRD_PATH,
     SET_HEAD_TITLE,
@@ -16,6 +17,9 @@ export default {
     },
     [SET_BACK_POSITION](state, position) {
         state.previousPosition = position;
+    },
+    [SET_CURRENT_SOURCE](state, source){
+        state.source = source;
     },
     [SET_SEC_PATH](state, prePath) {
         state.backPath.secPath = prePath;

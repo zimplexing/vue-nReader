@@ -4,6 +4,9 @@
             <router-link to="/" slot="left">
                 <mt-button icon="back">返回</mt-button>
             </router-link>
+            <router-link v-if="book" :to="/changeSource/+book._id" slot="right">
+                <mt-button>换源</mt-button>
+            </router-link>
         </mt-header>
         <section>
             <div class="book-info">
@@ -46,6 +49,7 @@ import api from '@/api/api'
 import moment from 'moment'
 import util from '@/utils/util'
 import { Indicator } from 'mint-ui';
+import { SET_CURRENT_SOURCE, SET_READ_BOOK } from '@/store/mutationsType'
 
 moment.locale('zh-cn');
 export default {
@@ -65,12 +69,15 @@ export default {
         wordCount() {
             return parseInt(this.book.wordCount / 10000, 10);
         },
-        imgUrl(){
+        imgUrl() {
             return util.parseImgUrl(this.book.cover);
         }
     },
     created() {
         Indicator.open();
+        /**
+         * 获取小说详情
+         */
         api.getBook(this.$route.params.bookId).then(response => {
             this.book = response.data;
             this.isFollowBook();
@@ -78,10 +85,32 @@ export default {
         }, err => {
             console.log(err)
         });
+        /**
+         * 设置默认小说源为优质书源
+         */
+        if (!this.$store.state.source) {
+            api.getMixSource(this.$route.params.bookId).then(response => {
+                this.$store.commit(SET_CURRENT_SOURCE, response.data[0]._id);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    },
+    beforeRouteLeave(to, from, next) {
+        /**
+         *  页面离开需要清除source 除了去阅读页面和换源页面
+         */ 
+        if (to.path.indexOf('changeSource') !== -1 || to.path.indexOf('readbook') !== -1) {
+            next();
+        }else{
+            this.$store.commit(SET_CURRENT_SOURCE, '');
+            next();
+        }
+        
     },
     methods: {
         readBook() {
-            this.$store.commit('setReadBook', this.book);
+            this.$store.commit(SET_READ_BOOK, this.book);
             this.$router.push('/readbook/' + this.$route.params.bookId);
         },
         isFollowBook() {
@@ -95,15 +124,16 @@ export default {
                 //删除该书籍在本地的缓存记录
                 delete localShelf[this.book._id];
                 //重新保存
-                util.setLocalStroageData("followBookList",localShelf);
+                util.setLocalStroageData("followBookList", localShelf);
                 this.isFollowed = !this.isFollowed;
             } else {
                 // 以bookId为键值，方便后续删除等操作
                 localShelf[this.book._id] = {
                     cover: this.book.cover,
-                    title: this.book.title
+                    title: this.book.title,
+                    source: this.$store.state.source
                 }
-                util.setLocalStroageData("followBookList",localShelf);
+                util.setLocalStroageData("followBookList", localShelf);
                 this.isFollowed = !this.isFollowed;
             }
         }
@@ -114,8 +144,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 section {
     box-sizing: border-box;
     padding-right: 1rem;
@@ -136,11 +164,13 @@ section:first-child {
     width: 100%;
     height: 5rem;
 }
+
 .book-info img {
     width: 4rem;
     height: 5rem;
 }
-.book-info .book-info-detail{
+
+.book-info .book-info-detail {
     display: flex;
     flex-direction: column;
     justify-content: center;

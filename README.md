@@ -1,5 +1,7 @@
 # vue-nReader
 
+使用`mint-ui`对整个项目进行了重构，整理了项目的目录结构与代码，较上个版本新增了`小说换源`、`搜索历史记录`、优化了`滚动下载`和`下拉刷新`
+
 整个项目一共14个页面（包括通用组件），主要使用了vue2.0+vue-router+vuex，主要实现了小说排行榜，小说分类，小说详情，小说阅读，搜索页面，小说阅读记录等页面。达到了可用来看小说的基本需求。
 
 项目中的API均来自追书神器，纯属共享学习之用，有任何疑问或建议可提[issue](https://github.com/zimplexing/vue-nReader/issues/new)或联系[zhangx_0728@gmail.com](mailto://zhangx_0728@gmail.com)，使用代理，本地可以完美运行。
@@ -32,24 +34,37 @@ npm run build
 手机扫码：
 ![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nReader.png?raw=true)
 
-## TODO
-- [ ] 增加发现页面
+## 实现功能
 
-- [ ] 搜索历史功能
+- [x] 小说书架
+- [x] 分类查询
+- [x] 排行榜
+- [x] 搜索（搜索历史，自动补全）
+- [x] 小说详情
+- [x] **小说换源**
+- [x] 阅读历史记录（记录阅读章节）
+- [x] 阅读夜间模式
+- [x] 章节倒叙查看
+
+## TODO
+- [ ] 记录阅读历史位置
+
+- [ ] 增加发现页面
 
 - [ ] 社区评论功能 
 
-- [x] 章节倒叙查看
-
 - [ ] 组件切换动效
-
-- [x] 优化返回功能
-
-- [x] 记录阅读历史功能
 
 - [ ] 阅读界面设置功能
 
+- [ ] 小说下载
+
+## 屏幕截图
+
+<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/> 
+
 ## 问题
+记录在项目中遇到的一些问题，和解决方法
 
 - [x] flex布局下横向滚动
     - 设置属性`flex-shrink:0`，默认下该属性值为1，空间不够时，后等比例缩小，设置为0之后，不会缩小项目
@@ -57,9 +72,10 @@ npm run build
 - [ ] tab切换active
 
 - [ ] 滚动条控制
+    - 在不是 `HTML5 history `模式下，还没找到解决的方法
 
-- [ ] 实现了滚动加载和下拉刷新
+- [x] 同时绑定按键修饰符（keyup事件但不包括按键enter）
+    - 监听`input`事件，绑定`keyup.enter`事件
 
-## 屏幕截图
-
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/> 
+- [ ] 图片加载错误处理
+    - 图片加载错误的onerror方法中的静态地址webpack打包不会将其转化为base64编码，所以现在的解决方法是贴一个在线的图片地址

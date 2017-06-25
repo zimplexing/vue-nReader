@@ -8,7 +8,9 @@ import Ajax from './utils/ajax'
 import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import vuescroll from 'vue-scroll'
 
+Vue.use(vuescroll)
 VueTouch.config.swipe = {
   direction: 'horizontal'
 };
@@ -17,7 +19,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(MintUI);
 Vue.config.productionTip = false;
 Vue.use(Ajax, {
-  baseURL: 'http://35.189.165.140:3000'
+  baseURL: 'http://localhost:3000/'
 }); 
 
 /* eslint-disable no-new */

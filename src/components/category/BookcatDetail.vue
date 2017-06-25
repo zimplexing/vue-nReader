@@ -83,7 +83,7 @@ export default {
          * 选择大类分类
          */
         setType(type, $event) {
-            this.majorActive = true;
+            // this.majorActive = true;
             this.type = type;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
         },

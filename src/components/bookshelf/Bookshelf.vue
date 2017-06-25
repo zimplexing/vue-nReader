@@ -1,6 +1,6 @@
 <template>
     <div>
-        <mt-button type="primary" class="add-book" v-if="!books.length">添加小说</mt-button>
+        <mt-button type="primary" class="add-book" v-if="!books.length" @click="$emit('addBook','分类')">添加小说</mt-button>
         <ul class="book-shelf" v-if="books.length">
             <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
                 <v-touch class="book-list" @tap="readbook(book)">
@@ -20,6 +20,7 @@
 import api from '@/api/api'
 import moment from 'moment'
 import util from '@/utils/util'
+import { SET_CURRENT_SOURCE, SET_READ_BOOK } from '@/store/mutationsType'
 import { Indicator } from 'mint-ui';
 
 moment.locale('zh-cn');
@@ -73,7 +74,8 @@ export default {
         },
         
         readbook(book) {
-            this.$store.commit('setReadBook', book);
+            this.$store.commit(SET_READ_BOOK, book);
+            this.$store.commit(SET_CURRENT_SOURCE, book.source);
             this.$router.push('/readbook/' + book._id);
         },
 
@@ -102,11 +104,6 @@ export default {
             //重新保存
             storage.setItem("followBookList", JSON.stringify(localShelf));
         }
-    },
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            vm.changeHeadText();
-        })
     }
 }
 </script>
