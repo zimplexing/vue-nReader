@@ -28,24 +28,24 @@
             </v-touch>
         </div>
         <!--阅读设置-->
-        <div class="read-setting">
+        <!--<div class="read-setting">
             <div class="setting-item">
                 <v-touch tag="span" @tap="increaseFont">
-                    <img src="../../assets/font_smaller" />
+                    <img src="../../assets/font_smaller.svg" />
                 </v-touch>
                 <v-touch tag="span" @tap="decreaseFont">
-                    <img src="../../assets/font_bigger" />
+                    <img src="../../assets/font_bigger.svg" />
                 </v-touch>
             </div>
             <div class="setting-item">
                 <v-touch tag="span" @tap="smallLineSpacing">
-                    <img src="../../assets/line_spacing_small" />
+                    <img src="../../assets/line_spacing_small.svg" />
                 </v-touch>
                 <v-touch tag="span" @tap="normalLineSpacing">
-                    <img src="../../assets/line_spacing_normal" />
+                    <img src="../../assets/line_spacing_normal.svg" />
                 </v-touch>
                 <v-touch tag="span" @tap="bigLineSpacing">
-                    <img src="../../assets/line_spacing_big" />
+                    <img src="../../assets/line_spacing_big.svg" />
                 </v-touch>
             </div>
             <div class="setting-item">
@@ -53,7 +53,7 @@
                     <li></li>     
                 </ul>
             </div>
-        </div>
+        </div>-->
         <!--目录-->
         <div class="chapter-list" v-show="isShowChapter" v-scroll="onScroll">
             <div class="chapter-contents">
@@ -116,18 +116,17 @@ export default {
             });
         })
     },
-    beforeMount () {
-        Indicator.close();
-    },
-    updated () {
-        let scrollTop = readRecord ? readRecord[this.$route.params.bookId].readPos : 0;
-        if(this.firstLoad && scrollTop){
-            document.getElementById('container').scrollTop = scrollTop;
-        }else{
-            this.firstLoad = false;
-            document.getElementById('container').scrollTop = 0;
-        }
-    },
+    // mounted () {
+    //     debugger
+    //     let readRecord = util.getLocalStroageData('followBookList');
+    //     let scrollTop = readRecord ? readRecord[this.$route.params.bookId].readPos : 0;
+    //     if(this.firstLoad && scrollTop){
+    //         document.getElementById('container').scrollTop = scrollTop;
+    //     }else{
+    //         this.firstLoad = false;
+    //         document.getElementById('container').scrollTop = 0;
+    //     }
+    // },
     /**
      * watch 不知道是发生在updated之前还是之后
      */ 
@@ -136,9 +135,11 @@ export default {
     },
     methods: {
         getBookChapterContent() {
+            //不同源之间的章节数量不一样，当前阅读章节与源章节取小的，避免报错
+            let lastChapter = this.currentChapter >= this.bookChapter.chapters.length - 1 ? this.bookChapter.chapters.length - 1 : this.currentChapter;
             Indicator.open('加载中');
             //无论正序还是倒叙 当前章节字段都是 按正序的序号
-            api.getBookChapterContent(this.bookChapter.chapters[this.currentChapter].link).then(response => {
+            api.getBookChapterContent(this.bookChapter.chapters[lastChapter].link).then(response => {
                 /**
                  *  判断是否是正版源，如果是正版，给出换源提示
                  */
@@ -148,7 +149,9 @@ export default {
                     });
                 } else {
                     this.bookChaptersContent = response.data.chapter;
+                    document.getElementById('container').scrollTop = 0;
                 }
+                Indicator.close();
             }).catch(err => {
                 Indicator.close();
                 MessageBox.alert('加载失败，请重试').then(action => {

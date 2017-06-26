@@ -1,6 +1,6 @@
 <template>
     <div>
-        <mt-tab-container v-model="selected" :swipeable="true" :value="selected">
+        <mt-tab-container v-model="selected" :swipeable="false" :value="selected">
             <mt-tab-container-item id="书架">
                 <mt-header fixed :title="selected"></mt-header>
                 <Bookshelf class="tab-container" @addBook="changeSelected"></Bookshelf>
