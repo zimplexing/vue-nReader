@@ -17,7 +17,7 @@ export default {
     props: ['rankInfo'],
     computed: {
         imgUrl(){
-            return util.staticPath + this.rankInfo.cover
+            return util.staticPath + '/' + this.rankInfo.cover
         }
     },
     methods: {

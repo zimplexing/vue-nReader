@@ -2,7 +2,7 @@
  * @Author: zimplexing 
  * @Date: 2017-06-24 19:24:32 
  * @Last Modified by: zimplexing
- * @Last Modified time: 2017-06-24 21:21:54
+ * @Last Modified time: 2017-06-26 22:30:27
  */
 
 import _ from "lodash"
@@ -11,7 +11,7 @@ const localStroage = window.localStorage;
 
 export default {
 
-    staticPath: 'http://statics.zhuishushenqi.com/',
+    staticPath: 'http://statics.zhuishushenqi.com',
 
     /**
      * 获取localstroage的数据
@@ -30,11 +30,4 @@ export default {
         localStorage.setItem(item, JSON.stringify(obj));
     },
 
-    /**
-     * 转化img的url
-     * @param {String} url 
-     */
-    parseImgUrl(url){
-        return this.staticPath + url.indexOf('http') === -1 ? staticPath + url : url.slice(url.indexOf('http'))
-    }
 }

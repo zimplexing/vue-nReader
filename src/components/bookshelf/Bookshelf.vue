@@ -4,10 +4,12 @@
         <ul class="book-shelf" v-if="books.length">
             <v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
                 <v-touch class="book-list" @tap="readbook(book)">
-                    <img :src="book.cover" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'" />
-                    <div class="info">
-                        <p class="title">{{book.title}}</p>
-                        <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
+                    <div class="read-book-history">
+                        <img :src="book.cover" />
+                        <div class="info">
+                            <p class="title">{{book.title}}</p>
+                            <p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
+                        </div>
                     </div>
                     <v-touch class="del-book-btn" @tap="delBook($event,index)">删除</v-touch>
                 </v-touch>
@@ -61,9 +63,9 @@ export default {
             Indicator.open();
             api.getUpdate(this.getBookList()).then(response => {
                 localShelf = util.getLocalStroageData('followBookList');
-                response.data.forEach((book, index)=>{                 
+                response.data.forEach((book, index) => {
                     Object.assign(book, localShelf[book._id]);
-                    book.cover = util.parseImgUrl(book.cover);
+                    book.cover = util.staticPath + book.cover;
                     _that.books.push(book);
                 });
                 Indicator.close();
@@ -72,7 +74,7 @@ export default {
                 Indicator.close();
             })
         },
-        
+
         readbook(book) {
             this.$store.commit(SET_READ_BOOK, book);
             this.$store.commit(SET_CURRENT_SOURCE, book.source);
@@ -177,5 +179,9 @@ export default {
     width: 40vw;
     line-height: 5rem;
     text-align: center;
+}
+.read-book-history{
+    display: flex;
+    width: 100vw;
 }
 </style>

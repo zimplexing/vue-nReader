@@ -1,6 +1,6 @@
 <template>
   <li @click="getBook()">
-    <img :src="imgUrl" onerror="javascript:this.src='https://github.com/zimplexing/vue-nReader/blob/master/screenshot/errBook.png?raw=true'"/>
+    <img :src="imgUrl"/>
     <div class="book-info">
       <p class="book-title">{{book.title}}</p>
       <p class="book-author">{{book.author}} | {{book.cat}}</p>
@@ -16,7 +16,7 @@ import util from '@/utils/util'
     name: 'Bookslist',
     data() {
       return {
-        staticPath: 'http://statics.zhuishushenqi.com/'
+        
       }
     },
     props: ['book'],
@@ -25,7 +25,7 @@ import util from '@/utils/util'
         return (this.book.latelyFollower / 10000).toFixed(1);
       },
        imgUrl(){
-            return util.parseImgUrl(this.book.cover);
+            return util.staticPath + this.book.cover;
         }
     },
     methods: {

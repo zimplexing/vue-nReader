@@ -70,7 +70,7 @@ export default {
             return parseInt(this.book.wordCount / 10000, 10);
         },
         imgUrl() {
-            return util.parseImgUrl(this.book.cover);
+            return util.staticPath + this.book.cover;
         }
     },
     created() {
