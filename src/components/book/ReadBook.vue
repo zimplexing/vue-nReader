@@ -27,6 +27,34 @@
                 <span>目录</span>
             </v-touch>
         </div>
+        <!--阅读设置-->
+        <div class="read-setting">
+            <div class="setting-item">
+                <v-touch tag="span" @tap="increaseFont">
+                    <img src="../../assets/font_smaller" />
+                </v-touch>
+                <v-touch tag="span" @tap="decreaseFont">
+                    <img src="../../assets/font_bigger" />
+                </v-touch>
+            </div>
+            <div class="setting-item">
+                <v-touch tag="span" @tap="smallLineSpacing">
+                    <img src="../../assets/line_spacing_small" />
+                </v-touch>
+                <v-touch tag="span" @tap="normalLineSpacing">
+                    <img src="../../assets/line_spacing_normal" />
+                </v-touch>
+                <v-touch tag="span" @tap="bigLineSpacing">
+                    <img src="../../assets/line_spacing_big" />
+                </v-touch>
+            </div>
+            <div class="setting-item">
+                <ul class="bg-color">
+                    <li></li>     
+                </ul>
+            </div>
+        </div>
+        <!--目录-->
         <div class="chapter-list" v-show="isShowChapter" v-scroll="onScroll">
             <div class="chapter-contents">
                 <p>{{$store.state.bookInfo.title}}：目录</p>
@@ -66,19 +94,20 @@ export default {
     computed: {
         bookChaptersBody() {
             let content = this.bookChaptersContent && this.bookChaptersContent.cpContent ? 'cpContent' : 'body';
-            Indicator.close();
             return this.bookChaptersContent && this.bookChaptersContent[content].replace(/\n/g, '<br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
         }
     },
+    beforeCreate () {
+        Indicator.open('加载中');
+    },
     created() {
         let readRecord = util.getLocalStroageData('followBookList');
-        // let scrollTop = readRecord ? readRecord[this.$route.params.bookId].readPos : 0;
-        // this.firstLoad = true;
         api.getChapters(this.$store.state.source).then(response => {
             this.bookChapter = response.data;
             this.currentChapter = readRecord && readRecord[this.$route.params.bookId] && readRecord[this.$route.params.bookId].chapter ? readRecord[this.$route.params.bookId].chapter : 0;
             //默认取前50章节
             this.loadedChapters = this.bookChapter.chapters.slice(0, 50);
+            Indicator.close();
             this.getBookChapterContent();
         }).catch(err => {
             console.log(err);
@@ -87,13 +116,25 @@ export default {
             });
         })
     },
-    mounted() {
+    beforeMount () {
+        Indicator.close();
     },
+    updated () {
+        let scrollTop = readRecord ? readRecord[this.$route.params.bookId].readPos : 0;
+        if(this.firstLoad && scrollTop){
+            document.getElementById('container').scrollTop = scrollTop;
+        }else{
+            this.firstLoad = false;
+            document.getElementById('container').scrollTop = 0;
+        }
+    },
+    /**
+     * watch 不知道是发生在updated之前还是之后
+     */ 
     watch: {
         'currentChapter': 'getBookChapterContent'
     },
     methods: {
-        // todo 暂时获取一个章节内容，后续需要缓存3个章节左右
         getBookChapterContent() {
             Indicator.open('加载中');
             //无论正序还是倒叙 当前章节字段都是 按正序的序号
@@ -107,7 +148,6 @@ export default {
                     });
                 } else {
                     this.bookChaptersContent = response.data.chapter;
-                    document.getElementById('container').scrollTop = 0;
                 }
             }).catch(err => {
                 Indicator.close();
@@ -196,6 +236,19 @@ export default {
                 }
                 this.loadPages++;
             }
+        },
+        /***
+         * 增加字体
+         */ 
+        increaseFont(){
+            let articleElem = document.getElementsByTagName('article')[0];
+            articleElem.style.fontSize;
+        },
+        /**
+         * 减小字体
+         */ 
+        decreaseFont(){
+            let articleElem = document.getElementsByTagName('article')[0];
         }
     },
     /**
