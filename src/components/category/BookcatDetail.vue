@@ -7,11 +7,11 @@
         </mt-header>
         <div class="select">
             <ul class="select-bar">
-                <v-touch tag="li" v-for="(item, index) in types" :class="{active:majorActive}" :key="index" @tap="setType(item.type,$event)">{{item.name}}</v-touch>
+                <v-touch tag="li" v-for="(item, index) in types" :class="{'active': index === majorSelected}" :key="index" @tap="setType(item.type,index)">{{item.name}}</v-touch>
             </ul>
             <ul class="select-bar">
                 <li data-type="hot">全部</li>
-                <v-touch tag="li" v-if="mins" :class="{active:minorActive}" v-for="(minor, index) in mins" :key="index" @tap="setMinor(minor)">{{minor}}</v-touch>
+                <v-touch tag="li" v-if="mins" :class="{'active': index === minorSelected}" v-for="(minor, index) in mins" :key="index" @tap="setMinor(minor,index)">{{minor}}</v-touch>
             </ul>
         </div>
         <mt-loadmore class="loadmore" :top-method="loadTop" :bottom-method="loadBottom" :auto-fill="false" ref="loadmore">
@@ -19,7 +19,6 @@
                 <Booklist v-for="book in books" :book="book" :key="book._id"></Booklist>
             </ul>
         </mt-loadmore>
-    
     </div>
 </template>
 <script>
@@ -41,8 +40,8 @@ export default {
             major: '',
             minor: '',
             mins: null,
-            majorActive: false,
-            minorActive: false,
+            majorSelected: 0,
+            minorSelected: 0,
             currentPage: 1,
             allLoaded: false,
             types: [{
@@ -82,8 +81,8 @@ export default {
         /**
          * 选择大类分类
          */
-        setType(type, $event) {
-            // this.majorActive = true;
+        setType(type, index) {
+            this.majorSelected = index;
             this.type = type;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
         },
@@ -91,7 +90,8 @@ export default {
         /**
          * 选择子类分类
          */
-        setMinor(minor, $event) {
+        setMinor(minor, index) {
+            this.minorSelected = index;
             this.minor = minor;
             this.getNovelListByCat(this.gender, this.type, this.major, this.minor);
         },
