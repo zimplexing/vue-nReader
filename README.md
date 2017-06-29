@@ -4,7 +4,7 @@
 
 整个项目一共14个页面（包括通用组件），主要使用了vue2.0+vue-router+vuex，主要实现了小说排行榜，小说分类，小说详情，小说阅读，搜索页面，小说阅读记录等页面。达到了可用来看小说的基本需求。
 
-项目中的API均来自追书神器，纯属共享学习之用，有任何疑问或建议可提[issue](https://github.com/zimplexing/vue-nReader/issues/new)或联系[zhangx_0728@gmail.com](mailto://zhangx_0728@gmail.com)，使用代理，本地可以完美运行。
+项目中的API均来自追书神器，纯属共享学习之用，有任何疑问或建议可提[issue](https://github.com/zimplexing/vue-nReader/issues/new)，使用代理，本地可以完美运行。
 
 [API文档](https://github.com/zimplexing/vue-nReader/blob/master/doc/zhuishushenqi.md)
 
@@ -72,7 +72,7 @@ npm run build
     - 设置属性`flex-shrink:0`，默认下该属性值为1，空间不够时，后等比例缩小，设置为0之后，不会缩小项目
 
 - [x] 标签选中后active样式的添加
-    - 使用:class 判断条件为点击当前标签的索引值
+    - 使用`:class` 判断条件为点击当前标签的索引值
 
 - [x] 同时绑定按键修饰符（keyup事件但不包括按键enter）
     - 监听`input`事件，绑定`keyup.enter`事件
