@@ -13,32 +13,31 @@
 <script>
 import util from '@/utils/util'
 export default {
-	name: 'Bookslist',
-	data() {
-		return {
+  name: 'Bookslist',
+  data () {
+    return {
 
-		}
-	},
-	props: ['book'],
-	computed: {
-		latelyFollower() {
-			return (this.book.latelyFollower / 10000).toFixed(1)
-		},
-		imgUrl() {
-			return util.staticPath + this.book.cover
-		}
-	},
-	methods: {
-		getBook() {
-			// 只记录从不是搜索结果中进入书本详情的路径，不然会出现死循环
-			// if(this.$route.path.indexOf('/search') === -1){
-			//     this.$store.commit('setPrePath', this.$route.fullPath);
-			// } 
-			this.$router.push('/book/' + this.book._id)
-		}
-	}
+    }
+  },
+  props: ['book'],
+  computed: {
+    latelyFollower () {
+      return (this.book.latelyFollower / 10000).toFixed(1)
+    },
+    imgUrl () {
+      return util.staticPath + this.book.cover
+    }
+  },
+  methods: {
+    getBook () {
+      // 只记录从不是搜索结果中进入书本详情的路径，不然会出现死循环
+      // if(this.$route.path.indexOf('/search') === -1){
+      //     this.$store.commit('setPrePath', this.$route.fullPath);
+      // } 
+      this.$router.push('/book/' + this.book._id)
+    }
+  }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

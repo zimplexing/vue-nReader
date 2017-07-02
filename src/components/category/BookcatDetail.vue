@@ -28,121 +28,121 @@ import { SET_BACK_POSITION } from '@/store/mutationsType'
 import { Indicator } from 'mint-ui'
 
 export default {
-	name: 'BookcatDetail',
-	components: {
-		Booklist
-	},
-	data() {
-		return {
-			books: null,
-			type: 'hot',
-			gender: '',
-			major: '',
-			minor: '',
-			mins: null,
-			majorSelected: 0,
-			minorSelected: 0,
-			currentPage: 1,
-			allLoaded: false,
-			types: [{
-				type: 'hot',
-				name: '热门'
-			}, {
-				type: 'new',
-				name: '新书'
-			}, {
-				type: 'reputation',
-				name: '好评'
-			}, {
-				type: 'over',
-				name: '完结'
-			}, {
-				type: 'monthly',
-				name: '包月'
-			}]
-		}
-	},
+  name: 'BookcatDetail',
+  components: {
+    Booklist
+  },
+  data () {
+    return {
+      books: null,
+      type: 'hot',
+      gender: '',
+      major: '',
+      minor: '',
+      mins: null,
+      majorSelected: 0,
+      minorSelected: 0,
+      currentPage: 1,
+      allLoaded: false,
+      types: [{
+        type: 'hot',
+        name: '热门'
+      }, {
+        type: 'new',
+        name: '新书'
+      }, {
+        type: 'reputation',
+        name: '好评'
+      }, {
+        type: 'over',
+        name: '完结'
+      }, {
+        type: 'monthly',
+        name: '包月'
+      }]
+    }
+  },
 
-	methods: {
-		/**
+  methods: {
+    /**
          * 根据筛选分类获取结果
          */
-		//todo 入参需要优化
-		getNovelListByCat(gender, type, major, minor) {
-			Indicator.open('加载中')
-			api.getNovelListByCat(gender, type, major, minor).then(response => {
-				Indicator.close()
-				this.books = response.data.books
-			}).catch(err => {
-				console.log(err)
-			})
-		},
+    // todo 入参需要优化
+    getNovelListByCat (gender, type, major, minor) {
+      Indicator.open('加载中')
+      api.getNovelListByCat(gender, type, major, minor).then(response => {
+        Indicator.close()
+        this.books = response.data.books
+      }).catch(err => {
+        console.log(err)
+      })
+    },
 
-		/**
+    /**
          * 选择大类分类
          */
-		setType(type, index) {
-			this.majorSelected = index
-			this.type = type
-			this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
-		},
+    setType (type, index) {
+      this.majorSelected = index
+      this.type = type
+      this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
+    },
 
-		/**
+    /**
          * 选择子类分类
          */
-		setMinor(minor, index) {
-			this.minorSelected = index
-			this.minor = minor
-			this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
-		},
+    setMinor (minor, index) {
+      this.minorSelected = index
+      this.minor = minor
+      this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
+    },
 
-		/**
+    /**
          * 下拉刷新 
          */
-		loadTop() {
-			// 加载更多数据
-			this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
-			this.$refs.loadmore.onTopLoaded()
-		},
+    loadTop () {
+      // 加载更多数据
+      this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
+      this.$refs.loadmore.onTopLoaded()
+    },
 
-		/**
+    /**
          * 加载更多
          */
-		loadBottom() {
-			// 加载更多数据
-			let that = this
-			Indicator.open('加载中')
-			api.getNovelListByCat(this.gender, this.type, this.major, this.minor, this.currentPage * 20).then(response => {
-				that.books = [...that.books, ...response.data.books]
-				that.currentPage++
-				Indicator.close()
-			}).catch(err => {
-				console.log(err)
-			})
-			this.$refs.loadmore.onBottomLoaded()
-		}
-	},
+    loadBottom () {
+      // 加载更多数据
+      let that = this
+      Indicator.open('加载中')
+      api.getNovelListByCat(this.gender, this.type, this.major, this.minor, this.currentPage * 20).then(response => {
+        that.books = [...that.books, ...response.data.books]
+        that.currentPage++
+        Indicator.close()
+      }).catch(err => {
+        console.log(err)
+      })
+      this.$refs.loadmore.onBottomLoaded()
+    }
+  },
 
-	beforeRouteEnter(to, from, next) {
-		next(vm => {
-			vm.major = vm.$route.query.major
-			vm.gender = vm.$route.query.gender
-			/**
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.major = vm.$route.query.major
+      vm.gender = vm.$route.query.gender
+      /**
              * 获取大分类中的小类别
              */
-			api.getCategoryDetail().then(response => {
-				response.data[vm.$route.query.gender].forEach((type) => {
-					if (type.major === vm.$route.query.major) {
-						vm.mins = type.mins
-					}
-				})
-			}).catch(err => {
-				console.log(err)
-			})
-			vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major)
-			vm.$store.commit(SET_BACK_POSITION, '分类')
-		})
-	},
+      api.getCategoryDetail().then(response => {
+        response.data[vm.$route.query.gender].forEach((type) => {
+          if (type.major === vm.$route.query.major) {
+            vm.mins = type.mins
+          }
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+      vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major)
+      vm.$store.commit(SET_BACK_POSITION, '分类')
+    })
+  }
 }
 </script>
 <style scoped>

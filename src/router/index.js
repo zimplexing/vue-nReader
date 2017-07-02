@@ -12,37 +12,37 @@ const BookcatDetail = resolve => require(['@/components/category/BookcatDetail']
 const ChangeSource = resolve => require(['@/components/book/ChangeSource'], resolve)
 
 export default new Router({
-	routes: [
-		{
-			path: '/',
-			name: 'home',
-			component: Home,
-		}, {
-			path: '/bookcat/detail',
-			name: 'bookcatDetail',
-			component: BookcatDetail
-		}, {
-			path: '/readbook/:bookId',
-			name: 'readbook',
-			component: ReadBook
-		}, {
-			path: '/book/:bookId',
-			name: 'book',
-			component: Book
-		}, {
-			path: '/changeSource/:bookId',
-			name: 'changeSource',
-			component: ChangeSource
-		}, {
-			path: '/ranklist',
-			name: 'ranklist',
-			redirect: '/ranklist/weekRank',
-			component: Ranklist,
-			children: [{
-				path: '/ranklist/*',
-				name: 'RanklistDetail',
-				component: RanklistDetail
-			}]
-		}
-	]
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    }, {
+      path: '/bookcat/detail',
+      name: 'bookcatDetail',
+      component: BookcatDetail
+    }, {
+      path: '/readbook/:bookId',
+      name: 'readbook',
+      component: ReadBook
+    }, {
+      path: '/book/:bookId',
+      name: 'book',
+      component: Book
+    }, {
+      path: '/changeSource/:bookId',
+      name: 'changeSource',
+      component: ChangeSource
+    }, {
+      path: '/ranklist',
+      name: 'ranklist',
+      redirect: '/ranklist/weekRank',
+      component: Ranklist,
+      children: [{
+        path: '/ranklist/*',
+        name: 'RanklistDetail',
+        component: RanklistDetail
+      }]
+    }
+  ]
 })

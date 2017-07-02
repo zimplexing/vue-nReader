@@ -12,29 +12,31 @@ import vuescroll from 'vue-scroll'
 
 Vue.use(vuescroll)
 VueTouch.config.swipe = {
-	direction: 'horizontal'
+  direction: 'horizontal'
 }
 
-Vue.use(VueTouch, { name: 'v-touch' })
+Vue.use(VueTouch, {
+  name: 'v-touch'
+})
 Vue.use(MintUI)
 Vue.config.productionTip = false
 Vue.use(Ajax, {
-	baseURL: 'http://35.189.165.140:3000/'
+  baseURL: 'http://35.189.165.140:3000/'
 })
 
 /* eslint-disable no-new */
 new Vue({
-	el: '#app',
-	router,
-	store,
-	template: '<App/>',
-	components: {
-		App
-	}
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: {
+    App
+  }
 })
 
-//Disable context menu
+// Disable context menu
 document.addEventListener('contextmenu', event => {
-	event.preventDefault()
-	event.stopPropagation()
+  event.preventDefault()
+  event.stopPropagation()
 })

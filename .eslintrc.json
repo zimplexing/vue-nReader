@@ -1,59 +1,6 @@
 {
-	"env": {
-		"browser": true,
-		"commonjs": true,
-		"es6": true
-	},
-	"extends": "eslint:recommended",
-	"parserOptions": {
-		"sourceType": "module"
-	},
-	"plugins": [
-		"html"
-	],
-	"rules": {
-		/**
-		 * 0代码错误不提示、1代表警告提醒但不影响现有编译、2会抛出错误
-		 */
-		//空格缩进方式
-		"indent": [
-			2,
-			"tab"
-		],
-		//断行类型
-		"linebreak-style": [
-			0,
-			"unix"
-		],
-		//使用字符串使用单引号
-		"quotes": [
-			2,
-			"single"
-		],
-		// 句末不加分号
-		"semi": [
-			2,
-			"never"
-		],
-		"no-console": 0,
-		"no-alert": 1, //禁止使用alert confirm prompt
-		"no-debugger": 2, //禁止使用debugger
-		"no-eq-null": 2, //禁止对null使用==或!=运算符
-		"no-unused-vars": [
-			2,
-			{
-				"vars": "all",
-				"args": "after-used"
-			}
-		], //不能有声明后未被使用的变量或参数
-		"no-var": 2, //禁用var，用let和const代替
-		"consistent-this": [
-			2,
-			"that"
-		], //this别名
-		"default-case": 2, //switch语句最后必须有default
-		"eqeqeq": 2, //必须使用全等
-		"camelcase": 2, //强制驼峰法命名
-		"valid-typeof": 2 //必须使用合法的typeof的值
-	}
+    "extends": "standard",
+    "plugins": [
+        "html"
+    ]
 }

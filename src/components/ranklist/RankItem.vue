@@ -8,25 +8,25 @@
 <script>
 import util from '@/utils/util'
 export default {
-	name: 'RankItem',
-	data() {
-		return {
+  name: 'RankItem',
+  data () {
+    return {
 
-		}
-	},
-	props: ['rankInfo'],
-	computed: {
-		imgUrl() {
-			return util.staticPath + '/' + this.rankInfo.cover
-		}
-	},
-	methods: {
-		showRankList() {
-			//设置全局store
-			this.$store.commit('SET_RANK', this.rankInfo)
-			this.$router.push({ path: '/ranklist' })
-		}
-	}
+    }
+  },
+  props: ['rankInfo'],
+  computed: {
+    imgUrl () {
+      return util.staticPath + '/' + this.rankInfo.cover
+    }
+  },
+  methods: {
+    showRankList () {
+      // 设置全局store
+      this.$store.commit('SET_RANK', this.rankInfo)
+      this.$router.push({ path: '/ranklist' })
+    }
+  }
 }
 </script>
 

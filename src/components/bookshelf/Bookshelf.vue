@@ -27,86 +27,86 @@ import { Indicator } from 'mint-ui'
 
 moment.locale('zh-cn')
 export default {
-	name: 'Bookshelf',
-	data() {
-		return {
-			books: [],
-		}
-	},
-	filters: {
-		/**
+  name: 'Bookshelf',
+  data () {
+    return {
+      books: []
+    }
+  },
+  filters: {
+    /**
          * 使用moment格式化时间
          */
-		ago(time) {
-			return moment(time).fromNow()
-		}
-	},
-	created() {
-		this.getBookUpdate()
-	},
-	methods: {
-		/**
+    ago (time) {
+      return moment(time).fromNow()
+    }
+  },
+  created () {
+    this.getBookUpdate()
+  },
+  methods: {
+    /**
          * 返回追更新的书本id
          */
-		getBookList() {
-			let localShelf = util.getLocalStroageData('followBookList')
-			let bookListArray = []
-			for (let bookId in localShelf) {
-				bookListArray.push(bookId)
-			}
-			return bookListArray
-		},
+    getBookList () {
+      let localShelf = util.getLocalStroageData('followBookList')
+      let bookListArray = []
+      for (let bookId in localShelf) {
+        bookListArray.push(bookId)
+      }
+      return bookListArray
+    },
 
-		getBookUpdate() {
-			let localShelf,
-				that = this
-			Indicator.open()
-			api.getUpdate(this.getBookList()).then(response => {
-				localShelf = util.getLocalStroageData('followBookList')
-				response.data.forEach((book) => {
-					Object.assign(book, localShelf[book._id])
-					book.cover = util.staticPath + book.cover
-					that.books.push(book)
-				})
-				Indicator.close()
-			}).catch(err => {
-				console.log(err)
-				Indicator.close()
-			})
-		},
+    getBookUpdate () {
+      let localShelf,
+        that = this
+      Indicator.open()
+      api.getUpdate(this.getBookList()).then(response => {
+        localShelf = util.getLocalStroageData('followBookList')
+        response.data.forEach((book) => {
+          Object.assign(book, localShelf[book._id])
+          book.cover = util.staticPath + book.cover
+          that.books.push(book)
+        })
+        Indicator.close()
+      }).catch(err => {
+        console.log(err)
+        Indicator.close()
+      })
+    },
 
-		readbook(book) {
-			this.$store.commit(SET_READ_BOOK, book)
-			this.$store.commit(SET_CURRENT_SOURCE, book.source)
-			this.$router.push('/readbook/' + book._id)
-		},
+    readbook (book) {
+      this.$store.commit(SET_READ_BOOK, book)
+      this.$store.commit(SET_CURRENT_SOURCE, book.source)
+      this.$router.push('/readbook/' + book._id)
+    },
 
-		showDelBookBtn(e) {
-			let target = e.target.parentElement
-			while (target.className !== 'book-list') {
-				target = target.parentElement
-			}
-			target.style.left = '-44vw'
-		},
+    showDelBookBtn (e) {
+      let target = e.target.parentElement
+      while (target.className !== 'book-list') {
+        target = target.parentElement
+      }
+      target.style.left = '-44vw'
+    },
 
-		hideDelBookBtn(e) {
-			let target = e.target.parentElement
-			while (target.className !== 'book-list') {
-				target = target.parentElement
-			}
-			target.style.left = '0'
-		},
+    hideDelBookBtn (e) {
+      let target = e.target.parentElement
+      while (target.className !== 'book-list') {
+        target = target.parentElement
+      }
+      target.style.left = '0'
+    },
 
-		delBook($event, index) {
-			let storage = window.localStorage
-			let localShelf = JSON.parse(storage.getItem('followBookList')) ? JSON.parse(storage.getItem('followBookList')) : {}
-			//删除该书籍在本地的缓存记录
-			delete localShelf[this.books[index]._id]
-			this.books.splice(index, 1)
-			//重新保存
-			storage.setItem('followBookList', JSON.stringify(localShelf))
-		}
-	}
+    delBook ($event, index) {
+      let storage = window.localStorage
+      let localShelf = JSON.parse(storage.getItem('followBookList')) ? JSON.parse(storage.getItem('followBookList')) : {}
+      // 删除该书籍在本地的缓存记录
+      delete localShelf[this.books[index]._id]
+      this.books.splice(index, 1)
+      // 重新保存
+      storage.setItem('followBookList', JSON.stringify(localShelf))
+    }
+  }
 }
 </script>
 

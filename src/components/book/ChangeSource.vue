@@ -15,33 +15,33 @@ import { Indicator } from 'mint-ui'
 import { SET_CURRENT_SOURCE } from '@/store/mutationsType'
 
 export default {
-	name: 'changeSource',
-	data() {
-		return {
-			source: [],
-			value: ''
-		}
-	},
-	watch: {
-		'value': function () {
-			this.$store.commit(SET_CURRENT_SOURCE, this.value)
-		}
-	},
-	created() {
-		Indicator.open()
-		api.getMixSource(this.$route.params.bookId).then(response => {
-			response.data.forEach((source) => {
-				this.source.push({
-					label: source.name,
-					value: source._id
-				})
-			})
-			this.value = this.$store.state.source
-			Indicator.close()
-		}).catch(err => {
-			console.log(err)
-		})
-	}
+  name: 'changeSource',
+  data () {
+    return {
+      source: [],
+      value: ''
+    }
+  },
+  watch: {
+    'value': function () {
+      this.$store.commit(SET_CURRENT_SOURCE, this.value)
+    }
+  },
+  created () {
+    Indicator.open()
+    api.getMixSource(this.$route.params.bookId).then(response => {
+      response.data.forEach((source) => {
+        this.source.push({
+          label: source.name,
+          value: source._id
+        })
+      })
+      this.value = this.$store.state.source
+      Indicator.close()
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 }
 </script>
 <style scope>

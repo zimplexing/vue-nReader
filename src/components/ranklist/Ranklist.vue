@@ -19,20 +19,20 @@
 import { SET_BACK_POSITION } from '@/store/mutationsType'
 
 export default {
-	name: 'Ranklist',
-	data() {
-		return {
-		}
-	},
-	computed: {
-		headTitle() {
-			return this.$store.state.headTitle
-		}
-	},
-	beforeRouteLeave(to, from, next) {
-		this.$store.commit(SET_BACK_POSITION, '排行')
-		next()
-	}
+  name: 'Ranklist',
+  data () {
+    return {
+    }
+  },
+  computed: {
+    headTitle () {
+      return this.$store.state.headTitle
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.commit(SET_BACK_POSITION, '排行')
+    next()
+  }
 }
 </script>
 

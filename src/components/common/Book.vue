@@ -49,108 +49,104 @@ import api from '@/api/api'
 import moment from 'moment'
 import util from '@/utils/util'
 import {
-	Indicator
+  Indicator
 } from 'mint-ui'
 import {
-	SET_CURRENT_SOURCE,
-	SET_READ_BOOK
+  SET_CURRENT_SOURCE,
+  SET_READ_BOOK
 } from '@/store/mutationsType'
 
 moment.locale('zh-cn')
 export default {
-	name: 'Book',
-	data() {
-		return {
-			book: null,
-			isFollowed: false,
-			backStep: -1
-		}
-	},
-	filters: {
-		ago(time) {
-			return moment(time).fromNow()
-		}
-	},
-	computed: {
-		wordCount() {
-			return parseInt(this.book.wordCount / 10000, 10)
-		},
-		imgUrl() {
-			return util.staticPath + this.book.cover
-		}
-	},
-	created() {
-		Indicator.open()
-		/**
-		 * 获取小说详情
-		 */
-		api.getBook(this.$route.params.bookId).then(response => {
-			this.book = response.data
-			this.isFollowBook()
-			Indicator.close()
-		}, err => {
-			console.log(err)
-		})
-		/**
+  name: 'Book',
+  data () {
+    return {
+      book: null,
+      isFollowed: false,
+      backStep: -1
+    }
+  },
+  filters: {
+    ago (time) {
+      return moment(time).fromNow()
+    }
+  },
+  computed: {
+    wordCount () {
+      return parseInt(this.book.wordCount / 10000, 10)
+    },
+    imgUrl () {
+      return util.staticPath + this.book.cover
+    }
+  },
+  created () {
+    Indicator.open()
+    // 获取小说详情
+    api.getBook(this.$route.params.bookId).then(response => {
+      this.book = response.data
+      this.isFollowBook()
+      Indicator.close()
+    }, err => {
+      console.log(err)
+    })
+    /**
 		 * 设置默认小说源为优质书源
 		 */
-		if (!this.$store.state.source) {
-			api.getMixSource(this.$route.params.bookId).then(response => {
-				this.$store.commit(SET_CURRENT_SOURCE, response.data[0]._id)
-			}).catch(err => {
-				console.log(err)
-			})
-		}
-	},
-	beforeRouteEnter(to, form, next) {
-		next(vm => {
-			vm.backStep = form.path.indexOf('readbook') !== -1 ? -3 : -1
-		})
-	},
-	beforeRouteLeave(to, from, next) {
-		/**
+    if (!this.$store.state.source) {
+      api.getMixSource(this.$route.params.bookId).then(response => {
+        this.$store.commit(SET_CURRENT_SOURCE, response.data[0]._id)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  beforeRouteEnter (to, form, next) {
+    next(vm => {
+      vm.backStep = form.path.indexOf('readbook') !== -1 ? -3 : -1
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    /**
 		 *  页面离开需要清除source 除了去阅读页面和换源页面
 		 */
-		if (to.path.indexOf('changeSource') !== -1 || to.path.indexOf('readbook') !== -1) {
-			next()
-		} else {
-			this.$store.commit(SET_CURRENT_SOURCE, '')
-			next()
-		}
-
-	},
-	methods: {
-		readBook() {
-			this.$store.commit(SET_READ_BOOK, this.book)
-			this.$router.push('/readbook/' + this.$route.params.bookId)
-		},
-		isFollowBook() {
-			//返回本地是否缓存（加入书架）
-			let localShelf = util.getLocalStroageData('followBookList')
-			this.isFollowed = localShelf && localShelf[this.book._id] ? true : false
-		},
-		followAction() {
-			let localShelf = util.getLocalStroageData('followBookList') ? util.getLocalStroageData('followBookList') : {}
-			if (this.isFollowed) {
-				//删除该书籍在本地的缓存记录
-				delete localShelf[this.book._id]
-				//重新保存
-				util.setLocalStroageData('followBookList', localShelf)
-				this.isFollowed = !this.isFollowed
-			} else {
-				// 以bookId为键值，方便后续删除等操作
-				localShelf[this.book._id] = {
-					cover: this.book.cover,
-					title: this.book.title,
-					source: this.$store.state.source
-				}
-				util.setLocalStroageData('followBookList', localShelf)
-				this.isFollowed = !this.isFollowed
-			}
-		},
-	}
+    if (to.path.indexOf('changeSource') !== -1 || to.path.indexOf('readbook') !== -1) {
+      next()
+    } else {
+      this.$store.commit(SET_CURRENT_SOURCE, '')
+      next()
+    }
+  },
+  methods: {
+    readBook () {
+      this.$store.commit(SET_READ_BOOK, this.book)
+      this.$router.push('/readbook/' + this.$route.params.bookId)
+    },
+    isFollowBook () {
+      // 返回本地是否缓存（加入书架）
+      let localShelf = util.getLocalStroageData('followBookList')
+      this.isFollowed = !!(localShelf && localShelf[this.book._id])
+    },
+    followAction () {
+      let localShelf = util.getLocalStroageData('followBookList') ? util.getLocalStroageData('followBookList') : {}
+      if (this.isFollowed) {
+        // 删除该书籍在本地的缓存记录
+        delete localShelf[this.book._id]
+        // 重新保存
+        util.setLocalStroageData('followBookList', localShelf)
+        this.isFollowed = !this.isFollowed
+      } else {
+        // 以bookId为键值，方便后续删除等操作
+        localShelf[this.book._id] = {
+          cover: this.book.cover,
+          title: this.book.title,
+          source: this.$store.state.source
+        }
+        util.setLocalStroageData('followBookList', localShelf)
+        this.isFollowed = !this.isFollowed
+      }
+    }
+  }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

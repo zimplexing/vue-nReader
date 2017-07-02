@@ -15,27 +15,26 @@
 import api from '@/api/api'
 
 export default {
-	name: 'Booklcat',
-	data() {
-		return {
-			category: null,
-			categoryType: {
-				male: '男生',
-				female: '女生',
-				press: '出版'
-			},
-		}
-	},
-	created() {
-		api.getCategory().then(response => {
-			this.category = response.data
-			this.loading = false
-		}).catch(err => {
-			console.log(err)
-		})
-	}
+  name: 'Booklcat',
+  data () {
+    return {
+      category: null,
+      categoryType: {
+        male: '男生',
+        female: '女生',
+        press: '出版'
+      }
+    }
+  },
+  created () {
+    api.getCategory().then(response => {
+      this.category = response.data
+      this.loading = false
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 }
-
 </script>
 <style scoped>
 ul {

@@ -45,28 +45,27 @@ import Ranklist from './ranklist/Rank'
 import Search from './search/Search'
 
 export default {
-	name: 'home',
-	components: {
-		Bookshelf,
-		Bookcategory,
-		Ranklist,
-		Search
-	},
-	data() {
-		return {
-			selected: '书架',
-		}
-	},
-	methods: {
-		changeSelected(data) {
-			this.selected = data
-		}
-	},
-	mounted() {
-		this.selected = this.$store.state.previousPosition
-	}
+  name: 'home',
+  components: {
+    Bookshelf,
+    Bookcategory,
+    Ranklist,
+    Search
+  },
+  data () {
+    return {
+      selected: '书架'
+    }
+  },
+  methods: {
+    changeSelected (data) {
+      this.selected = data
+    }
+  },
+  mounted () {
+    this.selected = this.$store.state.previousPosition
+  }
 }
-
 </script>
 
 <style scoped>

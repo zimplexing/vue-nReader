@@ -46,44 +46,43 @@
 	</div>
 </template>
 <script>
-
 import RankItem from './RankItem'
 import api from '@/api/api'
 export default {
-	name: 'Rank',
-	components: {
-		RankItem
-	},
-	data() {
-		return {
-			ranklist: {},
-			maleOtherRankIsShow: false,
-			femaleOtherRankIsShow: false,
-		}
-	},
-	created() {
-		api.getRankType().then(response => {
-			this.ranklist = response.data
-		}).catch(err => {
-			console.log(err)
-		})
-	},
-	methods: {
-		showMoreMaleRank() {
-			this.maleOtherRankIsShow = !this.maleOtherRankIsShow
-		},
-		showMoreFemaleRank() {
-			this.femaleOtherRankIsShow = !this.femaleOtherRankIsShow
-		},
-		changeHeadText() {
-			this.$store.commit('setHeadText', '排行榜')
-		}
-	},
-	beforeRouteEnter(to, from, next) {
-		next(vm => {
-			vm.changeHeadText()
-		})
-	}
+  name: 'Rank',
+  components: {
+    RankItem
+  },
+  data () {
+    return {
+      ranklist: {},
+      maleOtherRankIsShow: false,
+      femaleOtherRankIsShow: false
+    }
+  },
+  created () {
+    api.getRankType().then(response => {
+      this.ranklist = response.data
+    }).catch(err => {
+      console.log(err)
+    })
+  },
+  methods: {
+    showMoreMaleRank () {
+      this.maleOtherRankIsShow = !this.maleOtherRankIsShow
+    },
+    showMoreFemaleRank () {
+      this.femaleOtherRankIsShow = !this.femaleOtherRankIsShow
+    },
+    changeHeadText () {
+      this.$store.commit('setHeadText', '排行榜')
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.changeHeadText()
+    })
+  }
 }
 </script>
 
