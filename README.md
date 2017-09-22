@@ -1,3 +1,4 @@
+[![DeepScan Grade](https://deepscan.io/api/projects/479/branches/739/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=479&bid=739)
 # vue-nReader
 
 使用`mint-ui`对整个项目进行了重构，整理了项目的目录结构与代码，较上个版本新增了`小说换源`、`搜索历史记录`、优化了`滚动下载`和`下拉刷新`
