@@ -11,12 +11,12 @@
 
 [本地运行代理](https://gist.github.com/zimplexing/c7c1f15ea3f270de3962fc0ab466d82e)
 
-## 本地运行 
+## 本地运行
 
 使用vue-cli工具构建，基本命令如下：
 ``` bash
 # 安装依赖
-npm install 
+npm install
 
 # 开发模式
 npm run dev
@@ -30,7 +30,7 @@ npm run build
 
 
 电脑端请开启开发者模式
-[在线预览地址](http://35.189.165.140:8080/)
+[在线预览地址](http://65.49.197.99:32771)
 
 手机扫码：
 ![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nReader.png?raw=true)
@@ -52,7 +52,7 @@ npm run build
 
 - [ ] 增加发现页面
 
-- [ ] 社区评论功能 
+- [ ] 社区评论功能
 
 - [ ] 组件切换动效
 
@@ -62,7 +62,7 @@ npm run build
 
 ## 屏幕截图
 
-<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/> 
+<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/bookshelf.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catory.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rank.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/catDetail.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/rankType.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/search.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/book.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/readbook.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nightMode.png?raw=true" width="280"/> <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/chapter.png?raw=true" width="280"/>
 
 ## 问题
 记录在项目中遇到的一些问题，和解决方法

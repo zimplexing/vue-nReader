@@ -13,7 +13,7 @@ http://http://chapterup.zhuishushenqi.com/chapter
 由于官方`api`地址没有进行CROS处理,所以调用时会存在跨域问题,这里提供了一个代理地址:
 
 ```JavaScript
-http://35.189.165.140:3000
+http://65.49.197.99/:3000
 ```
 
 有能力的童鞋可以自己搭一个代理,对请求进行转发.
