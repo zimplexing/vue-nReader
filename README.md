@@ -33,7 +33,7 @@ npm run build
 [在线预览地址](http://65.49.197.99:32788/)
 
 手机扫码：
-![](https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nReader.png?raw=true)
+<img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nReader.png?raw=true" width="100"/>
 
 ## 实现功能
 
