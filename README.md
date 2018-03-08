@@ -30,7 +30,7 @@ npm run build
 
 
 电脑端请开启开发者模式
-[在线预览地址](http://65.49.197.99:32788/)
+[在线预览地址](http://65.49.197.99:32768/)
 
 手机扫码：
 <img src="https://github.com/zimplexing/vue-nReader/blob/master/screenshot/nReader.png?raw=true" width="100"/>
