@@ -1,6 +1,12 @@
 {
-    "extends": "standard",
+    "extends": [
+        "standard",
+        "plugin:vue/strongly-recommended"
+    ],
     "plugins": [
-        "html"
-    ]
+        "vue"
+    ],
+    "rules": {
+        "one-var": "off"
+    }
 }

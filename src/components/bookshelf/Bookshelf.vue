@@ -1,21 +1,37 @@
 <template>
-	<div>
-		<mt-button type="primary" class="add-book" v-if="!books.length" @click="$emit('addBook','分类')">添加小说</mt-button>
-		<ul class="book-shelf" v-if="books.length">
-			<v-touch tag="li" class="book-list-wrap" v-for="(book, index) in books" :key="index" @swipeleft="showDelBookBtn" @swiperight="hideDelBookBtn">
-				<v-touch class="book-list" @tap="readbook(book)">
-					<div class="read-book-history">
-						<img :src="book.cover">
-						<div class="info">
-							<p class="title">{{book.title}}</p>
-							<p class="updated">{{book.updated | ago}}：{{book.lastChapter}}</p>
-						</div>
-					</div>
-					<v-touch class="del-book-btn" @tap="delBook($event,index)">删除</v-touch>
-				</v-touch>
-			</v-touch>
-		</ul>
-	</div>
+  <div>
+    <mt-button
+      type="primary"
+      class="add-book"
+      v-if="!books.length"
+      @click="$emit('addBook','分类')">添加小说</mt-button>
+    <ul
+      class="book-shelf"
+      v-if="books.length">
+      <v-touch
+        tag="li"
+        class="book-list-wrap"
+        v-for="(book, index) in books"
+        :key="index"
+        @swipeleft="showDelBookBtn"
+        @swiperight="hideDelBookBtn">
+        <v-touch
+          class="book-list"
+          @tap="readbook(book)">
+          <div class="read-book-history">
+            <img :src="book.cover">
+            <div class="info">
+              <p class="title">{{ book.title }}</p>
+              <p class="updated">{{ book.updated | ago }}：{{ book.lastChapter }}</p>
+            </div>
+          </div>
+          <v-touch
+            class="del-book-btn"
+            @tap="delBook($event,index)">删除</v-touch>
+        </v-touch>
+      </v-touch>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -35,8 +51,8 @@ export default {
   },
   filters: {
     /**
-         * 使用moment格式化时间
-         */
+     * 使用moment格式化时间
+     */
     ago (time) {
       return moment(time).fromNow()
     }
@@ -46,8 +62,8 @@ export default {
   },
   methods: {
     /**
-         * 返回追更新的书本id
-         */
+     * 返回追更新的书本id
+     */
     getBookList () {
       let localShelf = util.getLocalStroageData('followBookList')
       let bookListArray = []
@@ -61,18 +77,21 @@ export default {
       let localShelf,
         that = this
       Indicator.open()
-      api.getUpdate(this.getBookList()).then(response => {
-        localShelf = util.getLocalStroageData('followBookList')
-        response.data.forEach((book) => {
-          Object.assign(book, localShelf[book._id])
-          book.cover = util.staticPath + book.cover
-          that.books.push(book)
+      api
+        .getUpdate(this.getBookList())
+        .then(response => {
+          localShelf = util.getLocalStroageData('followBookList')
+          response.data.forEach(book => {
+            Object.assign(book, localShelf[book._id])
+            book.cover = util.staticPath + book.cover
+            that.books.push(book)
+          })
+          Indicator.close()
         })
-        Indicator.close()
-      }).catch(err => {
-        console.log(err)
-        Indicator.close()
-      })
+        .catch(err => {
+          console.log(err)
+          Indicator.close()
+        })
     },
 
     readbook (book) {
@@ -99,7 +118,9 @@ export default {
 
     delBook ($event, index) {
       let storage = window.localStorage
-      let localShelf = JSON.parse(storage.getItem('followBookList')) ? JSON.parse(storage.getItem('followBookList')) : {}
+      let localShelf = JSON.parse(storage.getItem('followBookList'))
+        ? JSON.parse(storage.getItem('followBookList'))
+        : {}
       // 删除该书籍在本地的缓存记录
       delete localShelf[this.books[index]._id]
       this.books.splice(index, 1)
@@ -113,76 +134,76 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .add-book {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .add-book:focus {
-	outline: none;
+  outline: none;
 }
 
 .book-shelf {
-	width: 100vw;
-	overflow: hidden;
-	box-sizing: border-box;
-	padding: .5rem 0 0 .5rem;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0.5rem 0 0 0.5rem;
 }
 
 .book-list-wrap {
-	position: relative;
-	height: 5rem;
-	margin-bottom: .2rem;
+  position: relative;
+  height: 5rem;
+  margin-bottom: 0.2rem;
 }
 
 .book-list {
-	position: absolute;
-	left: 0;
-	width: 140vw;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin-bottom: .2rem;
+  position: absolute;
+  left: 0;
+  width: 140vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
 }
 
 .book-list img {
-	height: 5rem;
-	float: left;
-	margin-right: .4rem;
+  height: 5rem;
+  float: left;
+  margin-right: 0.4rem;
 }
 
 .info {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	box-sizing: border-box;
-	width: 100%;
-	height: 5rem;
-	margin-left: .6rem;
-	border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 5rem;
+  margin-left: 0.6rem;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .info p {
-	margin-top: .2rem;
-	margin-bottom: .2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
 }
 
 .updated {
-	color: #6d6666;
-	font-size: .8rem;
+  color: #6d6666;
+  font-size: 0.8rem;
 }
 
 .del-book-btn {
-	color: #fff;
-	background: red;
-	width: 40vw;
-	line-height: 5rem;
-	text-align: center;
+  color: #fff;
+  background: red;
+  width: 40vw;
+  line-height: 5rem;
+  text-align: center;
 }
 
 .read-book-history {
-	display: flex;
-	width: 100vw;
+  display: flex;
+  width: 100vw;
 }
 </style>
