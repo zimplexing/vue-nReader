@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import api from '@/api/api'
+import {getBook, getMixSource} from '@/api'
 import moment from 'moment'
 import util from '@/utils/util'
 import { Indicator } from 'mint-ui'
@@ -106,7 +106,7 @@ export default {
   created () {
     Indicator.open()
     // 获取小说详情
-    api.getBook(this.$route.params.bookId).then(
+    getBook(this.$route.params.bookId).then(
       response => {
         this.book = response.data
         this.isFollowBook()
@@ -120,8 +120,7 @@ export default {
      * 设置默认小说源为优质书源
      */
     if (!this.$store.state.source) {
-      api
-        .getMixSource(this.$route.params.bookId)
+      getMixSource(this.$route.params.bookId)
         .then(response => {
           this.$store.commit(SET_CURRENT_SOURCE, response.data[0]._id)
         })

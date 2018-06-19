@@ -76,7 +76,7 @@
 </template>
 <script>
 import RankItem from './RankItem'
-import api from '@/api/api'
+import {getRankType} from '@/api'
 export default {
   name: 'Rank',
   components: {
@@ -90,8 +90,7 @@ export default {
     }
   },
   created () {
-    api
-      .getRankType()
+    getRankType()
       .then(response => {
         this.ranklist = response.data
       })

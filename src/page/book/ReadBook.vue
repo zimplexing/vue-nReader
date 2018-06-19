@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import api from '@/api/api'
+import {getChapters, getBookChapterContent} from '@/api'
 import util from '@/utils/util'
 import { Indicator, MessageBox, Toast } from 'mint-ui'
 
@@ -148,8 +148,7 @@ export default {
   },
   created () {
     let readRecord = util.getLocalStroageData('followBookList')
-    api
-      .getChapters(this.$store.state.source)
+    getChapters(this.$store.state.source)
       .then(response => {
         this.bookChapter = response.data
         this.currentChapter =
@@ -196,8 +195,7 @@ export default {
           : this.currentChapter
       Indicator.open('加载中')
       // 无论正序还是倒叙 当前章节字段都是 按正序的序号
-      api
-        .getBookChapterContent(this.bookChapter.chapters[lastChapter].link)
+      getBookChapterContent(this.bookChapter.chapters[lastChapter].link)
         .then(response => {
           /**
            *  判断是否是正版源，如果是正版，给出换源提示

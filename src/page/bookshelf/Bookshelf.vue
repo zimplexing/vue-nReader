@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import api from '@/api/api'
+import {getUpdate} from '@/api'
 import moment from 'moment'
 import util from '@/utils/util'
 import { SET_CURRENT_SOURCE, SET_READ_BOOK } from '@/store/mutationsType'
@@ -77,8 +77,7 @@ export default {
       let localShelf,
         that = this
       Indicator.open()
-      api
-        .getUpdate(this.getBookList())
+      getUpdate(this.getBookList())
         .then(response => {
           localShelf = util.getLocalStroageData('followBookList')
           response.data.forEach(book => {

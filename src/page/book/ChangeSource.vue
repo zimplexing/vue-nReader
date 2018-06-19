@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import api from '@/api/api'
+import {getMixSource} from '@/api'
 import { Indicator } from 'mint-ui'
 import { SET_CURRENT_SOURCE } from '@/store/mutationsType'
 
@@ -35,8 +35,7 @@ export default {
   },
   created () {
     Indicator.open()
-    api
-      .getMixSource(this.$route.params.bookId)
+    getMixSource(this.$route.params.bookId)
       .then(response => {
         response.data.forEach(source => {
           this.source.push({

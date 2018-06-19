@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import api from '@/api/api'
-import Booklist from '@/components/common/Booklist'
+import {getHotWords, autoComplete, fuzzySearch} from '@/api'
+import Booklist from '@/components/Booklist'
 import util from '@/utils/util'
 import { Indicator } from 'mint-ui'
 import { SET_BACK_POSITION } from '@/store/mutationsType'
@@ -100,8 +100,7 @@ export default {
     this.searchHistory = util.getLocalStroageData('searchHistory')
       ? util.getLocalStroageData('searchHistory')
       : []
-    api
-      .getHotWords()
+    getHotWords()
       .then(response => {
         this.searchHotWords = response.data.searchHotWords
         // 只取前15个热词
@@ -124,8 +123,7 @@ export default {
   },
   methods: {
     autoComplete () {
-      api
-        .autoComplete(this.searchWord)
+      autoComplete(this.searchWord)
         .then(response => {
           this.autoCompleteList = response.data.keywords
         })
@@ -151,8 +149,7 @@ export default {
         ...searchHistory
       ])
       this.$store.commit(SET_BACK_POSITION, '搜索')
-      api
-        .fuzzySearch(this.searchWord)
+      fuzzySearch(this.searchWord)
         .then(response => {
           this.searchResult = response.data.books
           this.autoCompleteList = []

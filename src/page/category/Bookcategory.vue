@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import api from '@/api/api'
+import {getCategory} from '@/api'
 
 export default {
   name: 'Booklcat',
@@ -32,8 +32,7 @@ export default {
     }
   },
   created () {
-    api
-      .getCategory()
+    getCategory()
       .then(response => {
         this.category = response.data
         this.loading = false

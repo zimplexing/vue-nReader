@@ -46,8 +46,8 @@
   </div>
 </template>
 <script>
-import api from '@/api/api'
-import Booklist from '@/components/common/Booklist'
+import { getNovelListByCat, getCategoryDetail } from '@/api'
+import Booklist from '@/components/Booklist'
 import { SET_BACK_POSITION } from '@/store/mutationsType'
 import { Indicator } from 'mint-ui'
 
@@ -100,8 +100,7 @@ export default {
     // todo 入参需要优化
     getNovelListByCat (gender, type, major, minor) {
       Indicator.open('加载中')
-      api
-        .getNovelListByCat(gender, type, major, minor)
+      getNovelListByCat(gender, type, major, minor)
         .then(response => {
           Indicator.close()
           this.books = response.data.books
@@ -145,14 +144,13 @@ export default {
       // 加载更多数据
       let that = this
       Indicator.open('加载中')
-      api
-        .getNovelListByCat(
-          this.gender,
-          this.type,
-          this.major,
-          this.minor,
-          this.currentPage * 20
-        )
+      getNovelListByCat(
+        this.gender,
+        this.type,
+        this.major,
+        this.minor,
+        this.currentPage * 20
+      )
         .then(response => {
           that.books = [...that.books, ...response.data.books]
           that.currentPage++
@@ -172,8 +170,7 @@ export default {
       /**
        * 获取大分类中的小类别
        */
-      api
-        .getCategoryDetail()
+      getCategoryDetail()
         .then(response => {
           response.data[vm.$route.query.gender].forEach(type => {
             if (type.major === vm.$route.query.major) {

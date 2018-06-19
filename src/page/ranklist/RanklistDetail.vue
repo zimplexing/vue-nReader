@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Booklist from '@/components/common/Booklist'
-import api from '@/api/api'
+import Booklist from '@/components/Booklist'
+import {getRankList} from '@/api'
 import { Indicator } from 'mint-ui'
 
 export default {
@@ -58,8 +58,7 @@ export default {
           this.$router.push('/rank')
           break
       }
-      api
-        .getRankList(this.rankType)
+      getRankList(this.rankType)
         .then(response => {
           this.rank = response.data.ranking
           // 首次加载前20条数据

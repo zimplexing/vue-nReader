@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueTouch from 'vue-touch'
 import router from './router'
-import Ajax from './utils/ajax'
 import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -20,7 +19,6 @@ Vue.use(VueTouch, {
 })
 Vue.use(MintUI)
 Vue.config.productionTip = false
-Vue.use(Ajax)
 
 /* eslint-disable no-new */
 new Vue({
