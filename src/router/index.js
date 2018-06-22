@@ -3,15 +3,16 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const Home = resolve => require(['@/components/Home'], resolve)
-const Ranklist = resolve => require(['@/components/ranklist/Ranklist'], resolve)
-const RanklistDetail = resolve => require(['@/components/ranklist/RanklistDetail'], resolve)
-const Book = resolve => require(['@/components/common/Book'], resolve)
-const ReadBook = resolve => require(['@/components/book/ReadBook'], resolve)
-const BookcatDetail = resolve => require(['@/components/category/BookcatDetail'], resolve)
-const ChangeSource = resolve => require(['@/components/book/ChangeSource'], resolve)
+const Home = resolve => require(['@/page/Home'], resolve)
+const Ranklist = resolve => require(['@/page/ranklist/Ranklist'], resolve)
+const RanklistDetail = resolve => require(['@/page/ranklist/RanklistDetail'], resolve)
+const Book = resolve => require(['@/components/Book'], resolve)
+const ReadBook = resolve => require(['@/page/book/ReadBook'], resolve)
+const BookcatDetail = resolve => require(['@/page/category/BookcatDetail'], resolve)
+const ChangeSource = resolve => require(['@/page/book/ChangeSource'], resolve)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',

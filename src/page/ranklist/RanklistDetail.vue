@@ -1,16 +1,22 @@
 <template>
-	<div class="book-list-wrap">
-		<!--<mt-loadmore :bottom-method="loadBottom" ref="loadmore">-->
-		<v-touch tag="ul" @swipeleft="swipeleft" @swiperight="swiperight">
-			<Booklist v-for="book in rank.books" :book="book" :key="book._id"></Booklist>
-		</v-touch>
-		<!--</mt-loadmore>-->
-	</div>
+  <div class="book-list-wrap">
+    <!--<mt-loadmore :bottom-method="loadBottom" ref="loadmore">-->
+    <v-touch
+      tag="ul"
+      @swipeleft="swipeleft"
+      @swiperight="swiperight">
+      <Booklist
+        v-for="book in rank.books"
+        :book="book"
+        :key="book._id"/>
+    </v-touch>
+    <!--</mt-loadmore>-->
+  </div>
 </template>
 
 <script>
-import Booklist from '@/components/common/Booklist'
-import api from '@/api/api'
+import Booklist from '@/components/Booklist'
+import {getRankList} from '@/api'
 import { Indicator } from 'mint-ui'
 
 export default {
@@ -23,7 +29,11 @@ export default {
       rank: {},
       books: [],
       ranktype: '',
-      rankTypeStack: ['/ranklist/weekRank', '/ranklist/monthRank', '/ranklist/totalRank'],
+      rankTypeStack: [
+        '/ranklist/weekRank',
+        '/ranklist/monthRank',
+        '/ranklist/totalRank'
+      ],
       currentRank: 0,
       currentLoadPage: 1
     }
@@ -48,15 +58,17 @@ export default {
           this.$router.push('/rank')
           break
       }
-      api.getRankList(this.rankType).then(response => {
-        this.rank = response.data.ranking
-        // 首次加载前20条数据
-        this.books = response.data.ranking.books.slice(0, 20)
-        Indicator.close()
-      }).catch(error => {
-        Indicator.close()
-        console.log(error)
-      })
+      getRankList(this.rankType)
+        .then(response => {
+          this.rank = response.data.ranking
+          // 首次加载前20条数据
+          this.books = response.data.ranking.books.slice(0, 20)
+          Indicator.close()
+        })
+        .catch(error => {
+          Indicator.close()
+          console.log(error)
+        })
     },
     swipeleft () {
       if (this.currentRank >= 2) {
@@ -78,7 +90,7 @@ export default {
     }
   },
   watch: {
-    '$route': 'fetchData'
+    $route: 'fetchData'
   },
   created () {
     this.fetchData()
@@ -89,13 +101,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 ul {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .book-list-wrap {
-	width: 100vw;
-	background: #f2f2f2;
-	margin-top: 4.5rem;
+  width: 100vw;
+  background: #f2f2f2;
+  margin-top: 4.5rem;
 }
 </style>

@@ -1,6 +1,16 @@
 {
-    "extends": "standard",
+    "extends": [
+        "standard",
+        "plugin:vue/strongly-recommended"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2018
+    },
     "plugins": [
-        "html"
-    ]
+        "vue"
+    ],
+    "rules": {
+        "one-var": "off"
+    }
 }
